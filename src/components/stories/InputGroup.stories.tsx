@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SearchIcon } from "lucide-react";
 
@@ -29,22 +30,36 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    render: (args) => (
-        <InputGroup className="w-72" {...args}>
-            <InputGroupAddon>
-                <SearchIcon />
-            </InputGroupAddon>
-            <InputGroupInput placeholder="Search..." />
-        </InputGroup>
-    ),
+    render: function Default() {
+        const [value, setValue] = useState("");
+
+        return (
+            <InputGroup className="w-72">
+                <InputGroupAddon>
+                    <SearchIcon />
+                </InputGroupAddon>
+                <InputGroupInput
+                    placeholder="Search..."
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+            </InputGroup>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<InputGroup className="w-72">
+                code: `const [value, setValue] = useState("");
+
+<InputGroup className="w-72">
     <InputGroupAddon>
         <SearchIcon />
     </InputGroupAddon>
-    <InputGroupInput placeholder="Search..." />
+    <InputGroupInput
+        placeholder="Search..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
 </InputGroup>`,
             },
         },
@@ -52,22 +67,36 @@ export const Default: Story = {
 };
 
 export const WithText: Story = {
-    render: (args) => (
-        <InputGroup className="w-72" {...args}>
-            <InputGroupInput placeholder="site" />
-            <InputGroupAddon align="inline-end">
-                <InputGroupText>.com</InputGroupText>
-            </InputGroupAddon>
-        </InputGroup>
-    ),
+    render: function WithText() {
+        const [value, setValue] = useState("");
+
+        return (
+            <InputGroup className="w-72">
+                <InputGroupInput
+                    placeholder="site"
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+                <InputGroupAddon align="inline-end">
+                    <InputGroupText>.com</InputGroupText>
+                </InputGroupAddon>
+            </InputGroup>
+        );
+    },
     parameters: {
         docs: {
             description: {
                 story: "Static text can sit before or after the field.",
             },
             source: {
-                code: `<InputGroup className="w-72">
-    <InputGroupInput placeholder="site" />
+                code: `const [value, setValue] = useState("");
+
+<InputGroup className="w-72">
+    <InputGroupInput
+        placeholder="site"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
     <InputGroupAddon align="inline-end">
         <InputGroupText>.com</InputGroupText>
     </InputGroupAddon>
@@ -78,19 +107,33 @@ export const WithText: Story = {
 };
 
 export const WithButton: Story = {
-    render: (args) => (
-        <InputGroup className="w-72" {...args}>
-            <InputGroupInput placeholder="Search..." />
-            <InputGroupAddon align="inline-end">
-                <InputGroupButton>Go</InputGroupButton>
-            </InputGroupAddon>
-        </InputGroup>
-    ),
+    render: function WithButton() {
+        const [value, setValue] = useState("");
+
+        return (
+            <InputGroup className="w-72">
+                <InputGroupInput
+                    placeholder="Search..."
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+                <InputGroupAddon align="inline-end">
+                    <InputGroupButton>Go</InputGroupButton>
+                </InputGroupAddon>
+            </InputGroup>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<InputGroup className="w-72">
-    <InputGroupInput placeholder="Search..." />
+                code: `const [value, setValue] = useState("");
+
+<InputGroup className="w-72">
+    <InputGroupInput
+        placeholder="Search..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
     <InputGroupAddon align="inline-end">
         <InputGroupButton>Go</InputGroupButton>
     </InputGroupAddon>
@@ -101,16 +144,30 @@ export const WithButton: Story = {
 };
 
 export const Textarea: Story = {
-    render: (args) => (
-        <InputGroup className="w-72" {...args}>
-            <InputGroupTextarea placeholder="Write a short note..." />
-        </InputGroup>
-    ),
+    render: function TextareaStory() {
+        const [value, setValue] = useState("");
+
+        return (
+            <InputGroup className="w-72">
+                <InputGroupTextarea
+                    placeholder="Write a short note..."
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+            </InputGroup>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<InputGroup className="w-72">
-    <InputGroupTextarea placeholder="Write a short note..." />
+                code: `const [value, setValue] = useState("");
+
+<InputGroup className="w-72">
+    <InputGroupTextarea
+        placeholder="Write a short note..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
 </InputGroup>`,
             },
         },
@@ -118,26 +175,38 @@ export const Textarea: Story = {
 };
 
 export const Invalid: Story = {
-    render: (args) => (
-        <InputGroup className="w-72" {...args}>
-            <InputGroupAddon>
-                <SearchIcon />
-            </InputGroupAddon>
-            <InputGroupInput
-                aria-invalid
-                defaultValue="???"
-                placeholder="Search..."
-            />
-        </InputGroup>
-    ),
+    render: function Invalid() {
+        const [value, setValue] = useState("???");
+
+        return (
+            <InputGroup className="w-72">
+                <InputGroupAddon>
+                    <SearchIcon />
+                </InputGroupAddon>
+                <InputGroupInput
+                    aria-invalid
+                    placeholder="Search..."
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+            </InputGroup>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<InputGroup className="w-72">
+                code: `const [value, setValue] = useState("???");
+
+<InputGroup className="w-72">
     <InputGroupAddon>
         <SearchIcon />
     </InputGroupAddon>
-    <InputGroupInput aria-invalid defaultValue="???" placeholder="Search..." />
+    <InputGroupInput
+        aria-invalid
+        placeholder="Search..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
 </InputGroup>`,
             },
         },

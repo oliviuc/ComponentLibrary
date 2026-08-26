@@ -1,5 +1,5 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 
 import { Switch } from "@/components/ui/Switch";
 
@@ -13,38 +13,36 @@ const meta = {
             },
         },
     },
-    args: {
-        defaultChecked: true,
-        onCheckedChange: fn(),
-    },
     argTypes: {
-        defaultChecked: {
-            control: "boolean",
-            description: "On at first render",
-        },
         disabled: {
             control: "boolean",
             description: "Prevents changing the value",
         },
     },
-    render: (args) => (
-        <label className="flex items-center gap-2 text-sm">
-            Notifications
-            <Switch {...args} />
-        </label>
-    ),
 } satisfies Meta<typeof Switch>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    render: function Default() {
+        const [checked, setChecked] = useState(true);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                Notifications
+                <Switch checked={checked} onCheckedChange={setChecked} />
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
+                code: `const [checked, setChecked] = useState(true);
+
+<label className="flex items-center gap-2 text-sm">
     Notifications
-    <Switch defaultChecked />
+    <Switch checked={checked} onCheckedChange={setChecked} />
 </label>`,
             },
         },
@@ -52,13 +50,24 @@ export const Default: Story = {
 };
 
 export const Off: Story = {
-    args: { defaultChecked: false },
+    render: function Off() {
+        const [checked, setChecked] = useState(false);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                Notifications
+                <Switch checked={checked} onCheckedChange={setChecked} />
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
+                code: `const [checked, setChecked] = useState(false);
+
+<label className="flex items-center gap-2 text-sm">
     Notifications
-    <Switch />
+    <Switch checked={checked} onCheckedChange={setChecked} />
 </label>`,
             },
         },
@@ -66,13 +75,28 @@ export const Off: Story = {
 };
 
 export const Disabled: Story = {
-    args: { disabled: true },
+    render: function Disabled() {
+        const [checked, setChecked] = useState(true);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                Notifications
+                <Switch
+                    checked={checked}
+                    onCheckedChange={setChecked}
+                    disabled
+                />
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
+                code: `const [checked, setChecked] = useState(true);
+
+<label className="flex items-center gap-2 text-sm">
     Notifications
-    <Switch defaultChecked disabled />
+    <Switch checked={checked} onCheckedChange={setChecked} disabled />
 </label>`,
             },
         },

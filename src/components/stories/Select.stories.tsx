@@ -221,15 +221,24 @@ export const Disabled: Story = {
     parameters: {
         docs: {
             source: {
-                code: `<Select>
+                code: `const [value, setValue] = useState("apple");
+const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+
+<Select>
     <SelectTrigger placeholder="Select a fruit" disabled>
-        Apple
+        {selectedLabel}
     </SelectTrigger>
     <SelectContent>
-        <SelectOption value="apple" selected>
-            Apple
-        </SelectOption>
-        <SelectOption value="banana">Banana</SelectOption>
+        {fruits.map((fruit) => (
+            <SelectOption
+                key={fruit.value}
+                value={fruit.value}
+                selected={fruit.value === value}
+                onClick={() => setValue(fruit.value)}
+            >
+                {fruit.label}
+            </SelectOption>
+        ))}
     </SelectContent>
 </Select>`,
             },

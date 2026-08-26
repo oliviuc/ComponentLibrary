@@ -13,6 +13,7 @@ The docs **Show code** block is how people learn the API. It must be the JSX or 
 - If a helper is unavoidable, set `parameters.docs.source.code` to the inlined usage.
 - Skip `{...args}`, `fn()`, and the story object (`render:`, `decorators:`).
 - Keep snippets on `docs.source.code` in sync with the live example.
+- Controls that hold a value (Input, Textarea, Checkbox, Switch, Slider, RadioGroup, Select, InputGroup fields) use `useState` with `value`/`checked` and a change handler. Display-only pieces (Card, Badge, Skeleton) do not.
 
 ```tsx
 // ❌ BAD — Storybook chrome

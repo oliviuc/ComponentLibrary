@@ -1,5 +1,5 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 
 import { Slider } from "@/components/ui/Slider";
 
@@ -12,13 +12,6 @@ const meta = {
                 component: "Pick a value along a range.",
             },
         },
-    },
-    args: {
-        defaultValue: [48],
-        max: 100,
-        step: 1,
-        onValueChange: fn(),
-        className: "w-64",
     },
     argTypes: {
         min: {
@@ -37,7 +30,6 @@ const meta = {
             control: "boolean",
             description: "Prevents dragging",
         },
-        defaultValue: { control: false },
         className: { table: { disable: true } },
     },
 } satisfies Meta<typeof Slider>;
@@ -46,33 +38,98 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    render: function Default() {
+        const [value, setValue] = useState([48]);
+
+        return (
+            <Slider
+                value={value}
+                onValueChange={setValue}
+                max={100}
+                step={1}
+                className="w-64"
+            />
+        );
+    },
     parameters: {
         docs: {
-            source: { code: `<Slider defaultValue={[48]} className="w-64" />` },
+            source: {
+                code: `const [value, setValue] = useState([48]);
+
+<Slider
+    value={value}
+    onValueChange={setValue}
+    max={100}
+    step={1}
+    className="w-64"
+/>`,
+            },
         },
     },
 };
 
 export const Range: Story = {
-    args: { defaultValue: [20, 80] },
+    render: function Range() {
+        const [value, setValue] = useState([20, 80]);
+
+        return (
+            <Slider
+                value={value}
+                onValueChange={setValue}
+                max={100}
+                step={1}
+                className="w-64"
+            />
+        );
+    },
     parameters: {
         docs: {
             description: {
                 story: "Two thumbs to pick a min and max.",
             },
             source: {
-                code: `<Slider defaultValue={[20, 80]} className="w-64" />`,
+                code: `const [value, setValue] = useState([20, 80]);
+
+<Slider
+    value={value}
+    onValueChange={setValue}
+    max={100}
+    step={1}
+    className="w-64"
+/>`,
             },
         },
     },
 };
 
 export const Disabled: Story = {
-    args: { disabled: true },
+    render: function Disabled() {
+        const [value, setValue] = useState([48]);
+
+        return (
+            <Slider
+                value={value}
+                onValueChange={setValue}
+                max={100}
+                step={1}
+                className="w-64"
+                disabled
+            />
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<Slider defaultValue={[48]} className="w-64" disabled />`,
+                code: `const [value, setValue] = useState([48]);
+
+<Slider
+    value={value}
+    onValueChange={setValue}
+    max={100}
+    step={1}
+    className="w-64"
+    disabled
+/>`,
             },
         },
     },

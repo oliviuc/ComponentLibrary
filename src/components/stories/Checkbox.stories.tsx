@@ -1,5 +1,5 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 
 import { Checkbox } from "@/components/ui/Checkbox";
 
@@ -13,37 +13,41 @@ const meta = {
             },
         },
     },
-    args: {
-        defaultChecked: true,
-        onCheckedChange: fn(),
-    },
     argTypes: {
-        defaultChecked: {
-            control: "boolean",
-            description: "Checked on first render",
-        },
         disabled: {
             control: "boolean",
             description: "Prevents changing the value",
         },
     },
-    render: (args) => (
-        <label className="flex items-center gap-2 text-sm">
-            <Checkbox {...args} />
-            Subscribe to updates
-        </label>
-    ),
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    render: function Default() {
+        const [checked, setChecked] = useState(true);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                <Checkbox
+                    checked={checked}
+                    onCheckedChange={(value) => setChecked(value === true)}
+                />
+                Subscribe to updates
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
-    <Checkbox defaultChecked />
+                code: `const [checked, setChecked] = useState(true);
+
+<label className="flex items-center gap-2 text-sm">
+    <Checkbox
+        checked={checked}
+        onCheckedChange={(value) => setChecked(value === true)}
+    />
     Subscribe to updates
 </label>`,
             },
@@ -52,12 +56,29 @@ export const Default: Story = {
 };
 
 export const Unchecked: Story = {
-    args: { defaultChecked: false },
+    render: function Unchecked() {
+        const [checked, setChecked] = useState(false);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                <Checkbox
+                    checked={checked}
+                    onCheckedChange={(value) => setChecked(value === true)}
+                />
+                Subscribe to updates
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
-    <Checkbox />
+                code: `const [checked, setChecked] = useState(false);
+
+<label className="flex items-center gap-2 text-sm">
+    <Checkbox
+        checked={checked}
+        onCheckedChange={(value) => setChecked(value === true)}
+    />
     Subscribe to updates
 </label>`,
             },
@@ -66,12 +87,31 @@ export const Unchecked: Story = {
 };
 
 export const Disabled: Story = {
-    args: { disabled: true },
+    render: function Disabled() {
+        const [checked, setChecked] = useState(true);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                <Checkbox
+                    checked={checked}
+                    onCheckedChange={(value) => setChecked(value === true)}
+                    disabled
+                />
+                Subscribe to updates
+            </label>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<label className="flex items-center gap-2 text-sm">
-    <Checkbox defaultChecked disabled />
+                code: `const [checked, setChecked] = useState(true);
+
+<label className="flex items-center gap-2 text-sm">
+    <Checkbox
+        checked={checked}
+        onCheckedChange={(value) => setChecked(value === true)}
+        disabled
+    />
     Subscribe to updates
 </label>`,
             },

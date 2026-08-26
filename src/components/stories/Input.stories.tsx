@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Input } from "@/components/ui/Input";
@@ -11,10 +12,6 @@ const meta = {
                 component: "A single-line text field.",
             },
         },
-    },
-    args: {
-        placeholder: "Email address",
-        type: "email",
     },
     argTypes: {
         type: {
@@ -37,49 +34,120 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    render: function Default() {
+        const [value, setValue] = useState("");
+
+        return (
+            <Input
+                type="email"
+                placeholder="Email address"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+            />
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<Input type="email" placeholder="Email address" />`,
+                code: `const [value, setValue] = useState("");
+
+<Input
+    type="email"
+    placeholder="Email address"
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+/>`,
             },
         },
     },
 };
 
 export const Password: Story = {
-    args: {
-        type: "password",
-        placeholder: "Password",
+    render: function Password() {
+        const [value, setValue] = useState("");
+
+        return (
+            <Input
+                type="password"
+                placeholder="Password"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+            />
+        );
     },
     parameters: {
         docs: {
             source: {
-                code: `<Input type="password" placeholder="Password" />`,
+                code: `const [value, setValue] = useState("");
+
+<Input
+    type="password"
+    placeholder="Password"
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+/>`,
             },
         },
     },
 };
 
 export const Disabled: Story = {
-    args: { disabled: true, defaultValue: "you@example.com" },
+    render: function Disabled() {
+        const [value, setValue] = useState("you@example.com");
+
+        return (
+            <Input
+                type="email"
+                placeholder="Email address"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                disabled
+            />
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<Input type="email" defaultValue="you@example.com" disabled />`,
+                code: `const [value, setValue] = useState("you@example.com");
+
+<Input
+    type="email"
+    placeholder="Email address"
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+    disabled
+/>`,
             },
         },
     },
 };
 
 export const Invalid: Story = {
-    args: {
-        "aria-invalid": true,
-        defaultValue: "not-an-email",
+    render: function Invalid() {
+        const [value, setValue] = useState("not-an-email");
+
+        return (
+            <Input
+                type="email"
+                placeholder="Email address"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                aria-invalid
+            />
+        );
     },
     parameters: {
         docs: {
             source: {
-                code: `<Input type="email" defaultValue="not-an-email" aria-invalid />`,
+                code: `const [value, setValue] = useState("not-an-email");
+
+<Input
+    type="email"
+    placeholder="Email address"
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+    aria-invalid
+/>`,
             },
         },
     },

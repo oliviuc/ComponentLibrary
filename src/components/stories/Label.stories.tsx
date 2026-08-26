@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Input } from "@/components/ui/Input";
@@ -33,22 +34,36 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    render: (args) => (
-        <div className="grid w-72 gap-2">
-            <Label {...args} />
-            <Input
-                id={args.htmlFor}
-                type="email"
-                placeholder="you@example.com"
-            />
-        </div>
-    ),
+    render: function Default(args) {
+        const [value, setValue] = useState("");
+
+        return (
+            <div className="grid w-72 gap-2">
+                <Label {...args} />
+                <Input
+                    id={args.htmlFor}
+                    type="email"
+                    placeholder="you@example.com"
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+            </div>
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<div className="grid w-72 gap-2">
+                code: `const [value, setValue] = useState("");
+
+<div className="grid w-72 gap-2">
     <Label htmlFor="label-email">Email</Label>
-    <Input id="label-email" type="email" placeholder="you@example.com" />
+    <Input
+        id="label-email"
+        type="email"
+        placeholder="you@example.com"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
 </div>`,
             },
         },
@@ -56,29 +71,39 @@ export const Default: Story = {
 };
 
 export const Disabled: Story = {
-    render: () => (
-        <div className="group grid w-72 gap-2" data-disabled="true">
-            <Label htmlFor="label-email-disabled">Email</Label>
-            <Input
-                id="label-email-disabled"
-                type="email"
-                placeholder="you@example.com"
-                disabled
-            />
-        </div>
-    ),
+    render: function Disabled() {
+        const [value, setValue] = useState("");
+
+        return (
+            <div className="group grid w-72 gap-2" data-disabled="true">
+                <Label htmlFor="label-email-disabled">Email</Label>
+                <Input
+                    id="label-email-disabled"
+                    type="email"
+                    placeholder="you@example.com"
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                    disabled
+                />
+            </div>
+        );
+    },
     parameters: {
         docs: {
             description: {
                 story: "The label dims when the field is disabled.",
             },
             source: {
-                code: `<div className="group grid w-72 gap-2" data-disabled="true">
+                code: `const [value, setValue] = useState("");
+
+<div className="group grid w-72 gap-2" data-disabled="true">
     <Label htmlFor="label-email-disabled">Email</Label>
     <Input
         id="label-email-disabled"
         type="email"
         placeholder="you@example.com"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
         disabled
     />
 </div>`,

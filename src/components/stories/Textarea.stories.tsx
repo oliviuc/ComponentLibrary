@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Textarea } from "@/components/ui/Textarea";
@@ -11,9 +12,6 @@ const meta = {
                 component: "A multi-line text field.",
             },
         },
-    },
-    args: {
-        placeholder: "Write a short note...",
     },
     argTypes: {
         placeholder: {
@@ -35,35 +33,85 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    render: function Default() {
+        const [value, setValue] = useState("");
+
+        return (
+            <Textarea
+                placeholder="Write a short note..."
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+            />
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<Textarea placeholder="Write a short note..." />`,
+                code: `const [value, setValue] = useState("");
+
+<Textarea
+    placeholder="Write a short note..."
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+/>`,
             },
         },
     },
 };
 
 export const Disabled: Story = {
-    args: { disabled: true, defaultValue: "This note cannot be edited." },
+    render: function Disabled() {
+        const [value, setValue] = useState("This note cannot be edited.");
+
+        return (
+            <Textarea
+                placeholder="Write a short note..."
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                disabled
+            />
+        );
+    },
     parameters: {
         docs: {
             source: {
-                code: `<Textarea defaultValue="This note cannot be edited." disabled />`,
+                code: `const [value, setValue] = useState("This note cannot be edited.");
+
+<Textarea
+    placeholder="Write a short note..."
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+    disabled
+/>`,
             },
         },
     },
 };
 
 export const Invalid: Story = {
-    args: {
-        "aria-invalid": true,
-        defaultValue: "Too short",
+    render: function Invalid() {
+        const [value, setValue] = useState("Too short");
+
+        return (
+            <Textarea
+                placeholder="Write a short note..."
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                aria-invalid
+            />
+        );
     },
     parameters: {
         docs: {
             source: {
-                code: `<Textarea defaultValue="Too short" aria-invalid />`,
+                code: `const [value, setValue] = useState("Too short");
+
+<Textarea
+    placeholder="Write a short note..."
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+    aria-invalid
+/>`,
             },
         },
     },
