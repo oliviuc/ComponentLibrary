@@ -45,28 +45,54 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: { source: { code: `<Button>Button</Button>` } },
+    },
+};
 
 export const Secondary: Story = {
     args: { variant: "secondary" },
+    parameters: {
+        docs: {
+            source: { code: `<Button variant="secondary">Button</Button>` },
+        },
+    },
 };
 
 export const Outline: Story = {
     args: { variant: "outline" },
+    parameters: {
+        docs: { source: { code: `<Button variant="outline">Button</Button>` } },
+    },
 };
 
 export const Ghost: Story = {
     args: { variant: "ghost" },
+    parameters: {
+        docs: { source: { code: `<Button variant="ghost">Button</Button>` } },
+    },
 };
 
 export const Destructive: Story = {
     args: { variant: "destructive", children: "Delete" },
+    parameters: {
+        docs: {
+            source: { code: `<Button variant="destructive">Delete</Button>` },
+        },
+    },
 };
 
 export const Link: Story = {
     args: { variant: "link" },
+    parameters: {
+        docs: { source: { code: `<Button variant="link">Button</Button>` } },
+    },
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
+    parameters: {
+        docs: { source: { code: `<Button disabled>Button</Button>` } },
+    },
 };

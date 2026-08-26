@@ -46,6 +46,27 @@ export const Default: Story = {
             </BreadcrumbList>
         </Breadcrumb>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Settings</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage>Profile</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>`,
+            },
+        },
+    },
 };
 
 export const WithEllipsis: Story = {
@@ -74,6 +95,27 @@ export const WithEllipsis: Story = {
         docs: {
             description: {
                 story: "An ellipsis stands in for skipped levels.",
+            },
+            source: {
+                code: `<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbEllipsis />
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Components</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>`,
             },
         },
     },

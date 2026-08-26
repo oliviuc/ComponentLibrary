@@ -80,6 +80,27 @@ export const Default: Story = {
             </Carousel>
         </div>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<div className="mx-12 w-56">
+    <Carousel>
+        <CarouselContent>
+            {slides.map((slide) => (
+                <CarouselItem key={slide}>
+                    <div className="flex aspect-square items-center justify-center rounded-xl bg-muted text-2xl font-medium">
+                        {slide}
+                    </div>
+                </CarouselItem>
+            ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+    </Carousel>
+</div>`,
+            },
+        },
+    },
 };
 
 export const Vertical: Story = {
@@ -101,6 +122,27 @@ export const Vertical: Story = {
             </Carousel>
         </div>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<div className="my-12 w-56">
+    <Carousel orientation="vertical">
+        <CarouselContent className="h-56">
+            {slides.map((slide) => (
+                <CarouselItem key={slide}>
+                    <div className="flex h-52 items-center justify-center rounded-xl bg-muted text-2xl font-medium">
+                        {slide}
+                    </div>
+                </CarouselItem>
+            ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+    </Carousel>
+</div>`,
+            },
+        },
+    },
 };
 
 export const Cards: Story = {
@@ -109,6 +151,23 @@ export const Cards: Story = {
         docs: {
             description: {
                 story: "Three cards show at once.",
+            },
+            source: {
+                code: `<div className="mx-12 w-xl">
+    <Carousel>
+        <CarouselContent>
+            {slides.map((slide) => (
+                <CarouselItem key={slide} className="basis-1/3">
+                    <Card className="flex items-center justify-center text-2xl font-medium">
+                        {slide}
+                    </Card>
+                </CarouselItem>
+            ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+    </Carousel>
+</div>`,
             },
         },
     },
@@ -121,6 +180,23 @@ export const Centered: Story = {
         docs: {
             description: {
                 story: "Three cards, with the active one in the center.",
+            },
+            source: {
+                code: `<div className="mx-12 w-xl">
+    <Carousel opts={{ align: "center", containScroll: "keepSnaps" }}>
+        <CarouselContent>
+            {slides.map((slide) => (
+                <CarouselItem key={slide} className="basis-2/3">
+                    <Card className="flex items-center justify-center text-2xl font-medium">
+                        {slide}
+                    </Card>
+                </CarouselItem>
+            ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+    </Carousel>
+</div>`,
             },
         },
     },

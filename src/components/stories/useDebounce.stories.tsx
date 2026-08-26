@@ -59,7 +59,29 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: {
+                code: `const [value, setValue] = useState("");
+const debouncedValue = useDebounce(value, 300);
+
+<div className="grid w-80 gap-4">
+    <div className="grid gap-2">
+        <Label htmlFor="use-debounce-input">Type something</Label>
+        <Input
+            id="use-debounce-input"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            placeholder="Search"
+        />
+    </div>
+    <p>{debouncedValue}</p>
+</div>`,
+            },
+        },
+    },
+};
 
 export const Slow: Story = {
     args: { delay: 1000 },
@@ -67,6 +89,23 @@ export const Slow: Story = {
         docs: {
             description: {
                 story: "Wait a full second after the last change.",
+            },
+            source: {
+                code: `const [value, setValue] = useState("");
+const debouncedValue = useDebounce(value, 1000);
+
+<div className="grid w-80 gap-4">
+    <div className="grid gap-2">
+        <Label htmlFor="use-debounce-input">Type something</Label>
+        <Input
+            id="use-debounce-input"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            placeholder="Search"
+        />
+    </div>
+    <p>{debouncedValue}</p>
+</div>`,
             },
         },
     },

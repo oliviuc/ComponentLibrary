@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ShadcnSeparator } from "@/components/shadcn/ShadcnSeparator";
 
 const shadcnButtonGroupVariants = cva(
-    "group/shadcn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=shadcn-button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=shadcn-select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=shadcn-select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+    "group/shadcn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=shadcn-button-group]]:gap-2 [&>input]:flex-1",
     {
         variants: {
             orientation: {

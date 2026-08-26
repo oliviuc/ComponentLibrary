@@ -1,0 +1,34 @@
+---
+description: Storybook Show code must be copy-pasteable usage, not helpers or CSF
+globs: src/components/stories/**/*.stories.tsx
+alwaysApply: false
+---
+
+# Story docs source
+
+The docs **Show code** block is how people learn the API. It must be the JSX or hook call they would paste into an app.
+
+- Write real usage in `render`. Do not render a helper like `<FruitSelect />` or `<DrawerExample />`.
+- Do not put labels, wrappers, or layout the user needs to copy in a decorator. Put that markup in `render`.
+- If a helper is unavoidable, set `parameters.docs.source.code` to the inlined usage.
+- Skip `{...args}`, `fn()`, and the story object (`render:`, `decorators:`).
+- Keep snippets on `docs.source.code` in sync with the live example.
+
+```tsx
+// ❌ BAD — Storybook chrome
+{ render: () => <FruitSelect id="select-fruit" /> }
+
+// ✅ GOOD — what to copy
+const [value, setValue] = useState<string>();
+
+<Select>
+    <SelectTrigger placeholder="Select a fruit">
+        {selectedLabel}
+    </SelectTrigger>
+    <SelectContent>
+        <SelectOption value="apple" onClick={() => setValue("apple")}>
+            Apple
+        </SelectOption>
+    </SelectContent>
+</Select>
+```

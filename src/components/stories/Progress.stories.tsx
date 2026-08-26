@@ -28,12 +28,24 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: { source: { code: `<Progress value={66} className="w-72" />` } },
+    },
+};
 
 export const Empty: Story = {
     args: { value: 0 },
+    parameters: {
+        docs: { source: { code: `<Progress value={0} className="w-72" />` } },
+    },
 };
 
 export const Complete: Story = {
     args: { value: 100 },
+    parameters: {
+        docs: {
+            source: { code: `<Progress value={100} className="w-72" />` },
+        },
+    },
 };

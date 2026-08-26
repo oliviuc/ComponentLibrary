@@ -52,6 +52,26 @@ export const Default: Story = {
             </div>
         </RadioGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<RadioGroup defaultValue="comfortable">
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="default" id="plan-default" />
+        <Label htmlFor="plan-default">Default</Label>
+    </div>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="comfortable" id="plan-comfortable" />
+        <Label htmlFor="plan-comfortable">Comfortable</Label>
+    </div>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="compact" id="plan-compact" />
+        <Label htmlFor="plan-compact">Compact</Label>
+    </div>
+</RadioGroup>`,
+            },
+        },
+    },
 };
 
 export const Disabled: Story = {
@@ -71,4 +91,20 @@ export const Disabled: Story = {
             </div>
         </RadioGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<RadioGroup defaultValue="comfortable" disabled>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="default" id="plan-disabled-default" />
+        <Label htmlFor="plan-disabled-default">Default</Label>
+    </div>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="comfortable" id="plan-disabled-comfortable" />
+        <Label htmlFor="plan-disabled-comfortable">Comfortable</Label>
+    </div>
+</RadioGroup>`,
+            },
+        },
+    },
 };

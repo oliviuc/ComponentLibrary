@@ -63,17 +63,55 @@ function DrawerExample(
     );
 }
 
+const drawerUsage = (
+    trigger: string,
+    direction?: "bottom" | "right" | "left",
+) => `<Drawer${direction ? ` direction="${direction}"` : ""}>
+    <DrawerTrigger asChild>
+        <Button>${trigger}</Button>
+    </DrawerTrigger>
+    <DrawerContent>
+        <DrawerHeader>
+            <DrawerTitle>Move goal</DrawerTitle>
+            <DrawerDescription>
+                Set your daily activity goal.
+            </DrawerDescription>
+        </DrawerHeader>
+        <DrawerFooter>
+            <Button>Submit</Button>
+            <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+            </DrawerClose>
+        </DrawerFooter>
+    </DrawerContent>
+</Drawer>`;
+
 export const Default: Story = {
     args: { direction: "bottom" },
     render: (args) => <DrawerExample {...args} trigger="Open drawer" />,
+    parameters: {
+        docs: {
+            source: { code: drawerUsage("Open drawer") },
+        },
+    },
 };
 
 export const Right: Story = {
     args: { direction: "right" },
     render: (args) => <DrawerExample {...args} trigger="Open from right" />,
+    parameters: {
+        docs: {
+            source: { code: drawerUsage("Open from right", "right") },
+        },
+    },
 };
 
 export const Left: Story = {
     args: { direction: "left" },
     render: (args) => <DrawerExample {...args} trigger="Open from left" />,
+    parameters: {
+        docs: {
+            source: { code: drawerUsage("Open from left", "left") },
+        },
+    },
 };

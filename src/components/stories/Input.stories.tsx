@@ -36,22 +36,51 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: {
+                code: `<Input type="email" placeholder="Email address" />`,
+            },
+        },
+    },
+};
 
 export const Password: Story = {
     args: {
         type: "password",
         placeholder: "Password",
     },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Input type="password" placeholder="Password" />`,
+            },
+        },
+    },
 };
 
 export const Disabled: Story = {
     args: { disabled: true, defaultValue: "you@example.com" },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Input type="email" defaultValue="you@example.com" disabled />`,
+            },
+        },
+    },
 };
 
 export const Invalid: Story = {
     args: {
         "aria-invalid": true,
         defaultValue: "not-an-email",
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Input type="email" defaultValue="not-an-email" aria-invalid />`,
+            },
+        },
     },
 };

@@ -48,4 +48,26 @@ export const Default: Story = {
             </DialogContent>
         </Dialog>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Dialog>
+    <DialogTrigger asChild>
+        <Button>Open dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+        <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+                Make a change, then save when you are done.
+            </DialogDescription>
+        </DialogHeader>
+        <DialogFooter showCloseButton>
+            <Button>Save</Button>
+        </DialogFooter>
+    </DialogContent>
+</Dialog>`,
+            },
+        },
+    },
 };

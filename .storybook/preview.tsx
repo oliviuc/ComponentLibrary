@@ -28,6 +28,13 @@ const preview: Preview = {
         a11y: {
             test: "todo",
         },
+        docs: {
+            canvas: { sourceState: "shown" },
+            source: {
+                excludeDecorators: true,
+                language: "tsx",
+            },
+        },
     },
     decorators: [
         withThemeByClassName({

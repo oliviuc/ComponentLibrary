@@ -45,7 +45,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: { code: `<Slider defaultValue={[48]} className="w-64" />` },
+        },
+    },
+};
 
 export const Range: Story = {
     args: { defaultValue: [20, 80] },
@@ -54,10 +60,20 @@ export const Range: Story = {
             description: {
                 story: "Two thumbs to pick a min and max.",
             },
+            source: {
+                code: `<Slider defaultValue={[20, 80]} className="w-64" />`,
+            },
         },
     },
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Slider defaultValue={[48]} className="w-64" disabled />`,
+            },
+        },
+    },
 };

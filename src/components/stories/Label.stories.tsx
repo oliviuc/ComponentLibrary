@@ -43,6 +43,16 @@ export const Default: Story = {
             />
         </div>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<div className="grid w-72 gap-2">
+    <Label htmlFor="label-email">Email</Label>
+    <Input id="label-email" type="email" placeholder="you@example.com" />
+</div>`,
+            },
+        },
+    },
 };
 
 export const Disabled: Story = {
@@ -61,6 +71,17 @@ export const Disabled: Story = {
         docs: {
             description: {
                 story: "The label dims when the field is disabled.",
+            },
+            source: {
+                code: `<div className="group grid w-72 gap-2" data-disabled="true">
+    <Label htmlFor="label-email-disabled">Email</Label>
+    <Input
+        id="label-email-disabled"
+        type="email"
+        placeholder="you@example.com"
+        disabled
+    />
+</div>`,
             },
         },
     },

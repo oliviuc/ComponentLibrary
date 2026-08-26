@@ -27,25 +27,54 @@ const meta = {
             description: "Prevents changing the value",
         },
     },
-    decorators: [
-        (Story) => (
-            <label className="flex items-center gap-2 text-sm">
-                <Story />
-                Subscribe to updates
-            </label>
-        ),
-    ],
+    render: (args) => (
+        <label className="flex items-center gap-2 text-sm">
+            <Checkbox {...args} />
+            Subscribe to updates
+        </label>
+    ),
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    <Checkbox defaultChecked />
+    Subscribe to updates
+</label>`,
+            },
+        },
+    },
+};
 
 export const Unchecked: Story = {
     args: { defaultChecked: false },
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    <Checkbox />
+    Subscribe to updates
+</label>`,
+            },
+        },
+    },
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    <Checkbox defaultChecked disabled />
+    Subscribe to updates
+</label>`,
+            },
+        },
+    },
 };

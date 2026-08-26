@@ -61,18 +61,58 @@ function SheetExample({
     );
 }
 
+const sheetUsage = (trigger: string, side?: string) => `<Sheet>
+    <SheetTrigger asChild>
+        <Button>${trigger}</Button>
+    </SheetTrigger>
+    <SheetContent${side ? ` side="${side}"` : ""}>
+        <SheetHeader>
+            <SheetTitle>Edit profile</SheetTitle>
+            <SheetDescription>
+                Make a change, then save when you are done.
+            </SheetDescription>
+        </SheetHeader>
+        <SheetFooter>
+            <Button>Save</Button>
+            <SheetClose asChild>
+                <Button variant="outline">Cancel</Button>
+            </SheetClose>
+        </SheetFooter>
+    </SheetContent>
+</Sheet>`;
+
 export const Default: Story = {
     render: () => <SheetExample trigger="Open sheet" />,
+    parameters: {
+        docs: {
+            source: { code: sheetUsage("Open sheet") },
+        },
+    },
 };
 
 export const Left: Story = {
     render: () => <SheetExample trigger="Open from left" side="left" />,
+    parameters: {
+        docs: {
+            source: { code: sheetUsage("Open from left", "left") },
+        },
+    },
 };
 
 export const Top: Story = {
     render: () => <SheetExample trigger="Open from top" side="top" />,
+    parameters: {
+        docs: {
+            source: { code: sheetUsage("Open from top", "top") },
+        },
+    },
 };
 
 export const Bottom: Story = {
     render: () => <SheetExample trigger="Open from bottom" side="bottom" />,
+    parameters: {
+        docs: {
+            source: { code: sheetUsage("Open from bottom", "bottom") },
+        },
+    },
 };

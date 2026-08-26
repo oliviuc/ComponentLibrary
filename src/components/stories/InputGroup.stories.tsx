@@ -37,6 +37,18 @@ export const Default: Story = {
             <InputGroupInput placeholder="Search..." />
         </InputGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<InputGroup className="w-72">
+    <InputGroupAddon>
+        <SearchIcon />
+    </InputGroupAddon>
+    <InputGroupInput placeholder="Search..." />
+</InputGroup>`,
+            },
+        },
+    },
 };
 
 export const WithText: Story = {
@@ -53,6 +65,14 @@ export const WithText: Story = {
             description: {
                 story: "Static text can sit before or after the field.",
             },
+            source: {
+                code: `<InputGroup className="w-72">
+    <InputGroupInput placeholder="site" />
+    <InputGroupAddon align="inline-end">
+        <InputGroupText>.com</InputGroupText>
+    </InputGroupAddon>
+</InputGroup>`,
+            },
         },
     },
 };
@@ -66,6 +86,18 @@ export const WithButton: Story = {
             </InputGroupAddon>
         </InputGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<InputGroup className="w-72">
+    <InputGroupInput placeholder="Search..." />
+    <InputGroupAddon align="inline-end">
+        <InputGroupButton>Go</InputGroupButton>
+    </InputGroupAddon>
+</InputGroup>`,
+            },
+        },
+    },
 };
 
 export const Textarea: Story = {
@@ -74,6 +106,15 @@ export const Textarea: Story = {
             <InputGroupTextarea placeholder="Write a short note..." />
         </InputGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<InputGroup className="w-72">
+    <InputGroupTextarea placeholder="Write a short note..." />
+</InputGroup>`,
+            },
+        },
+    },
 };
 
 export const Invalid: Story = {
@@ -89,4 +130,16 @@ export const Invalid: Story = {
             />
         </InputGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<InputGroup className="w-72">
+    <InputGroupAddon>
+        <SearchIcon />
+    </InputGroupAddon>
+    <InputGroupInput aria-invalid defaultValue="???" placeholder="Search..." />
+</InputGroup>`,
+            },
+        },
+    },
 };

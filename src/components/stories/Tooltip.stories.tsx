@@ -25,6 +25,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const tooltipUsage = `<Tooltip>
+    <TooltipTrigger asChild>
+        <Button variant="outline">Hover</Button>
+    </TooltipTrigger>
+    <TooltipContent>Add to library</TooltipContent>
+</Tooltip>`;
+
 export const Default: Story = {
     render: (args) => (
         <Tooltip {...args}>
@@ -34,6 +41,9 @@ export const Default: Story = {
             <TooltipContent>Add to library</TooltipContent>
         </Tooltip>
     ),
+    parameters: {
+        docs: { source: { code: tooltipUsage } },
+    },
 };
 
 export const Open: Story = {
@@ -50,6 +60,14 @@ export const Open: Story = {
         docs: {
             description: {
                 story: "Shown without waiting for hover.",
+            },
+            source: {
+                code: `<Tooltip defaultOpen>
+    <TooltipTrigger asChild>
+        <Button variant="outline">Hover</Button>
+    </TooltipTrigger>
+    <TooltipContent>Add to library</TooltipContent>
+</Tooltip>`,
             },
         },
     },

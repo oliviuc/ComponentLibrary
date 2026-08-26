@@ -38,6 +38,15 @@ export const Default: Story = {
             <AvatarFallback>AL</AvatarFallback>
         </Avatar>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Avatar>
+    <AvatarFallback>AL</AvatarFallback>
+</Avatar>`,
+            },
+        },
+    },
 };
 
 export const Image: Story = {
@@ -47,6 +56,16 @@ export const Image: Story = {
             <AvatarFallback>AL</AvatarFallback>
         </Avatar>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Avatar>
+    <AvatarImage src="https://picsum.photos/id/64/128/128" alt="Alex" />
+    <AvatarFallback>AL</AvatarFallback>
+</Avatar>`,
+            },
+        },
+    },
 };
 
 export const Small: Story = {
@@ -56,6 +75,15 @@ export const Small: Story = {
             <AvatarFallback>AL</AvatarFallback>
         </Avatar>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Avatar size="sm">
+    <AvatarFallback>AL</AvatarFallback>
+</Avatar>`,
+            },
+        },
+    },
 };
 
 export const Large: Story = {
@@ -65,6 +93,15 @@ export const Large: Story = {
             <AvatarFallback>AL</AvatarFallback>
         </Avatar>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Avatar size="lg">
+    <AvatarFallback>AL</AvatarFallback>
+</Avatar>`,
+            },
+        },
+    },
 };
 
 export const WithBadge: Story = {
@@ -78,6 +115,12 @@ export const WithBadge: Story = {
         docs: {
             description: {
                 story: "A badge can mark status on the avatar.",
+            },
+            source: {
+                code: `<Avatar>
+    <AvatarFallback>AL</AvatarFallback>
+    <AvatarBadge />
+</Avatar>`,
             },
         },
     },
@@ -102,6 +145,20 @@ export const Group: Story = {
         docs: {
             description: {
                 story: "Stack avatars and show how many more there are.",
+            },
+            source: {
+                code: `<AvatarGroup>
+    <Avatar>
+        <AvatarFallback>AL</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarFallback>SA</AvatarFallback>
+    </Avatar>
+    <Avatar>
+        <AvatarFallback>JO</AvatarFallback>
+    </Avatar>
+    <AvatarGroupCount>+3</AvatarGroupCount>
+</AvatarGroup>`,
             },
         },
     },

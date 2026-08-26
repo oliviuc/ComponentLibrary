@@ -27,25 +27,54 @@ const meta = {
             description: "Prevents changing the value",
         },
     },
-    decorators: [
-        (Story) => (
-            <label className="flex items-center gap-2 text-sm">
-                Notifications
-                <Story />
-            </label>
-        ),
-    ],
+    render: (args) => (
+        <label className="flex items-center gap-2 text-sm">
+            Notifications
+            <Switch {...args} />
+        </label>
+    ),
 } satisfies Meta<typeof Switch>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    Notifications
+    <Switch defaultChecked />
+</label>`,
+            },
+        },
+    },
+};
 
 export const Off: Story = {
     args: { defaultChecked: false },
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    Notifications
+    <Switch />
+</label>`,
+            },
+        },
+    },
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
+    parameters: {
+        docs: {
+            source: {
+                code: `<label className="flex items-center gap-2 text-sm">
+    Notifications
+    <Switch defaultChecked disabled />
+</label>`,
+            },
+        },
+    },
 };

@@ -45,6 +45,23 @@ export const Default: Story = {
             </Button>
         </ButtonGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<ButtonGroup>
+    <Button variant="outline">
+        <BoldIcon />
+    </Button>
+    <Button variant="outline">
+        <ItalicIcon />
+    </Button>
+    <Button variant="outline">
+        <AlignLeftIcon />
+    </Button>
+</ButtonGroup>`,
+            },
+        },
+    },
 };
 
 export const Vertical: Story = {
@@ -56,6 +73,17 @@ export const Vertical: Story = {
             <Button variant="outline">Right</Button>
         </ButtonGroup>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<ButtonGroup orientation="vertical">
+    <Button variant="outline">Left</Button>
+    <Button variant="outline">Center</Button>
+    <Button variant="outline">Right</Button>
+</ButtonGroup>`,
+            },
+        },
+    },
 };
 
 export const WithText: Story = {
@@ -73,6 +101,15 @@ export const WithText: Story = {
             description: {
                 story: "Static text can sit beside the buttons.",
             },
+            source: {
+                code: `<ButtonGroup>
+    <ButtonGroupText>
+        <SearchIcon />
+        Search
+    </ButtonGroupText>
+    <Button variant="outline">Go</Button>
+</ButtonGroup>`,
+            },
         },
     },
 };
@@ -89,6 +126,13 @@ export const WithSeparator: Story = {
         docs: {
             description: {
                 story: "A divider between actions that should stay grouped.",
+            },
+            source: {
+                code: `<ButtonGroup>
+    <Button variant="outline">Copy</Button>
+    <ButtonGroupSeparator />
+    <Button variant="outline">Paste</Button>
+</ButtonGroup>`,
             },
         },
     },

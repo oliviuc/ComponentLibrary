@@ -28,6 +28,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const popoverUsage = `<Popover>
+    <PopoverTrigger asChild>
+        <Button variant="outline">Open</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+        <PopoverHeader>
+            <PopoverTitle>Dimensions</PopoverTitle>
+            <PopoverDescription>
+                Set the width and height for this layer.
+            </PopoverDescription>
+        </PopoverHeader>
+    </PopoverContent>
+</Popover>`;
+
 export const Default: Story = {
     render: (args) => (
         <Popover {...args}>
@@ -44,6 +58,9 @@ export const Default: Story = {
             </PopoverContent>
         </Popover>
     ),
+    parameters: {
+        docs: { source: { code: popoverUsage } },
+    },
 };
 
 export const Open: Story = {
@@ -67,6 +84,21 @@ export const Open: Story = {
         docs: {
             description: {
                 story: "Shown without waiting for a click.",
+            },
+            source: {
+                code: `<Popover defaultOpen>
+    <PopoverTrigger asChild>
+        <Button variant="outline">Open</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+        <PopoverHeader>
+            <PopoverTitle>Dimensions</PopoverTitle>
+            <PopoverDescription>
+                Set the width and height for this layer.
+            </PopoverDescription>
+        </PopoverHeader>
+    </PopoverContent>
+</Popover>`,
             },
         },
     },

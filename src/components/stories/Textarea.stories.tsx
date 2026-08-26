@@ -34,15 +34,37 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        docs: {
+            source: {
+                code: `<Textarea placeholder="Write a short note..." />`,
+            },
+        },
+    },
+};
 
 export const Disabled: Story = {
     args: { disabled: true, defaultValue: "This note cannot be edited." },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Textarea defaultValue="This note cannot be edited." disabled />`,
+            },
+        },
+    },
 };
 
 export const Invalid: Story = {
     args: {
         "aria-invalid": true,
         defaultValue: "Too short",
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Textarea defaultValue="Too short" aria-invalid />`,
+            },
+        },
     },
 };
