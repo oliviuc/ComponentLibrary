@@ -102,3 +102,36 @@ export const Disabled: Story = {
         },
     },
 };
+
+export const Invalid: Story = {
+    render: function Invalid() {
+        const [checked, setChecked] = useState(false);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                Notifications
+                <Switch
+                    checked={checked}
+                    onCheckedChange={setChecked}
+                    aria-invalid
+                />
+            </label>
+        );
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `const [checked, setChecked] = useState(false);
+
+<label className="flex items-center gap-2 text-sm">
+    Notifications
+    <Switch
+        checked={checked}
+        onCheckedChange={setChecked}
+        aria-invalid
+    />
+</label>`,
+            },
+        },
+    },
+};

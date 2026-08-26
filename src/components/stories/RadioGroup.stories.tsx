@@ -119,3 +119,56 @@ export const Disabled: Story = {
         },
     },
 };
+
+export const Invalid: Story = {
+    render: function Invalid() {
+        const [value, setValue] = useState("");
+
+        return (
+            <RadioGroup value={value} onValueChange={setValue} aria-invalid>
+                <div className="flex items-center gap-2">
+                    <RadioGroupItem value="default" id="plan-invalid-default" />
+                    <Label htmlFor="plan-invalid-default">Default</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                    <RadioGroupItem
+                        value="comfortable"
+                        id="plan-invalid-comfortable"
+                    />
+                    <Label htmlFor="plan-invalid-comfortable">
+                        Comfortable
+                    </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                    <RadioGroupItem value="compact" id="plan-invalid-compact" />
+                    <Label htmlFor="plan-invalid-compact">Compact</Label>
+                </div>
+            </RadioGroup>
+        );
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `const [value, setValue] = useState("");
+
+<RadioGroup value={value} onValueChange={setValue} aria-invalid>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="default" id="plan-invalid-default" />
+        <Label htmlFor="plan-invalid-default">Default</Label>
+    </div>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem
+            value="comfortable"
+            id="plan-invalid-comfortable"
+        />
+        <Label htmlFor="plan-invalid-comfortable">Comfortable</Label>
+    </div>
+    <div className="flex items-center gap-2">
+        <RadioGroupItem value="compact" id="plan-invalid-compact" />
+        <Label htmlFor="plan-invalid-compact">Compact</Label>
+    </div>
+</RadioGroup>`,
+            },
+        },
+    },
+};

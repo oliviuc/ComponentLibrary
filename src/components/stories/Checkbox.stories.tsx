@@ -118,3 +118,36 @@ export const Disabled: Story = {
         },
     },
 };
+
+export const Invalid: Story = {
+    render: function Invalid() {
+        const [checked, setChecked] = useState(false);
+
+        return (
+            <label className="flex items-center gap-2 text-sm">
+                <Checkbox
+                    checked={checked}
+                    onCheckedChange={(value) => setChecked(value === true)}
+                    aria-invalid
+                />
+                Subscribe to updates
+            </label>
+        );
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `const [checked, setChecked] = useState(false);
+
+<label className="flex items-center gap-2 text-sm">
+    <Checkbox
+        checked={checked}
+        onCheckedChange={(value) => setChecked(value === true)}
+        aria-invalid
+    />
+    Subscribe to updates
+</label>`,
+            },
+        },
+    },
+};

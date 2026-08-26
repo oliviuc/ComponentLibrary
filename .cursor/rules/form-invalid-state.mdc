@@ -1,0 +1,21 @@
+---
+description: Form controls must support an invalid state via aria-invalid
+globs: src/components/{ui,shadcn,custom,stories}/**
+alwaysApply: false
+---
+
+# Form invalid state
+
+Controls that take a value must accept `aria-invalid` and show error chrome. That includes Input, Textarea, Checkbox, Switch, Slider, RadioGroup, Select, and InputGroup fields. Display-only pieces (Card, Badge, Skeleton, Progress) do not.
+
+- Style with a destructive border and ring, matching Input.
+- Put `aria-invalid` on the control. For RadioGroup, put it on the group. For InputGroup, put it on the field.
+- Include an `Invalid` story. Keep `docs.source.code` in sync, with `useState` and `aria-invalid`.
+
+```tsx
+// ❌ BAD — no invalid styles, or no Invalid story
+<Switch checked={checked} onCheckedChange={setChecked} />
+
+// ✅ GOOD
+<Switch checked={checked} onCheckedChange={setChecked} aria-invalid />
+```

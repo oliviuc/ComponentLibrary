@@ -29,7 +29,7 @@ function ShadcnSlider({
             min={min}
             max={max}
             className={cn(
-                "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col",
+                "group/shadcn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col",
                 className,
             )}
             {...props}
@@ -47,7 +47,7 @@ function ShadcnSlider({
                 <SliderPrimitive.Thumb
                     data-slot="shadcn-slider-thumb"
                     key={index}
-                    className="block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] select-none hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+                    className="block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] select-none hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 group-aria-invalid/shadcn-slider:border-destructive group-aria-invalid/shadcn-slider:ring-3 group-aria-invalid/shadcn-slider:ring-destructive/20 dark:group-aria-invalid/shadcn-slider:border-destructive/50 dark:group-aria-invalid/shadcn-slider:ring-destructive/40"
                 />
             ))}
         </SliderPrimitive.Root>

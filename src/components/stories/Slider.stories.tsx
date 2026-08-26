@@ -134,3 +134,36 @@ export const Disabled: Story = {
         },
     },
 };
+
+export const Invalid: Story = {
+    render: function Invalid() {
+        const [value, setValue] = useState([48]);
+
+        return (
+            <Slider
+                value={value}
+                onValueChange={setValue}
+                max={100}
+                step={1}
+                className="w-64"
+                aria-invalid
+            />
+        );
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `const [value, setValue] = useState([48]);
+
+<Slider
+    value={value}
+    onValueChange={setValue}
+    max={100}
+    step={1}
+    className="w-64"
+    aria-invalid
+/>`,
+            },
+        },
+    },
+};
