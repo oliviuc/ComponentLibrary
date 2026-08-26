@@ -1,21 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 
-import { Button } from "./Button";
+import { Badge } from "@/components/ui/Badge";
 
 const meta = {
-    title: "Components/Button",
-    component: Button,
+    title: "Components/Badge",
+    component: Badge,
     parameters: {
         docs: {
             description: {
-                component: "Starts an action. Size is always default.",
+                component: "A short label for status, counts, or categories.",
             },
         },
     },
     args: {
-        children: "Button",
-        onClick: fn(),
+        children: "Badge",
     },
     argTypes: {
         variant: {
@@ -24,15 +22,11 @@ const meta = {
                 "default",
                 "secondary",
                 "outline",
-                "ghost",
                 "destructive",
+                "ghost",
                 "link",
             ],
             description: "Visual style",
-        },
-        disabled: {
-            control: "boolean",
-            description: "Prevents the action",
         },
         children: {
             control: "text",
@@ -40,7 +34,7 @@ const meta = {
         },
         asChild: { table: { disable: true } },
     },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Badge>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -55,18 +49,14 @@ export const Outline: Story = {
     args: { variant: "outline" },
 };
 
+export const Destructive: Story = {
+    args: { variant: "destructive", children: "Error" },
+};
+
 export const Ghost: Story = {
     args: { variant: "ghost" },
 };
 
-export const Destructive: Story = {
-    args: { variant: "destructive", children: "Delete" },
-};
-
 export const Link: Story = {
     args: { variant: "link" },
-};
-
-export const Disabled: Story = {
-    args: { disabled: true },
 };

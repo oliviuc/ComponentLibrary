@@ -1,27 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Input } from "./Input";
+import { Textarea } from "@/components/ui/Textarea";
 
 const meta = {
-    title: "Components/Input",
-    component: Input,
+    title: "Components/Textarea",
+    component: Textarea,
     parameters: {
         docs: {
             description: {
-                component: "A single-line text field.",
+                component: "A multi-line text field.",
             },
         },
     },
     args: {
-        placeholder: "Email address",
-        type: "email",
+        placeholder: "Write a short note...",
     },
     argTypes: {
-        type: {
-            control: "select",
-            options: ["text", "email", "password", "search", "number"],
-            description: "Input type",
-        },
         placeholder: {
             control: "text",
             description: "Hint shown when empty",
@@ -30,28 +24,25 @@ const meta = {
             control: "boolean",
             description: "Prevents typing",
         },
+        rows: {
+            control: { type: "number", min: 2, max: 12 },
+            description: "Visible lines",
+        },
     },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof Textarea>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Password: Story = {
-    args: {
-        type: "password",
-        placeholder: "Password",
-    },
-};
-
 export const Disabled: Story = {
-    args: { disabled: true, defaultValue: "you@example.com" },
+    args: { disabled: true, defaultValue: "This note cannot be edited." },
 };
 
 export const Invalid: Story = {
     args: {
         "aria-invalid": true,
-        defaultValue: "not-an-email",
+        defaultValue: "Too short",
     },
 };
