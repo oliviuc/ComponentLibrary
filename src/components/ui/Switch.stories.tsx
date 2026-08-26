@@ -9,7 +9,7 @@ const meta = {
     parameters: {
         docs: {
             description: {
-                component: "Turn a setting on or off.",
+                component: "Turn a setting on or off. Size is always default.",
             },
         },
     },
@@ -18,11 +18,6 @@ const meta = {
         onCheckedChange: fn(),
     },
     argTypes: {
-        size: {
-            control: "select",
-            options: ["default", "sm"],
-            description: "Control size",
-        },
         defaultChecked: {
             control: "boolean",
             description: "On at first render",
@@ -49,10 +44,6 @@ export const Default: Story = {};
 
 export const Off: Story = {
     args: { defaultChecked: false },
-};
-
-export const Small: Story = {
-    args: { size: "sm" },
 };
 
 export const Disabled: Story = {

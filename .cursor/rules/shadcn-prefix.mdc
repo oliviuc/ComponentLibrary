@@ -14,4 +14,4 @@ alwaysApply: false
 - Named groups: `group/shadcn-button`
 - CSS that targets slots must use the prefixed value (`[data-slot=shadcn-button-group]`)
 
-Keep `@/components/ui` unprefixed (`Button`) as thin wrappers over the shadcn primitives. Import each wrapper from its PascalCase file (`@/components/ui/Button`), not a barrel. The Button wrapper omits `size` and always passes `size="default"`.
+Keep `@/components/ui` unprefixed (`Button`) as thin wrappers over the shadcn primitives. Import each wrapper from its PascalCase file (`@/components/ui/Button`), not a barrel. The Button and Switch wrappers omit `size` and always pass `size="default"`.
