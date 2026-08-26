@@ -1,5 +1,7 @@
+import type { ComponentProps } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { Card } from "@/components/ui/Card";
 import {
     Carousel,
     CarouselContent,
@@ -7,8 +9,32 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/Carousel";
+import { cn } from "@/lib/utils";
 
 const slides = [1, 2, 3, 4, 5];
+
+function CardsExample({
+    itemClassName = "basis-1/3",
+    ...args
+}: ComponentProps<typeof Carousel> & { itemClassName?: string }) {
+    return (
+        <div className="mx-12 w-xl">
+            <Carousel {...args}>
+                <CarouselContent>
+                    {slides.map((slide) => (
+                        <CarouselItem key={slide} className={cn(itemClassName)}>
+                            <Card className="flex items-center justify-center text-2xl font-medium">
+                                {slide}
+                            </Card>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+        </div>
+    );
+}
 
 const meta = {
     title: "Components/Carousel",
@@ -75,4 +101,27 @@ export const Vertical: Story = {
             </Carousel>
         </div>
     ),
+};
+
+export const Cards: Story = {
+    render: (args) => <CardsExample {...args} />,
+    parameters: {
+        docs: {
+            description: {
+                story: "Three cards show at once.",
+            },
+        },
+    },
+};
+
+export const Centered: Story = {
+    args: { opts: { align: "center", containScroll: "keepSnaps" } },
+    render: (args) => <CardsExample {...args} itemClassName="basis-2/3" />,
+    parameters: {
+        docs: {
+            description: {
+                story: "Three cards, with the active one in the center.",
+            },
+        },
+    },
 };

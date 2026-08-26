@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Button } from "@/components/ui/Button";
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 
 const meta = {
     title: "Components/Card",
@@ -22,11 +14,6 @@ const meta = {
         },
     },
     argTypes: {
-        size: {
-            control: "select",
-            options: ["default", "sm"],
-            description: "Padding and title size",
-        },
         children: { table: { disable: true } },
     },
 } satisfies Meta<typeof Card>;
@@ -36,54 +23,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: (args) => (
-        <Card className="w-72" {...args}>
-            <CardHeader>
-                <CardTitle>Team</CardTitle>
-                <CardDescription>
+        <Card {...args} className="flex w-80 flex-col gap-4">
+            <div className="flex flex-col gap-1">
+                <h2 className="text-base font-medium">Team</h2>
+                <p className="text-muted-foreground">
                     Invite people to this workspace.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>You have 3 seats left.</CardContent>
-            <CardFooter>
+                </p>
+            </div>
+            <p>
+                You have 3 seats left on the Pro plan. New members can join as
+                soon as you send an invite. Invites expire after 7 days.
+            </p>
+            <div className="flex gap-2">
                 <Button>Invite</Button>
-            </CardFooter>
+                <Button variant="outline">Copy link</Button>
+            </div>
         </Card>
     ),
-};
-
-export const Small: Story = {
-    args: { size: "sm" },
-    render: (args) => (
-        <Card className="w-72" {...args}>
-            <CardHeader>
-                <CardTitle>Team</CardTitle>
-                <CardDescription>
-                    Invite people to this workspace.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>You have 3 seats left.</CardContent>
-        </Card>
-    ),
-};
-
-export const WithAction: Story = {
-    render: (args) => (
-        <Card className="w-72" {...args}>
-            <CardHeader>
-                <CardTitle>Notifications</CardTitle>
-                <CardDescription>You have 2 unread messages.</CardDescription>
-                <CardAction>
-                    <Button variant="outline">Mark all</Button>
-                </CardAction>
-            </CardHeader>
-            <CardContent>New replies from Alex and Sam.</CardContent>
-        </Card>
-    ),
-    parameters: {
-        docs: {
-            description: {
-                story: "An action can sit in the header beside the title.",
-            },
-        },
-    },
 };

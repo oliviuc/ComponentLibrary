@@ -30,15 +30,6 @@ export {
     shadcnButtonGroupVariants,
 } from "./ShadcnButtonGroup";
 export {
-    ShadcnCard,
-    ShadcnCardAction,
-    ShadcnCardContent,
-    ShadcnCardDescription,
-    ShadcnCardFooter,
-    ShadcnCardHeader,
-    ShadcnCardTitle,
-} from "./ShadcnCard";
-export {
     type ShadcnCarouselApi,
     ShadcnCarousel,
     ShadcnCarouselContent,
