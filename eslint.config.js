@@ -25,6 +25,7 @@ export default defineConfig([
     {
         files: [
             "src/components/**/*.{ts,tsx}",
+            "src/hooks/**/*.{ts,tsx}",
             "**/*.stories.{ts,tsx}",
             ".storybook/**/*.{ts,tsx}",
         ],
