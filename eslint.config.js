@@ -1,3 +1,4 @@
+import storybook from "eslint-plugin-storybook";
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -7,7 +8,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-    globalIgnores(["dist"]),
+    globalIgnores(["dist", "storybook-static"]),
     {
         files: ["**/*.{ts,tsx}"],
         extends: [
@@ -22,10 +23,15 @@ export default defineConfig([
         },
     },
     {
-        files: ["src/components/**/*.{ts,tsx}"],
+        files: [
+            "src/components/**/*.{ts,tsx}",
+            "**/*.stories.{ts,tsx}",
+            ".storybook/**/*.{ts,tsx}",
+        ],
         rules: {
             "react-refresh/only-export-components": "off",
         },
     },
     eslintConfigPrettier,
+    ...storybook.configs["flat/recommended"],
 ]);

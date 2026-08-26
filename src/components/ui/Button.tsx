@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 
 import { ShadcnButton } from "@/components/shadcn/ShadcnButton";
 
+/** Starts an action. Size is always default. */
 export function Button(
     props: Omit<ComponentProps<typeof ShadcnButton>, "size">,
 ) {
