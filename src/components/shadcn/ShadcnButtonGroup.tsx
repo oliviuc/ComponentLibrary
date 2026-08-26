@@ -2,10 +2,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/shadcn/Separator";
+import { ShadcnSeparator } from "@/components/shadcn/ShadcnSeparator";
 
-const buttonGroupVariants = cva(
-    "group/button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+const shadcnButtonGroupVariants = cva(
+    "group/shadcn-button-group flex w-fit items-stretch *:focus-visible:relative *:focus-visible:z-10 has-[>[data-slot=shadcn-button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=shadcn-select-trigger]:last-of-type]:rounded-r-md [&>[data-slot=shadcn-select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
     {
         variants: {
             orientation: {
@@ -21,23 +21,27 @@ const buttonGroupVariants = cva(
     },
 );
 
-function ButtonGroup({
+function ShadcnButtonGroup({
     className,
     orientation,
     ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>) {
+}: React.ComponentProps<"div"> &
+    VariantProps<typeof shadcnButtonGroupVariants>) {
     return (
         <div
             role="group"
-            data-slot="button-group"
+            data-slot="shadcn-button-group"
             data-orientation={orientation}
-            className={cn(buttonGroupVariants({ orientation }), className)}
+            className={cn(
+                shadcnButtonGroupVariants({ orientation }),
+                className,
+            )}
             {...props}
         />
     );
 }
 
-function ButtonGroupText({
+function ShadcnButtonGroupText({
     className,
     asChild = false,
     ...props
@@ -48,6 +52,7 @@ function ButtonGroupText({
 
     return (
         <Comp
+            data-slot="shadcn-button-group-text"
             className={cn(
                 "flex items-center gap-2 rounded-md border bg-muted px-2.5 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
                 className,
@@ -57,14 +62,14 @@ function ButtonGroupText({
     );
 }
 
-function ButtonGroupSeparator({
+function ShadcnButtonGroupSeparator({
     className,
     orientation = "vertical",
     ...props
-}: React.ComponentProps<typeof Separator>) {
+}: React.ComponentProps<typeof ShadcnSeparator>) {
     return (
-        <Separator
-            data-slot="button-group-separator"
+        <ShadcnSeparator
+            data-slot="shadcn-button-group-separator"
             orientation={orientation}
             className={cn(
                 "relative self-stretch bg-input data-horizontal:mx-px data-horizontal:w-auto data-vertical:my-px data-vertical:h-auto",
@@ -76,8 +81,8 @@ function ButtonGroupSeparator({
 }
 
 export {
-    ButtonGroup,
-    ButtonGroupSeparator,
-    ButtonGroupText,
-    buttonGroupVariants,
+    ShadcnButtonGroup,
+    ShadcnButtonGroupSeparator,
+    ShadcnButtonGroupText,
+    shadcnButtonGroupVariants,
 };

@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { AlignLeftIcon, BoldIcon, ItalicIcon } from "lucide-react";
-import {
-    Badge,
-    Button,
-    ButtonGroup,
-    Checkbox,
-    Input,
-    Slider,
-    Switch,
-    Textarea,
-} from "@/components/ui";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { ButtonGroup } from "@/components/ui/ButtonGroup";
+import { Checkbox } from "@/components/ui/Checkbox";
+import { Input } from "@/components/ui/Input";
+import { Slider } from "@/components/ui/Slider";
+import { Switch } from "@/components/ui/Switch";
+import { Textarea } from "@/components/ui/Textarea";
 
 export default function App() {
     const [dark, setDark] = useState(false);
@@ -56,13 +54,13 @@ export default function App() {
                         Button group
                     </h2>
                     <ButtonGroup>
-                        <Button variant="outline" size="icon">
+                        <Button variant="outline">
                             <BoldIcon />
                         </Button>
-                        <Button variant="outline" size="icon">
+                        <Button variant="outline">
                             <ItalicIcon />
                         </Button>
-                        <Button variant="outline" size="icon">
+                        <Button variant="outline">
                             <AlignLeftIcon />
                         </Button>
                     </ButtonGroup>
