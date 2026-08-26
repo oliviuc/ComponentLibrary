@@ -6,6 +6,7 @@ import {
     ShadcnAccordionItem,
     ShadcnAccordionTrigger,
 } from "@/components/shadcn/ShadcnAccordion";
+import { cn } from "@/lib/utils";
 
 /** Expandable sections, one or more at a time. */
 export function Accordion(props: ComponentProps<typeof ShadcnAccordion>) {
@@ -18,10 +19,13 @@ export function AccordionItem(
     return <ShadcnAccordionItem {...props} />;
 }
 
-export function AccordionTrigger(
-    props: ComponentProps<typeof ShadcnAccordionTrigger>,
-) {
-    return <ShadcnAccordionTrigger {...props} />;
+export function AccordionTrigger({
+    className,
+    ...props
+}: ComponentProps<typeof ShadcnAccordionTrigger>) {
+    return (
+        <ShadcnAccordionTrigger className={cn("py-2", className)} {...props} />
+    );
 }
 
 export function AccordionContent(
