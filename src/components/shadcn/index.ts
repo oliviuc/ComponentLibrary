@@ -29,6 +29,7 @@ export {
     ShadcnButtonGroupText,
     shadcnButtonGroupVariants,
 } from "./ShadcnButtonGroup";
+export { ShadcnCalendar, ShadcnCalendarDayButton } from "./ShadcnCalendar";
 export {
     type ShadcnCarouselApi,
     ShadcnCarousel,

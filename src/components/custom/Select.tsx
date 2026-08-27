@@ -3,6 +3,7 @@ import { Popover as PopoverPrimitive } from "radix-ui";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { ClearButton } from "@/components/custom/ClearButton";
 import {
     Popover,
     PopoverContent,
@@ -18,15 +19,24 @@ export function SelectTrigger({
     className,
     children,
     placeholder,
+    clearable,
+    onClear,
+    disabled,
     ...props
-}: ComponentProps<"button"> & { placeholder?: string }) {
+}: ComponentProps<"button"> & {
+    placeholder?: string;
+    clearable?: boolean;
+    onClear?: () => void;
+}) {
     const isEmpty = children == null || children === "";
+    const showClear = Boolean(clearable && !isEmpty && !disabled);
 
     return (
         <PopoverTrigger asChild aria-haspopup="listbox">
             <button
                 type="button"
                 data-slot="select-trigger"
+                disabled={disabled}
                 className={cn(
                     "flex h-9 w-full min-w-0 items-center justify-between gap-1.5 rounded-md border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none",
                     "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
@@ -48,6 +58,7 @@ export function SelectTrigger({
                 >
                     {isEmpty ? placeholder : children}
                 </span>
+                {showClear ? <ClearButton onClick={onClear} /> : null}
                 <ChevronDownIcon className="size-4 text-muted-foreground" />
             </button>
         </PopoverTrigger>

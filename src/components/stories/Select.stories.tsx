@@ -153,6 +153,72 @@ export const Selected: Story = {
     },
 };
 
+export const Clearable: Story = {
+    render: function Clearable() {
+        const [value, setValue] = useState<string | undefined>("banana");
+        const selectedLabel = fruits.find(
+            (fruit) => fruit.value === value,
+        )?.label;
+
+        return (
+            <Select>
+                <SelectTrigger
+                    placeholder="Select a fruit"
+                    clearable
+                    onClear={() => setValue(undefined)}
+                >
+                    {selectedLabel}
+                </SelectTrigger>
+                <SelectContent>
+                    {fruits.map((fruit) => (
+                        <SelectOption
+                            key={fruit.value}
+                            value={fruit.value}
+                            selected={fruit.value === value}
+                            onClick={() => setValue(fruit.value)}
+                        >
+                            {fruit.label}
+                        </SelectOption>
+                    ))}
+                </SelectContent>
+            </Select>
+        );
+    },
+    parameters: {
+        docs: {
+            description: {
+                story: "Show a clear button when an item is selected.",
+            },
+            source: {
+                code: `const [value, setValue] = useState<string | undefined>("banana");
+const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+
+<Select>
+    <SelectTrigger
+        placeholder="Select a fruit"
+        clearable
+        onClear={() => setValue(undefined)}
+    >
+        {selectedLabel}
+    </SelectTrigger>
+    <SelectContent>
+        {fruits.map((fruit) => (
+            <SelectOption
+                key={fruit.value}
+                value={fruit.value}
+                selected={fruit.value === value}
+                onClick={() => setValue(fruit.value)}
+            >
+                {fruit.label}
+            </SelectOption>
+        ))}
+    </SelectContent>
+</Select>`,
+            },
+        },
+    },
+};
+
 export const ManyOptions: Story = {
     render: () => <FruitSelect options={manyFruits} />,
     parameters: {
