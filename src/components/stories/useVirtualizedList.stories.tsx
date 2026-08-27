@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { useVirtualizedList } from "@/hooks/useVirtualizedList";
 
 const roles = ["Admin", "Member", "Viewer"] as const;
@@ -66,6 +67,7 @@ function DefaultDemo({
         items,
         itemHeight,
         overscan,
+        itemKey: (item) => item.id,
     });
 
     return (
@@ -115,6 +117,7 @@ const defaultSource = `const items = Array.from({ length: 10000 }, (_, index) =>
 const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
     items,
     itemHeight: 56,
+    itemKey: (item) => item.id,
 });
 
 <div className="grid w-96 gap-2">
@@ -149,7 +152,7 @@ const meta = {
         docs: {
             description: {
                 component:
-                    "Virtualizes a long list so only visible rows mount. Pass items and a fixed itemHeight, then put scrollRef on the scroller, innerStyle on the spacer, and row.style on each row.",
+                    "Virtualizes a long list so only visible rows mount. Pass items and a fixed itemHeight. For lazy data, leave slots undefined; lazyBatch is the fetch page size and overscan loads a few extra rows ahead.",
             },
         },
     },
@@ -182,6 +185,142 @@ export const Default: Story = {
         docs: {
             source: {
                 code: defaultSource,
+            },
+        },
+    },
+};
+
+export const Lazy: Story = {
+    render: function Lazy() {
+        const [items, setItems] = useState<
+            (ReturnType<typeof makePerson> | undefined)[]
+        >(() => Array.from({ length: 10000 }));
+        const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
+            items,
+            itemHeight: 56,
+            lazyBatch: 50,
+            debounce: 150,
+            lazy: async (first, last) => {
+                await new Promise((resolve) => setTimeout(resolve, 400));
+                setItems((current) => {
+                    const next = [...current];
+                    for (let index = first; index <= last; index++) {
+                        next[index] ??= makePerson(index);
+                    }
+                    return next;
+                });
+            },
+        });
+
+        return (
+            <div
+                ref={scrollRef}
+                className="h-80 w-96 overflow-auto rounded-xl border"
+            >
+                <div style={innerStyle}>
+                    {virtualItems.map((row) => (
+                        <div
+                            key={row.key}
+                            className="flex items-center gap-3 px-3"
+                            style={row.style}
+                        >
+                            {row.item ? (
+                                <>
+                                    <Avatar size="sm">
+                                        <AvatarFallback>
+                                            {row.item.initials}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div className="min-w-0">
+                                        <p className="truncate text-sm font-medium">
+                                            {row.item.name}
+                                        </p>
+                                        <p className="truncate text-xs text-muted-foreground">
+                                            {row.item.email}
+                                        </p>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <Skeleton className="size-8 rounded-full" />
+                                    <div className="grid flex-1 gap-2">
+                                        <Skeleton className="h-3 w-2/3" />
+                                        <Skeleton className="h-3 w-full" />
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    },
+    parameters: {
+        controls: { disable: true },
+        docs: {
+            description: {
+                story: "lazy loads one lazyBatch page at a time. overscan fetches a few extra rows ahead. debounce waits until scrolling stops.",
+            },
+            source: {
+                code: `const [items, setItems] = useState<(Person | undefined)[]>(
+    () => Array.from({ length: 10000 }),
+);
+
+const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
+    items,
+    itemHeight: 56,
+    lazyBatch: 10,
+    debounce: 150,
+    lazy: async (first, last) => {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+        setItems((current) => {
+            const next = [...current];
+            for (let index = first; index <= last; index++) {
+                next[index] ??= {
+                    id: index,
+                    name: \`Person \${index + 1}\`,
+                    email: \`person\${index + 1}@example.com\`,
+                    initials: "P",
+                };
+            }
+            return next;
+        });
+    },
+});
+
+<div ref={scrollRef} className="h-80 w-96 overflow-auto rounded-xl border">
+    <div style={innerStyle}>
+        {virtualItems.map((row) => (
+            <div
+                key={row.key}
+                className="flex items-center gap-3 px-3"
+                style={row.style}
+            >
+                {row.item ? (
+                    <>
+                        <Avatar size="sm">
+                            <AvatarFallback>{row.item.initials}</AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                            <p className="truncate text-sm font-medium">{row.item.name}</p>
+                            <p className="truncate text-xs text-muted-foreground">
+                                {row.item.email}
+                            </p>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <Skeleton className="size-8 rounded-full" />
+                        <div className="grid flex-1 gap-2">
+                            <Skeleton className="h-3 w-2/3" />
+                            <Skeleton className="h-3 w-full" />
+                        </div>
+                    </>
+                )}
+            </div>
+        ))}
+    </div>
+</div>`,
             },
         },
     },
