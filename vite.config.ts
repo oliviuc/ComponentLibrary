@@ -10,7 +10,12 @@ import { defineConfig } from "vite";
 const dirname = import.meta.dirname;
 
 export default defineConfig({
-    plugins: [react(), tailwindcss()],
+    plugins: [
+        react({
+            compiler: true,
+        }),
+        tailwindcss(),
+    ],
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),

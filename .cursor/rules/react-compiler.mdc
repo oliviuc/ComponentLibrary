@@ -1,0 +1,35 @@
+---
+description: Never memoize manually; React Compiler handles it
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React Compiler
+
+The React Compiler is on (`compiler: true` in `vite.config.ts`). Do not memoize by hand. Write plain functions and let the compiler cache values and callbacks.
+
+- Do not use `useMemo`, `useCallback`, or `React.memo`.
+- Do not use refs or effects only to keep a callback identity stable.
+- Do not add `'use memo'`. The compiler already applies that.
+- `'use no memo'` only if a specific function must opt out, and say why.
+
+Leave generated `src/components/shadcn` primitives as upstream shipped them.
+
+```tsx
+// ❌ BAD
+const onSelect = useCallback((id: string) => {
+    setSelected(id);
+}, []);
+
+const label = useMemo(() => items.find((item) => item.id === selected)?.name, [items, selected]);
+
+return <List items={items} onSelect={onSelect} label={label} />;
+
+// ✅ GOOD
+const onSelect = (id: string) => {
+    setSelected(id);
+};
+const label = items.find((item) => item.id === selected)?.name;
+
+return <List items={items} onSelect={onSelect} label={label} />;
+```
