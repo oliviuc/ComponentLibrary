@@ -10,10 +10,10 @@ import { useQueryParams } from "@/hooks/useQueryParams";
 import { formatDateParam } from "@/utils/date";
 
 const querySchema = z.object({
-    q: z.string().optional(),
-    page: z.coerce.number().int().positive().optional(),
-    tags: z.array(z.string()).optional(),
-    after: z.date().optional(),
+    q: z.string(),
+    page: z.coerce.number().int().positive(),
+    tags: z.array(z.string()),
+    after: z.date(),
 });
 
 const tags = ["ui", "a11y", "hooks"] as const;
@@ -150,10 +150,10 @@ function UseQueryParamsDemo({ initialSearch }: { initialSearch: string }) {
 }
 
 const source = `const schema = z.object({
-    q: z.string().optional(),
-    page: z.coerce.number().optional(),
-    tags: z.array(z.string()).optional(),
-    after: z.date().optional(),
+    q: z.string(),
+    page: z.coerce.number(),
+    tags: z.array(z.string()),
+    after: z.date(), // transforms Date to 2026-12-31 
 });
 
 const [search, setSearch] = useState("q=button&page=1&utm_source=docs");
