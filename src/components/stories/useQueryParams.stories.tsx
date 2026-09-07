@@ -156,7 +156,7 @@ const source = `const schema = z.object({
     after: z.date(), // transforms Date to 2026-12-31 
 });
 
-const [search, setSearch] = useState("q=button&page=1&utm_source=docs");
+const [search, setSearch] = useState("q=button&page=1&utm_source=docs&test=1");
 const { params, stringParams, setParams, clearAllParams } = useQueryParams({
     schema,
     searchParams: search,
@@ -177,12 +177,12 @@ const meta = {
         docs: {
             description: {
                 component:
-                    "Typed query params from a Zod schema. Pass `searchParams` and `setSearchParams` from your router. Next.js: `useSearchParams()`. TanStack: `location.search` and `navigate`. Plain React: `useState`.",
+                    "Typed query params from a Zod schema. Pass `searchParams` and `setSearchParams` from your router. Next.js: `useSearchParams()`. TanStack: `location.search` and `navigate`. Plain React: `useState`. Keys outside the schema stay in `stringParams` so other parts of the app can keep owning them.",
             },
         },
     },
     args: {
-        initialSearch: "q=button&page=1&utm_source=docs",
+        initialSearch: "q=button&page=1&utm_source=docs&test=1",
     },
 } satisfies Meta<typeof UseQueryParamsDemo>;
 
@@ -200,22 +200,21 @@ export const Default: Story = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
-        expect(canvas.getByText("q=button&page=1")).toBeTruthy();
         expect(
-            canvas.getByText("q=button&page=1&utm_source=docs"),
-        ).toBeTruthy();
+            canvas.getAllByText("q=button&page=1&utm_source=docs&test=1"),
+        ).toHaveLength(2);
 
         await userEvent.click(canvas.getByRole("button", { name: "hooks" }));
-        expect(canvas.getByText("q=button&page=1&tags=hooks")).toBeTruthy();
         expect(
-            canvas.getByText("q=button&page=1&utm_source=docs&tags=hooks"),
-        ).toBeTruthy();
+            canvas.getAllByText(
+                "q=button&page=1&utm_source=docs&test=1&tags=hooks",
+            ),
+        ).toHaveLength(2);
 
         await userEvent.click(
             canvas.getByRole("button", { name: "Clear all" }),
         );
-        expect(canvas.getByText("utm_source=docs")).toBeTruthy();
-        expect(canvas.getByText("—")).toBeTruthy();
+        expect(canvas.getAllByText("utm_source=docs&test=1")).toHaveLength(2);
     },
 };
 

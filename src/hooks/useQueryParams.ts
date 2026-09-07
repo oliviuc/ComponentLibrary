@@ -34,7 +34,8 @@ export const useQueryParams = <TShape extends z.ZodRawShape>({
             parseParam(field, parsedSearchParams.getAll(key)),
         ]),
     ) as TQueryParams<TShape>;
-    const stringParams = toSearchString(params);
+    const schemaKeys = new Set(Object.keys(schema.shape));
+    const stringParams = toSearchString(params, parsedSearchParams, schemaKeys);
     const setParams = (update: TQueryParamsUpdate<TShape>) => {
         const nextParams = new URLSearchParams(searchParams);
         Object.entries(update).forEach(([key, value]) => {
@@ -83,12 +84,22 @@ const toSearchValues = (value: unknown): string[] => {
     return [String(value)];
 };
 
-const toSearchString = (params: Record<string, unknown>): string => {
+const toSearchString = (
+    params: Record<string, unknown>,
+    existing: URLSearchParams,
+    schemaKeys: ReadonlySet<string>,
+): string => {
     const searchParams = new URLSearchParams();
-    Object.entries(params).forEach(([key, value]) => {
-        toSearchValues(value).forEach((searchValue) =>
-            searchParams.append(key, searchValue),
-        );
-    });
+    const seen = new Set<string>();
+    const append = (key: string) => {
+        if (seen.has(key)) return;
+        seen.add(key);
+        const values = schemaKeys.has(key)
+            ? toSearchValues(params[key])
+            : existing.getAll(key);
+        values.forEach((searchValue) => searchParams.append(key, searchValue));
+    };
+    for (const key of existing.keys()) append(key);
+    for (const key of schemaKeys) append(key);
     return searchParams.toString();
 };
