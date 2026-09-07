@@ -112,6 +112,16 @@ export {
 export { ShadcnSkeleton } from "./ShadcnSkeleton";
 export { ShadcnSlider } from "./ShadcnSlider";
 export { ShadcnSwitch } from "./ShadcnSwitch";
+export {
+    ShadcnTable,
+    ShadcnTableBody,
+    ShadcnTableCaption,
+    ShadcnTableCell,
+    ShadcnTableFooter,
+    ShadcnTableHead,
+    ShadcnTableHeader,
+    ShadcnTableRow,
+} from "./ShadcnTable";
 export { ShadcnTextarea } from "./ShadcnTextarea";
 export {
     ShadcnTooltip,
