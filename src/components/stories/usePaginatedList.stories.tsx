@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -64,23 +63,17 @@ function DefaultDemo({
     const people = Array.from({ length: count }, (_, index) =>
         makePerson(index),
     );
-    const [page, setPage] = useState(initialPage);
-    const { data, page: currentPage } = usePaginatedList({
+    const { data, page, setPage } = usePaginatedList({
         data: people,
-        page,
+        page: initialPage,
         limit,
     });
-
-    if (page !== currentPage) {
-        setPage(currentPage);
-    }
-
     const pageCount = Math.max(1, Math.ceil(count / limit));
 
     return (
         <div className="grid w-96 gap-3">
             <p className="text-sm text-muted-foreground">
-                Page {currentPage} of {pageCount}
+                Page {page} of {pageCount}
             </p>
             <div className="overflow-hidden rounded-xl border">
                 {data.map((person) => (
@@ -109,13 +102,13 @@ function DefaultDemo({
                             href="#previous"
                             onClick={(event) => {
                                 event.preventDefault();
-                                setPage(currentPage - 1);
+                                setPage(page - 1);
                             }}
                         />
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationLink href="#current" isActive>
-                            {currentPage}
+                            {page}
                         </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
@@ -123,7 +116,7 @@ function DefaultDemo({
                             href="#next"
                             onClick={(event) => {
                                 event.preventDefault();
-                                setPage(currentPage + 1);
+                                setPage(page + 1);
                             }}
                         />
                     </PaginationItem>
@@ -133,19 +126,13 @@ function DefaultDemo({
     );
 }
 
-const defaultSource = `const [page, setPage] = useState(1);
-const { data, page: currentPage } = usePaginatedList({
+const defaultSource = `const { data, page, setPage } = usePaginatedList({
     data: people,
-    page,
     limit: 8,
 });
 
-if (page !== currentPage) {
-    setPage(currentPage);
-}
-
 <div className="grid w-96 gap-3">
-    <p className="text-sm text-muted-foreground">Page {currentPage}</p>
+    <p className="text-sm text-muted-foreground">Page {page}</p>
     <div className="overflow-hidden rounded-xl border">
         {data.map((person) => (
             <div
@@ -171,13 +158,13 @@ if (page !== currentPage) {
                     href="#previous"
                     onClick={(event) => {
                         event.preventDefault();
-                        setPage(currentPage - 1);
+                        setPage(page - 1);
                     }}
                 />
             </PaginationItem>
             <PaginationItem>
                 <PaginationLink href="#current" isActive>
-                    {currentPage}
+                    {page}
                 </PaginationLink>
             </PaginationItem>
             <PaginationItem>
@@ -185,7 +172,7 @@ if (page !== currentPage) {
                     href="#next"
                     onClick={(event) => {
                         event.preventDefault();
-                        setPage(currentPage + 1);
+                        setPage(page + 1);
                     }}
                 />
             </PaginationItem>
@@ -200,7 +187,7 @@ const meta = {
         docs: {
             description: {
                 component:
-                    "Returns one page of a list. Pass data, an optional 1-based page (default 1), and limit. Page is clamped to a page that has data.",
+                    "Returns one page of a list. Pass data, an optional 1-based page (default 1), and limit. Use setPage to move; page stays on a page that has data.",
             },
         },
     },
@@ -256,21 +243,17 @@ export const Clamped: Story = {
     parameters: {
         docs: {
             description: {
-                story: "A page past the last row snaps to the last page that has data. Below 1 snaps to 1.",
+                story: "A page past the last row snaps to the last page that has data. Below 1 snaps to 1. setPage stays in that range too.",
             },
             source: {
-                code: `const [page, setPage] = useState(99);
-const { data, page: currentPage } = usePaginatedList({
+                code: `const { data, page, setPage } = usePaginatedList({
     data: people,
-    page,
+    page: 99,
     limit: 8,
 });
 
-if (page !== currentPage) {
-    setPage(currentPage);
-}
-
-<p>Page {currentPage}</p>
+<p>Page {page}</p>
+<button onClick={() => setPage(page - 1)}>Previous</button>
 {data.map((person) => (
     <p key={person.id}>{person.name}</p>
 ))}`,
