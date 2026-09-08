@@ -12,6 +12,7 @@ export type UsePaginatedListOptions<T> = {
 export type UsePaginatedListResult<T> = {
     data: T[];
     page: number;
+    totalPages: number;
     limit: number;
     setPage: (page: SetStateAction<number>) => void;
 };
@@ -30,6 +31,7 @@ export function usePaginatedList<T>({
         page: currentPage,
         first,
         last,
+        totalPages,
     } = getPageRange(data.length, page, limit);
 
     if (page !== currentPage) {
@@ -41,6 +43,7 @@ export function usePaginatedList<T>({
     return {
         data: pageData,
         page: currentPage,
+        totalPages,
         limit,
         setPage: (next) => {
             setPageState((current) => {

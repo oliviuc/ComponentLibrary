@@ -63,17 +63,16 @@ function DefaultDemo({
     const people = Array.from({ length: count }, (_, index) =>
         makePerson(index),
     );
-    const { data, page, setPage } = usePaginatedList({
+    const { data, page, totalPages, setPage } = usePaginatedList({
         data: people,
         page: initialPage,
         limit,
     });
-    const pageCount = Math.max(1, Math.ceil(count / limit));
 
     return (
         <div className="grid w-96 gap-3">
             <p className="text-sm text-muted-foreground">
-                Page {page} of {pageCount}
+                Page {page} of {totalPages}
             </p>
             <div className="overflow-hidden rounded-xl border">
                 {data.map((person) => (
@@ -126,13 +125,15 @@ function DefaultDemo({
     );
 }
 
-const defaultSource = `const { data, page, setPage } = usePaginatedList({
+const defaultSource = `const { data, page, totalPages, setPage } = usePaginatedList({
     data: people,
     limit: 8,
 });
 
 <div className="grid w-96 gap-3">
-    <p className="text-sm text-muted-foreground">Page {page}</p>
+    <p className="text-sm text-muted-foreground">
+        Page {page} of {totalPages}
+    </p>
     <div className="overflow-hidden rounded-xl border">
         {data.map((person) => (
             <div
@@ -187,7 +188,7 @@ const meta = {
         docs: {
             description: {
                 component:
-                    "Returns one page of a list. Pass data, an optional 1-based page (default 1), and limit. Use setPage to move; page stays on a page that has data.",
+                    "Returns one page of a list. Pass data, an optional 1-based page (default 1), and limit. Use setPage to move; page stays on a page that has data. totalPages is the last in-range page.",
             },
         },
     },
@@ -246,13 +247,15 @@ export const Clamped: Story = {
                 story: "A page past the last row snaps to the last page that has data. Below 1 snaps to 1. setPage stays in that range too.",
             },
             source: {
-                code: `const { data, page, setPage } = usePaginatedList({
+                code: `const { data, page, totalPages, setPage } = usePaginatedList({
     data: people,
     page: 99,
     limit: 8,
 });
 
-<p>Page {page}</p>
+<p>
+    Page {page} of {totalPages}
+</p>
 <button onClick={() => setPage(page - 1)}>Previous</button>
 {data.map((person) => (
     <p key={person.id}>{person.name}</p>

@@ -2,6 +2,7 @@ export type PageRange = {
     page: number;
     first: number;
     last: number;
+    totalPages: number;
 };
 
 /** 1-based page window. Page is always a page that has data, or 1 when empty. */
@@ -14,13 +15,13 @@ export function getPageRange(
     const requested = Number.isFinite(page) && page >= 1 ? Math.trunc(page) : 1;
 
     if (count <= 0) {
-        return { page: 1, first: 0, last: -1 };
+        return { page: 1, first: 0, last: -1, totalPages: 1 };
     }
 
-    const pageCount = Math.ceil(count / size);
-    const safePage = Math.min(requested, pageCount);
+    const totalPages = Math.ceil(count / size);
+    const safePage = Math.min(requested, totalPages);
     const first = (safePage - 1) * size;
     const last = Math.min(count, first + size) - 1;
 
-    return { page: safePage, first, last };
+    return { page: safePage, first, last, totalPages };
 }
