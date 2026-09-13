@@ -115,7 +115,7 @@ const {
     FormLabel,
     FormControl,
     FormErrorMessage,
-    FormStatus,
+    isSubmitting,
 } = useForm({
     schema,
     defaultValues: { email: "", fruit: "", subscribe: false },
@@ -183,13 +183,9 @@ const {
             </FormItem>
         )}
     </FormField>
-    <FormStatus>
-        {({ isSubmitting }) => (
-            <Button type="submit" disabled={isSubmitting}>
-                Save
-            </Button>
-        )}
-    </FormStatus>
+    <Button type="submit" disabled={isSubmitting}>
+        Save
+    </Button>
 </Form>`;
 
 export const Default: Story = {
@@ -201,7 +197,7 @@ export const Default: Story = {
             FormLabel,
             FormControl,
             FormErrorMessage,
-            FormStatus,
+            isSubmitting,
         } = useForm({
             schema: defaultSchema,
             defaultValues: { email: "", fruit: "", subscribe: false },
@@ -276,13 +272,9 @@ export const Default: Story = {
                         </FormItem>
                     )}
                 </FormField>
-                <FormStatus>
-                    {({ isSubmitting }) => (
-                        <Button type="submit" disabled={isSubmitting}>
-                            Save
-                        </Button>
-                    )}
-                </FormStatus>
+                <Button type="submit" disabled={isSubmitting}>
+                    Save
+                </Button>
             </Form>
         );
     },
@@ -1384,8 +1376,8 @@ const {
     FormLabel,
     FormControl,
     FormErrorMessage,
-    FormStatus,
     submit,
+    isSubmitting,
 } = useForm({
     schema,
     defaultValues: { email: "you@example.com" },
@@ -1412,13 +1404,9 @@ const {
             )}
         </FormField>
     </Form>
-    <FormStatus>
-        {({ isSubmitting }) => (
-            <Button type="button" onClick={submit} disabled={isSubmitting}>
-                Save
-            </Button>
-        )}
-    </FormStatus>
+    <Button type="button" onClick={submit} disabled={isSubmitting}>
+        Save
+    </Button>
 </>`;
 
 export const SubmitOutsideForm: Story = {
@@ -1430,8 +1418,8 @@ export const SubmitOutsideForm: Story = {
             FormLabel,
             FormControl,
             FormErrorMessage,
-            FormStatus,
             submit,
+            isSubmitting,
         } = useForm({
             schema: submitOutsideSchema,
             defaultValues: { email: "you@example.com" },
@@ -1461,24 +1449,16 @@ export const SubmitOutsideForm: Story = {
                         )}
                     </FormField>
                 </Form>
-                <FormStatus>
-                    {({ isSubmitting }) => (
-                        <Button
-                            type="button"
-                            onClick={submit}
-                            disabled={isSubmitting}
-                        >
-                            Save
-                        </Button>
-                    )}
-                </FormStatus>
+                <Button type="button" onClick={submit} disabled={isSubmitting}>
+                    Save
+                </Button>
             </>
         );
     },
     parameters: {
         docs: {
             description: {
-                story: "submit() and FormStatus work outside Form, so a dialog footer can save without living inside the form element. isSubmitting stays true until an async onSubmit finishes.",
+                story: "submit() and isSubmitting work outside Form, so a dialog footer can save without living inside the form element. isSubmitting stays true until an async onSubmit finishes.",
             },
             source: { code: submitOutsideSource },
         },

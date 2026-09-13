@@ -2,6 +2,7 @@ import { useState, type BaseSyntheticEvent, type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     useForm as useRhfForm,
+    useFormState,
     type FieldValues,
     type SubmitErrorHandler,
     type SubmitHandler,
@@ -20,7 +21,6 @@ import {
     type FormFieldArrayComponent,
     type FormFieldComponent,
     type FormHandlers,
-    type FormStatusComponent,
 } from "@/components/custom/Form";
 
 export type UseFormOptions<
@@ -40,10 +40,10 @@ export type UseFormResult<TFieldValues extends FieldValues = FieldValues> =
     UseFormReturn<TFieldValues> & {
         form: UseFormReturn<TFieldValues>;
         submit: (event?: BaseSyntheticEvent) => Promise<boolean>;
+        isSubmitting: boolean;
         Form: (props: BoundFormProps) => ReactNode;
         FormField: FormFieldComponent<TFieldValues>;
         FormFieldArray: FormFieldArrayComponent<TFieldValues>;
-        FormStatus: FormStatusComponent<TFieldValues>;
         FormItem: typeof FormItem;
         FormLabel: typeof FormLabel;
         FormControl: typeof FormControl;
@@ -76,6 +76,8 @@ export function useForm<TFieldValues extends FieldValues = FieldValues>({
     // Created once. A new identity each render would remount every field.
     const [parts] = useState(() => createFormParts(form, handlers));
 
+    const { isSubmitting } = useFormState({ control: form.control });
+
     const submit = async (event?: BaseSyntheticEvent) => {
         let submitted = false;
         await form.handleSubmit(async (values, submitEvent) => {
@@ -89,6 +91,7 @@ export function useForm<TFieldValues extends FieldValues = FieldValues>({
         ...form,
         form,
         submit,
+        isSubmitting,
         ...parts,
         FormItem,
         FormLabel,

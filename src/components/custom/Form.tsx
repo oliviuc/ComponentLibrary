@@ -7,7 +7,6 @@ import {
 import { Slot } from "radix-ui";
 import {
     FormProvider,
-    useFormState,
     type FieldArrayPath,
     type FieldPath,
     type FieldPathValue,
@@ -17,7 +16,6 @@ import {
     type SubmitErrorHandler,
     type SubmitHandler,
     type UseFormReturn,
-    type UseFormStateReturn,
 } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
@@ -239,34 +237,7 @@ export type FormFieldArrayComponent<TFieldValues extends FieldValues> = <
     props: FormFieldArrayProps<TFieldValues, TName>,
 ) => ReactNode;
 
-export type FormStatusState<TFieldValues extends FieldValues = FieldValues> =
-    Pick<
-        UseFormStateReturn<TFieldValues>,
-        "isSubmitting" | "isValid" | "isDirty" | "isSubmitted" | "errors"
-    >;
-
-export type FormStatusProps<TFieldValues extends FieldValues = FieldValues> = {
-    children: (status: FormStatusState<TFieldValues>) => ReactNode;
-};
-
-/** Subscribes to form-level status without re-rendering the rest of the form. */
-export function FormStatus<TFieldValues extends FieldValues = FieldValues>({
-    children,
-    form,
-}: FormStatusProps<TFieldValues> & {
-    form?: UseFormReturn<TFieldValues>;
-}) {
-    const formState = useFormState<TFieldValues>({
-        control: form?.control,
-    });
-    return children(formState);
-}
-
-export type FormStatusComponent<TFieldValues extends FieldValues> = (
-    props: FormStatusProps<TFieldValues>,
-) => ReactNode;
-
-/** Binds Form, FormField, FormFieldArray, and FormStatus to one form. Call once so the identity stays stable. */
+/** Binds Form, FormField, and FormFieldArray to one form. Call once so the identity stays stable. */
 export function createFormParts<TFieldValues extends FieldValues>(
     form: UseFormReturn<TFieldValues>,
     handlers: FormHandlers<TFieldValues>,
@@ -287,15 +258,10 @@ export function createFormParts<TFieldValues extends FieldValues>(
         return <FormFieldArray form={form} {...props} />;
     }
 
-    function BoundFormStatus(props: FormStatusProps<TFieldValues>) {
-        return <FormStatus form={form} {...props} />;
-    }
-
     return {
         Form,
         FormField: BoundFormField as FormFieldComponent<TFieldValues>,
         FormFieldArray:
             BoundFormFieldArray as FormFieldArrayComponent<TFieldValues>,
-        FormStatus: BoundFormStatus as FormStatusComponent<TFieldValues>,
     };
 }
