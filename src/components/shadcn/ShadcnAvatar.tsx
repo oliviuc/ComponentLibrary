@@ -15,7 +15,7 @@ function ShadcnAvatar({
             data-slot="shadcn-avatar"
             data-size={size}
             className={cn(
-                "group/shadcn-avatar relative flex size-8 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:border-border after:mix-blend-darken data-[size=lg]:size-10 data-[size=sm]:size-6 dark:after:mix-blend-lighten",
+                "group/shadcn-avatar relative flex size-8 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:border-border after:[mix-blend-mode:var(--avatar-ring-blend)] data-[size=lg]:size-10 data-[size=sm]:size-6",
                 className,
             )}
             {...props}

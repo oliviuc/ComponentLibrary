@@ -1,13 +1,17 @@
 /*
   Semantic theme tokens for the component library.
 
-  Change values in :root (light) and .dark (dark) to restyle every
-  component. Tailwind utilities like bg-primary and text-muted-foreground
-  are mapped from these variables in @theme inline below.
+  Light values live on :root. Dark values apply automatically when the OS
+  is in dark mode via `prefers-color-scheme`. Force a theme with `.light`
+  or `.dark` on a parent (for example Storybook). Tailwind utilities like
+  bg-primary and text-muted-foreground are mapped from these variables in
+  @theme inline below.
 */
 
 :root {
+    color-scheme: light dark;
     --radius: 0.5rem;
+    --avatar-ring-blend: darken;
 
     /* Page */
     --background: oklch(1 0 0);
@@ -28,12 +32,38 @@
     --accent-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
+    --muted-hover: var(--muted);
     --destructive: oklch(0.577 0.245 27.325);
+    --destructive-border: var(--destructive);
+    --destructive-ring: color-mix(
+        in oklch,
+        var(--destructive) 20%,
+        transparent
+    );
+    --destructive-soft: color-mix(
+        in oklch,
+        var(--destructive) 10%,
+        transparent
+    );
+    --destructive-soft-hover: color-mix(
+        in oklch,
+        var(--destructive) 20%,
+        transparent
+    );
 
     /* Chrome */
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
+    --input-background: transparent;
+    --input-background-hover: transparent;
+    --control: var(--background);
+    --control-hover: var(--muted);
+    --control-border: var(--border);
     --ring: oklch(0.708 0 0);
+    --switch-unchecked: var(--input);
+    --switch-thumb-checked: var(--background);
+    --switch-thumb-unchecked: var(--background);
+    --slider-thumb: oklch(1 0 0);
 
     /* Charts */
     --chart-1: oklch(0.87 0 0);
@@ -53,7 +83,154 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --avatar-ring-blend: lighten;
+
+        /* Page */
+        --background: oklch(0.145 0 0);
+        --foreground: oklch(0.985 0 0);
+
+        /* Surfaces */
+        --card: oklch(0.205 0 0);
+        --card-foreground: oklch(0.985 0 0);
+        --popover: oklch(0.205 0 0);
+        --popover-foreground: oklch(0.985 0 0);
+
+        /* Brand / actions */
+        --primary: oklch(0.922 0 0);
+        --primary-foreground: oklch(0.205 0 0);
+        --secondary: oklch(0.269 0 0);
+        --secondary-foreground: oklch(0.985 0 0);
+        --accent: oklch(0.269 0 0);
+        --accent-foreground: oklch(0.985 0 0);
+        --muted: oklch(0.269 0 0);
+        --muted-foreground: oklch(0.708 0 0);
+        --muted-hover: color-mix(in oklch, var(--muted) 50%, transparent);
+        --destructive: oklch(0.704 0.191 22.216);
+        --destructive-border: color-mix(
+            in oklch,
+            var(--destructive) 50%,
+            transparent
+        );
+        --destructive-ring: color-mix(
+            in oklch,
+            var(--destructive) 40%,
+            transparent
+        );
+        --destructive-soft: color-mix(
+            in oklch,
+            var(--destructive) 20%,
+            transparent
+        );
+        --destructive-soft-hover: color-mix(
+            in oklch,
+            var(--destructive) 30%,
+            transparent
+        );
+
+        /* Chrome */
+        --border: oklch(1 0 0 / 10%);
+        --input: oklch(1 0 0 / 15%);
+        --input-background: color-mix(in oklch, var(--input) 30%, transparent);
+        --input-background-hover: color-mix(
+            in oklch,
+            var(--input) 50%,
+            transparent
+        );
+        --control: color-mix(in oklch, var(--input) 30%, transparent);
+        --control-hover: color-mix(in oklch, var(--input) 50%, transparent);
+        --control-border: var(--input);
+        --ring: oklch(0.556 0 0);
+        --switch-unchecked: color-mix(in oklch, var(--input) 80%, transparent);
+        --switch-thumb-checked: var(--primary-foreground);
+        --switch-thumb-unchecked: var(--foreground);
+        --slider-thumb: oklch(1 0 0);
+
+        /* Sidebar */
+        --sidebar: oklch(0.205 0 0);
+        --sidebar-foreground: oklch(0.985 0 0);
+        --sidebar-primary: oklch(0.488 0.243 264.376);
+        --sidebar-primary-foreground: oklch(0.985 0 0);
+        --sidebar-accent: oklch(0.269 0 0);
+        --sidebar-accent-foreground: oklch(0.985 0 0);
+        --sidebar-border: oklch(1 0 0 / 10%);
+        --sidebar-ring: oklch(0.556 0 0);
+    }
+}
+
+.light {
+    color-scheme: light;
+    --avatar-ring-blend: darken;
+
+    /* Page */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+
+    /* Surfaces */
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+
+    /* Brand / actions */
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --muted-hover: var(--muted);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-border: var(--destructive);
+    --destructive-ring: color-mix(
+        in oklch,
+        var(--destructive) 20%,
+        transparent
+    );
+    --destructive-soft: color-mix(
+        in oklch,
+        var(--destructive) 10%,
+        transparent
+    );
+    --destructive-soft-hover: color-mix(
+        in oklch,
+        var(--destructive) 20%,
+        transparent
+    );
+
+    /* Chrome */
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --input-background: transparent;
+    --input-background-hover: transparent;
+    --control: var(--background);
+    --control-hover: var(--muted);
+    --control-border: var(--border);
+    --ring: oklch(0.708 0 0);
+    --switch-unchecked: var(--input);
+    --switch-thumb-checked: var(--background);
+    --switch-thumb-unchecked: var(--background);
+    --slider-thumb: oklch(1 0 0);
+
+    /* Sidebar */
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
 .dark {
+    color-scheme: dark;
+    --avatar-ring-blend: lighten;
+
     /* Page */
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
@@ -73,19 +250,46 @@
     --accent-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
+    --muted-hover: color-mix(in oklch, var(--muted) 50%, transparent);
     --destructive: oklch(0.704 0.191 22.216);
+    --destructive-border: color-mix(
+        in oklch,
+        var(--destructive) 50%,
+        transparent
+    );
+    --destructive-ring: color-mix(
+        in oklch,
+        var(--destructive) 40%,
+        transparent
+    );
+    --destructive-soft: color-mix(
+        in oklch,
+        var(--destructive) 20%,
+        transparent
+    );
+    --destructive-soft-hover: color-mix(
+        in oklch,
+        var(--destructive) 30%,
+        transparent
+    );
 
     /* Chrome */
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
+    --input-background: color-mix(in oklch, var(--input) 30%, transparent);
+    --input-background-hover: color-mix(
+        in oklch,
+        var(--input) 50%,
+        transparent
+    );
+    --control: color-mix(in oklch, var(--input) 30%, transparent);
+    --control-hover: color-mix(in oklch, var(--input) 50%, transparent);
+    --control-border: var(--input);
     --ring: oklch(0.556 0 0);
-
-    /* Charts */
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
+    --switch-unchecked: color-mix(in oklch, var(--input) 80%, transparent);
+    --switch-thumb-checked: var(--primary-foreground);
+    --switch-thumb-unchecked: var(--foreground);
+    --slider-thumb: oklch(1 0 0);
 
     /* Sidebar */
     --sidebar: oklch(0.205 0 0);
@@ -118,11 +322,25 @@
     --color-accent-foreground: var(--accent-foreground);
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
+    --color-muted-hover: var(--muted-hover);
     --color-destructive: var(--destructive);
+    --color-destructive-border: var(--destructive-border);
+    --color-destructive-ring: var(--destructive-ring);
+    --color-destructive-soft: var(--destructive-soft);
+    --color-destructive-soft-hover: var(--destructive-soft-hover);
 
     --color-border: var(--border);
     --color-input: var(--input);
+    --color-input-background: var(--input-background);
+    --color-input-background-hover: var(--input-background-hover);
+    --color-control: var(--control);
+    --color-control-hover: var(--control-hover);
+    --color-control-border: var(--control-border);
     --color-ring: var(--ring);
+    --color-switch-unchecked: var(--switch-unchecked);
+    --color-switch-thumb-checked: var(--switch-thumb-checked);
+    --color-switch-thumb-unchecked: var(--switch-thumb-unchecked);
+    --color-slider-thumb: var(--slider-thumb);
 
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);

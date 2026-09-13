@@ -39,10 +39,11 @@ const preview: Preview = {
     decorators: [
         withThemeByClassName({
             themes: {
-                light: "",
+                system: "system",
+                light: "light",
                 dark: "dark",
             },
-            defaultTheme: "light",
+            defaultTheme: "system",
             parentSelector: "html",
         }),
         (Story) => (
