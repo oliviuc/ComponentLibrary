@@ -6,30 +6,55 @@ alwaysApply: false
 
 # Story docs source
 
-The docs **Show code** block is how people learn the API. It must be the JSX or hook call they would paste into an app.
+The docs **Show code** block is how people learn the API. It must be the full JSX or hook call they would paste into an app — every element the story actually renders.
 
 - Write real usage in `render`. Do not render a helper like `<FruitSelect />` or `<DrawerExample />`.
 - Do not put labels, wrappers, or layout the user needs to copy in a decorator. Put that markup in `render`.
 - If a helper is unavoidable, set `parameters.docs.source.code` to the inlined usage.
 - Skip `{...args}`, `fn()`, and the story object (`render:`, `decorators:`).
-- Keep snippets on `docs.source.code` in sync with the live example.
+- Keep snippets on `docs.source.code` in sync with the live example. Never trim: include every child, option, label, wrapper, and the data those elements need. Do not drop items to “one example”, leave arrays undefined, or use `{/* ... */}`.
 - Controls that hold a value (Input, Textarea, Checkbox, Switch, Slider, RadioGroup, Select, InputGroup fields) use `useState` with `value`/`checked` and a change handler. Display-only pieces (Card, Badge, Skeleton) do not.
 
 ```tsx
-// ❌ BAD — Storybook chrome
+// ❌ BAD — helper, CSF chrome, or a shortened tree
 { render: () => <FruitSelect id="select-fruit" /> }
 
-// ✅ GOOD — what to copy
-const [value, setValue] = useState<string>();
-
 <Select>
-    <SelectTrigger placeholder="Select a fruit">
-        {selectedLabel}
-    </SelectTrigger>
+    <SelectTrigger placeholder="Select a fruit">{selectedLabel}</SelectTrigger>
     <SelectContent>
-        <SelectOption value="apple" onClick={() => setValue("apple")}>
-            Apple
-        </SelectOption>
+        <SelectOption value="apple">Apple</SelectOption>
     </SelectContent>
 </Select>
+
+// ✅ GOOD — full usage, same elements as the story
+const fruits = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "grapes", label: "Grapes" },
+    { value: "pineapple", label: "Pineapple" },
+];
+const [value, setValue] = useState<string>();
+const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+
+<div className="grid w-72 gap-2">
+    <Label htmlFor="select-fruit">Fruit</Label>
+    <Select>
+        <SelectTrigger id="select-fruit" placeholder="Select a fruit">
+            {selectedLabel}
+        </SelectTrigger>
+        <SelectContent>
+            {fruits.map((fruit) => (
+                <SelectOption
+                    key={fruit.value}
+                    value={fruit.value}
+                    selected={fruit.value === value}
+                    onClick={() => setValue(fruit.value)}
+                >
+                    {fruit.label}
+                </SelectOption>
+            ))}
+        </SelectContent>
+    </Select>
+</div>
 ```
