@@ -6,14 +6,53 @@ alwaysApply: false
 
 # Theme colors
 
-All color lives in `src/assets/css/colors.css`. Components use the same Tailwind classes in light and dark. Do not use `dark:` color utilities, `bg-white`, or raw palette classes (`zinc-`, `gray-`).
+All color lives in `src/assets/css/colors.css`. Components use the same Tailwind classes in light and dark. The theme follows the OS. `.light` or `.dark` on any element forces it for that subtree.
 
-- Light tokens: `:root`
-- Dark tokens: `@media (prefers-color-scheme: dark)` on `:root` (follows OS)
-- Force a theme with `.light` or `.dark` on a parent (Storybook toolbar)
-- New tokens: set them in `:root`, the media query, `.light`, and `.dark`, then map `--color-*` in `@theme inline`
+Each token is one declaration on `:root, .light, .dark`. `light-dark(light, dark)` holds both values. A plain value is the same in both themes. `@theme inline` maps `--color-name: var(--name)`, which gives utilities like `bg-name` and `text-name`.
 
-After `npx shadcn add`, strip `dark:` color classes and point at tokens (`bg-input-background`, `border-destructive-border`, `ring-destructive-ring`).
+Do not use palette classes (`bg-red-500`, `text-zinc-400`, `bg-white`, `bg-black`), arbitrary colors (`bg-[#fff]`, `bg-[oklch(...)]`, `bg-[color-mix(...)]`), or Tailwind `dark:` classes. The same classes apply in both themes. ESLint enforces this in `src`.
+
+## Add a token
+
+```css
+:root,
+.light,
+.dark {
+    --warning: light-dark(oklch(0.75 0.15 75), oklch(0.85 0.12 85));
+    /* Same in both themes: --slider-thumb: oklch(1 0 0); */
+}
+
+@theme inline {
+    --color-warning: var(--warning);
+}
+```
+
+Then use `bg-warning`.
+
+## Which token
+
+- Page: `background`, `foreground`. Modal scrim: `overlay`.
+- Cards and popovers: `card`, `popover`, and `*-foreground`.
+- Actions: `primary`, `secondary`, `accent`, `muted`, and `*-foreground`. Hovers: `secondary-hover`, `muted-hover`.
+- Outline buttons: `control`, `control-hover`, border `input`.
+- Fields: `input`, `input-background`, `input-background-hover`.
+- Invalid: border `destructive-border`, ring `destructive-ring`. Soft fill: `destructive-soft`, `destructive-soft-hover`. Text and icons: `destructive`.
+- Focus: `ring`.
+- Charts: `chart-1` through `chart-5`.
+- Switch, slider thumb, and kbd inside a tooltip: `switch-*`, `slider-thumb`, `kbd-in-tooltip`.
+
+## After `npx shadcn add`
+
+Strip every Tailwind `dark:` class and point colors at tokens. Fold any `:root` or `.dark` color block the CLI adds into `colors.css` with `light-dark()`.
+
+- `dark:bg-input/30` → `bg-input-background`
+- `dark:hover:bg-input/50` on a field → `hover:bg-input-background-hover`
+- Outline button hover → `hover:bg-control-hover`
+- `aria-invalid:border-destructive` → `aria-invalid:border-destructive-border`
+- `aria-invalid:ring-destructive/20` and `dark:aria-invalid:ring-destructive/40` → `aria-invalid:ring-destructive-ring`
+- `bg-black/10` → `bg-overlay`
+- `bg-white` on a slider thumb → `bg-slider-thumb`
+- `dark:bg-input/80` on a switch → `data-unchecked:bg-switch-unchecked`
 
 ```tsx
 // ❌ BAD
@@ -22,3 +61,5 @@ className="bg-transparent dark:bg-input/30 aria-invalid:ring-destructive/20 dark
 // ✅ GOOD
 className="bg-input-background aria-invalid:border-destructive-border aria-invalid:ring-destructive-ring"
 ```
+
+A blend mode is not a color, so it cannot use `light-dark()`. Set `--avatar-ring-blend` beside `color-scheme` and read it with `after:[mix-blend-mode:var(--avatar-ring-blend)]`.

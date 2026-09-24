@@ -1,0 +1,133 @@
+import { ColorItem, ColorPalette, Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Colors" />
+
+# Colors
+
+Theme tokens live in `src/assets/css/colors.css`. One declaration holds both themes, and the toolbar switches these swatches. Use the token name as a Tailwind color: `bg-background`, `text-muted-foreground`, `border-input`.
+
+<ColorPalette>
+    <ColorItem
+        title="Page"
+        subtitle="Page background, text, and the modal scrim"
+        colors={{
+            background: "var(--background)",
+            foreground: "var(--foreground)",
+            overlay: "var(--overlay)",
+        }}
+    />
+    <ColorItem
+        title="Card"
+        subtitle="Cards"
+        colors={{
+            card: "var(--card)",
+            "card-foreground": "var(--card-foreground)",
+        }}
+    />
+    <ColorItem
+        title="Popover"
+        subtitle="Floating panels"
+        colors={{
+            popover: "var(--popover)",
+            "popover-foreground": "var(--popover-foreground)",
+        }}
+    />
+    <ColorItem
+        title="Primary"
+        subtitle="Main actions"
+        colors={{
+            primary: "var(--primary)",
+            "primary-foreground": "var(--primary-foreground)",
+        }}
+    />
+    <ColorItem
+        title="Secondary"
+        subtitle="Secondary actions and their hover"
+        colors={{
+            secondary: "var(--secondary)",
+            "secondary-foreground": "var(--secondary-foreground)",
+            "secondary-hover": "var(--secondary-hover)",
+        }}
+    />
+    <ColorItem
+        title="Accent"
+        subtitle="Highlights, such as a menu item"
+        colors={{
+            accent: "var(--accent)",
+            "accent-foreground": "var(--accent-foreground)",
+        }}
+    />
+    <ColorItem
+        title="Muted"
+        subtitle="Quiet fills, quiet text, and ghost hover"
+        colors={{
+            muted: "var(--muted)",
+            "muted-foreground": "var(--muted-foreground)",
+            "muted-hover": "var(--muted-hover)",
+        }}
+    />
+    <ColorItem
+        title="Destructive"
+        subtitle="Error text, border, and ring"
+        colors={{
+            destructive: "var(--destructive)",
+            "destructive-border": "var(--destructive-border)",
+            "destructive-ring": "var(--destructive-ring)",
+        }}
+    />
+    <ColorItem
+        title="Destructive soft"
+        subtitle="Soft destructive fills"
+        colors={{
+            "destructive-soft": "var(--destructive-soft)",
+            "destructive-soft-hover": "var(--destructive-soft-hover)",
+        }}
+    />
+    <ColorItem
+        title="Fields"
+        subtitle="Borders and input chrome"
+        colors={{
+            border: "var(--border)",
+            input: "var(--input)",
+            "input-background": "var(--input-background)",
+        }}
+    />
+    <ColorItem
+        title="Field hover"
+        subtitle="Input hover and outline buttons"
+        colors={{
+            "input-background-hover": "var(--input-background-hover)",
+            control: "var(--control)",
+            "control-hover": "var(--control-hover)",
+            ring: "var(--ring)",
+        }}
+    />
+    <ColorItem
+        title="Switch and slider"
+        subtitle="Switch track, thumbs, and slider thumb"
+        colors={{
+            "switch-unchecked": "var(--switch-unchecked)",
+            "switch-thumb-checked": "var(--switch-thumb-checked)",
+            "switch-thumb-unchecked": "var(--switch-thumb-unchecked)",
+            "slider-thumb": "var(--slider-thumb)",
+        }}
+    />
+    <ColorItem
+        title="Kbd"
+        subtitle="A key inside a tooltip"
+        colors={{
+            "kbd-in-tooltip": "var(--kbd-in-tooltip)",
+        }}
+    />
+    <ColorItem
+        title="Charts"
+        subtitle="Series colors, chart-1 through chart-5"
+        colors={{
+            "chart-1": "var(--chart-1)",
+            "chart-2": "var(--chart-2)",
+            "chart-3": "var(--chart-3)",
+            "chart-4": "var(--chart-4)",
+            "chart-5": "var(--chart-5)",
+        }}
+    />
+</ColorPalette>

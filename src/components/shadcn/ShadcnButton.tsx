@@ -12,9 +12,9 @@ const shadcnButtonVariants = cva(
                 default:
                     "bg-primary text-primary-foreground hover:bg-primary/80",
                 outline:
-                    "border-control-border bg-control shadow-xs hover:bg-control-hover hover:text-foreground aria-expanded:bg-control-hover aria-expanded:text-foreground",
+                    "border-input bg-control shadow-xs hover:bg-control-hover hover:text-foreground aria-expanded:bg-control-hover aria-expanded:text-foreground",
                 secondary:
-                    "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+                    "bg-secondary text-secondary-foreground hover:bg-secondary-hover aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
                 ghost: "hover:bg-muted-hover hover:text-foreground aria-expanded:bg-muted-hover aria-expanded:text-foreground",
                 destructive:
                     "bg-destructive-soft text-destructive hover:bg-destructive-soft-hover focus-visible:border-destructive/40 focus-visible:ring-destructive-ring",

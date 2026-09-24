@@ -10,6 +10,11 @@ import { defineConfig } from "vite";
 const dirname = import.meta.dirname;
 
 export default defineConfig({
+    build: {
+        // Storybook forwards this target into the CSS minifier. These
+        // browsers support light-dark(), so the build leaves it in place.
+        target: ["chrome123", "firefox120", "safari17.5"],
+    },
     plugins: [
         react({
             compiler: true,
