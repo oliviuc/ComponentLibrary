@@ -6,8 +6,17 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-function ShadcnDropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
-    return <MenuPrimitive.Root data-slot="shadcn-dropdown-menu" {...props} />;
+function ShadcnDropdownMenu({
+    modal = false,
+    ...props
+}: MenuPrimitive.Root.Props) {
+    return (
+        <MenuPrimitive.Root
+            data-slot="shadcn-dropdown-menu"
+            modal={modal}
+            {...props}
+        />
+    );
 }
 
 function ShadcnDropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {

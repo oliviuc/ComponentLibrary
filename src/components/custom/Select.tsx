@@ -1,18 +1,57 @@
-import type { ComponentProps } from "react";
-import { Popover as PopoverPrimitive } from "radix-ui";
-import { CheckIcon, ChevronDownIcon } from "lucide-react";
+import {
+    Children,
+    isValidElement,
+    type ComponentProps,
+    type ReactNode,
+} from "react";
 
-import { cn } from "@/lib/utils";
 import { ClearButton } from "@/components/custom/ClearButton";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/Popover";
+    ShadcnSelect,
+    ShadcnSelectContent,
+    ShadcnSelectItem,
+    ShadcnSelectTrigger,
+    ShadcnSelectValue,
+} from "@/components/shadcn/ShadcnSelect";
+import { cn } from "@/lib/utils";
+import type { Select as SelectPrimitive } from "@base-ui/react/select";
+
+/** Labels for the closed trigger, taken from each option's children. */
+function collectOptionLabels(
+    nodes: ReactNode,
+    into: Record<string, ReactNode>,
+) {
+    Children.forEach(nodes, (child) => {
+        if (!isValidElement(child)) {
+            return;
+        }
+        const props = child.props as { value?: unknown; children?: ReactNode };
+        if (child.type === SelectOption && props.value != null) {
+            into[String(props.value)] = props.children;
+            return;
+        }
+        if (props.children != null) {
+            collectOptionLabels(props.children, into);
+        }
+    });
+}
 
 /** Pick one item from a list. */
-export function Select(props: ComponentProps<typeof Popover>) {
-    return <Popover {...props} />;
+export function Select<Value>({
+    items,
+    children,
+    ...props
+}: SelectPrimitive.Root.Props<Value>) {
+    const collected: Record<string, ReactNode> = {};
+    if (items == null) {
+        collectOptionLabels(children, collected);
+    }
+
+    return (
+        <ShadcnSelect items={items ?? collected} {...props}>
+            {children}
+        </ShadcnSelect>
+    );
 }
 
 export function SelectTrigger({
@@ -23,108 +62,48 @@ export function SelectTrigger({
     onClear,
     disabled,
     ...props
-}: ComponentProps<"button"> & {
+}: ComponentProps<typeof ShadcnSelectTrigger> & {
     placeholder?: string;
     clearable?: boolean;
     onClear?: () => void;
 }) {
-    const isEmpty = children == null || children === "";
-    const showClear = Boolean(clearable && !isEmpty && !disabled);
-
-    return (
-        <PopoverTrigger asChild aria-haspopup="listbox">
-            <button
-                type="button"
-                data-slot="select-trigger"
-                disabled={disabled}
-                className={cn(
-                    "flex h-9 w-full min-w-0 items-center justify-between gap-1.5 rounded-md border border-input bg-input-background py-2 pr-2 pl-2.5 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none",
-                    "hover:bg-input-background-hover",
-                    "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
-                    "disabled:cursor-not-allowed disabled:opacity-50",
-                    "aria-expanded:bg-muted",
-                    "aria-invalid:border-destructive-border aria-invalid:ring-3 aria-invalid:ring-destructive-ring",
-                    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-                    className,
-                )}
-                {...props}
-            >
-                <span
-                    data-slot="select-value"
-                    className={cn(
-                        "flex-1 truncate text-left",
-                        isEmpty && "text-muted-foreground",
-                    )}
-                >
-                    {isEmpty ? placeholder : children}
-                </span>
-                {showClear ? <ClearButton onClick={onClear} /> : null}
-                <ChevronDownIcon className="size-4 text-muted-foreground" />
-            </button>
-        </PopoverTrigger>
-    );
-}
-
-export function SelectContent({
-    className,
-    align = "start",
-    side = "bottom",
-    children,
-    ...props
-}: ComponentProps<typeof PopoverContent>) {
-    return (
-        <PopoverContent
-            align={align}
-            side={side}
-            role="presentation"
+    const trigger = (
+        <ShadcnSelectTrigger
+            disabled={disabled}
             className={cn(
-                "h-fit max-h-[min(300px,var(--radix-popover-content-available-height))] w-(--radix-popover-trigger-width) min-w-(--radix-popover-trigger-width) max-w-(--radix-popover-trigger-width) gap-0 overflow-x-hidden overflow-y-auto p-1",
+                "peer w-full",
+                clearable && "not-data-placeholder:pr-16",
                 className,
             )}
             {...props}
         >
-            <ul
-                data-slot="select-content"
-                className="flex w-full list-none flex-col p-0"
-            >
-                {children}
-            </ul>
-        </PopoverContent>
+            {children ?? <ShadcnSelectValue placeholder={placeholder} />}
+        </ShadcnSelectTrigger>
+    );
+
+    if (!clearable) {
+        return trigger;
+    }
+
+    return (
+        <div data-slot="select-field" className="relative w-full">
+            {trigger}
+            {disabled ? null : (
+                <ClearButton
+                    className="absolute top-1/2 right-8 z-10 -translate-y-1/2 peer-data-placeholder:hidden"
+                    onClick={onClear}
+                />
+            )}
+        </div>
     );
 }
 
-export function SelectOption({
-    className,
-    children,
-    selected,
-    disabled,
-    ...props
-}: ComponentProps<"button"> & { selected?: boolean }) {
-    return (
-        <li data-slot="select-option" className="w-full">
-            <PopoverPrimitive.Close asChild>
-                <button
-                    type="button"
-                    disabled={disabled}
-                    data-selected={selected || undefined}
-                    className={cn(
-                        "relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none",
-                        "hover:bg-accent hover:text-accent-foreground",
-                        "focus-visible:bg-accent focus-visible:text-accent-foreground",
-                        "disabled:pointer-events-none disabled:opacity-50",
-                        "data-selected:bg-accent data-selected:text-accent-foreground",
-                        className,
-                    )}
-                    {...props}
-                >
-                    <span className="truncate">{children}</span>
-                    {selected ? (
-                        <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center">
-                            <CheckIcon className="size-4" />
-                        </span>
-                    ) : null}
-                </button>
-            </PopoverPrimitive.Close>
-        </li>
-    );
+export function SelectContent(
+    props: ComponentProps<typeof ShadcnSelectContent>,
+) {
+    return <ShadcnSelectContent {...props} />;
+}
+
+export function SelectOption(props: ComponentProps<typeof ShadcnSelectItem>) {
+    return <ShadcnSelectItem {...props} />;
 }

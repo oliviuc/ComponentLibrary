@@ -108,7 +108,7 @@ export const WithBadge: Story = {
     render: (args) => (
         <Avatar {...args}>
             <AvatarFallback>AL</AvatarFallback>
-            <AvatarBadge />
+            <AvatarBadge role="img" aria-label="Online" />
         </Avatar>
     ),
     parameters: {
@@ -119,7 +119,7 @@ export const WithBadge: Story = {
             source: {
                 code: `<Avatar>
     <AvatarFallback>AL</AvatarFallback>
-    <AvatarBadge />
+    <AvatarBadge role="img" aria-label="Online" />
 </Avatar>`,
             },
         },

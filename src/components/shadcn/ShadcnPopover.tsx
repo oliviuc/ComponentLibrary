@@ -68,7 +68,7 @@ function ShadcnPopoverTitle({
     ...props
 }: React.ComponentProps<"h2">) {
     return (
-        <div
+        <h2
             data-slot="shadcn-popover-title"
             className={cn("font-medium", className)}
             {...props}

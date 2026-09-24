@@ -15,6 +15,7 @@ const meta = {
     args: {
         value: 66,
         className: "w-72",
+        "aria-label": "Task progress",
     },
     argTypes: {
         value: {
@@ -30,14 +31,22 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     parameters: {
-        docs: { source: { code: `<Progress value={66} className="w-72" />` } },
+        docs: {
+            source: {
+                code: `<Progress value={66} aria-label="Task progress" className="w-72" />`,
+            },
+        },
     },
 };
 
 export const Empty: Story = {
     args: { value: 0 },
     parameters: {
-        docs: { source: { code: `<Progress value={0} className="w-72" />` } },
+        docs: {
+            source: {
+                code: `<Progress value={0} aria-label="Task progress" className="w-72" />`,
+            },
+        },
     },
 };
 
@@ -45,7 +54,9 @@ export const Complete: Story = {
     args: { value: 100 },
     parameters: {
         docs: {
-            source: { code: `<Progress value={100} className="w-72" />` },
+            source: {
+                code: `<Progress value={100} aria-label="Task progress" className="w-72" />`,
+            },
         },
     },
 };

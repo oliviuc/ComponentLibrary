@@ -301,14 +301,22 @@ export const InTable: Story = {
                     <TableCell className="font-medium">Pro plan</TableCell>
                     <TableCell className="text-right">$12,480</TableCell>
                     <TableCell>
-                        <Sparkline data={revenue} className="h-8 w-24" />
+                        <Sparkline
+                            data={revenue}
+                            aria-label="Pro plan sales trend"
+                            className="h-8 w-24"
+                        />
                     </TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell className="font-medium">Teams</TableCell>
                     <TableCell className="text-right">$8,210</TableCell>
                     <TableCell>
-                        <Sparkline data={signups} className="h-8 w-24" />
+                        <Sparkline
+                            data={signups}
+                            aria-label="Teams sales trend"
+                            className="h-8 w-24"
+                        />
                     </TableCell>
                 </TableRow>
                 <TableRow>
@@ -317,6 +325,7 @@ export const InTable: Story = {
                     <TableCell>
                         <Sparkline
                             data={churn}
+                            aria-label="Starter sales trend"
                             className="h-8 w-24 text-destructive"
                         />
                     </TableCell>
@@ -347,14 +356,22 @@ const churn = [6, 5, 8, 4, 7, 3, 2];
             <TableCell className="font-medium">Pro plan</TableCell>
             <TableCell className="text-right">$12,480</TableCell>
             <TableCell>
-                <Sparkline data={revenue} className="h-8 w-24" />
+                <Sparkline
+                    data={revenue}
+                    aria-label="Pro plan sales trend"
+                    className="h-8 w-24"
+                />
             </TableCell>
         </TableRow>
         <TableRow>
             <TableCell className="font-medium">Teams</TableCell>
             <TableCell className="text-right">$8,210</TableCell>
             <TableCell>
-                <Sparkline data={signups} className="h-8 w-24" />
+                <Sparkline
+                    data={signups}
+                    aria-label="Teams sales trend"
+                    className="h-8 w-24"
+                />
             </TableCell>
         </TableRow>
         <TableRow>
@@ -363,6 +380,7 @@ const churn = [6, 5, 8, 4, 7, 3, 2];
             <TableCell>
                 <Sparkline
                     data={churn}
+                    aria-label="Starter sales trend"
                     className="h-8 w-24 text-destructive"
                 />
             </TableCell>

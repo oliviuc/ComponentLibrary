@@ -59,7 +59,10 @@ function ShadcnBreadcrumbLink({
     return (
         <Comp
             data-slot="shadcn-breadcrumb-link"
-            className={cn("transition-colors hover:text-foreground", className)}
+            className={cn(
+                "rounded-sm transition-colors hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden",
+                className,
+            )}
             {...props}
         />
     );

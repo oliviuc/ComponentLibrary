@@ -27,7 +27,7 @@ const radial = [{ browser: "Safari", visitors: 1260 }];
 const meta = {
     title: "Graphs/Pie",
     component: Chart,
-    args: { type: "pie" },
+    args: { type: "pie", "aria-label": "Browser share" },
     parameters: {
         docs: {
             description: {
@@ -47,7 +47,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Donut: Story = {
     render: () => (
-        <Chart type="pie" className="aspect-square w-72">
+        <Chart
+            aria-label="Browser share"
+            type="pie"
+            className="aspect-square w-72"
+        >
             <ChartSeries dataKey="Chrome">Chrome</ChartSeries>
             <ChartSeries dataKey="Safari">Safari</ChartSeries>
             <ChartSeries dataKey="Firefox">Firefox</ChartSeries>
@@ -91,7 +95,7 @@ const totalVisitors = browsers.reduce(
     0,
 );
 
-<Chart type="pie" className="aspect-square w-72">
+<Chart aria-label="Browser share" type="pie" className="aspect-square w-72">
     <ChartSeries dataKey="Chrome">Chrome</ChartSeries>
     <ChartSeries dataKey="Safari">Safari</ChartSeries>
     <ChartSeries dataKey="Firefox">Firefox</ChartSeries>
@@ -123,6 +127,7 @@ const totalVisitors = browsers.reduce(
 export const Radial: Story = {
     render: () => (
         <Chart
+            aria-label="Visitors"
             type="radial"
             data={radial}
             endAngle={100}
@@ -160,7 +165,7 @@ export const Radial: Story = {
             source: {
                 code: `const radial = [{ browser: "Safari", visitors: 1260 }];
 
-<Chart
+<Chart aria-label="Visitors"
     type="radial"
     data={radial}
     endAngle={100}

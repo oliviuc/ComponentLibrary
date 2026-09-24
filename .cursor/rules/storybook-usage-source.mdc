@@ -20,7 +20,7 @@ The docs **Show code** block is how people learn the API. It must be the full JS
 { render: () => <FruitSelect id="select-fruit" /> }
 
 <Select>
-    <SelectTrigger placeholder="Select a fruit">{selectedLabel}</SelectTrigger>
+    <SelectTrigger placeholder="Select a fruit" />
     <SelectContent>
         <SelectOption value="apple">Apple</SelectOption>
     </SelectContent>
@@ -34,23 +34,15 @@ const fruits = [
     { value: "grapes", label: "Grapes" },
     { value: "pineapple", label: "Pineapple" },
 ];
-const [value, setValue] = useState<string>();
-const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+const [value, setValue] = useState<string | null>(null);
 
 <div className="grid w-72 gap-2">
     <Label htmlFor="select-fruit">Fruit</Label>
-    <Select>
-        <SelectTrigger id="select-fruit" placeholder="Select a fruit">
-            {selectedLabel}
-        </SelectTrigger>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger id="select-fruit" placeholder="Select a fruit" />
         <SelectContent>
             {fruits.map((fruit) => (
-                <SelectOption
-                    key={fruit.value}
-                    value={fruit.value}
-                    selected={fruit.value === value}
-                    onClick={() => setValue(fruit.value)}
-                >
+                <SelectOption key={fruit.value} value={fruit.value}>
                     {fruit.label}
                 </SelectOption>
             ))}

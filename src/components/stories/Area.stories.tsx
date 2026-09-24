@@ -22,7 +22,7 @@ const visitors = [
 const meta = {
     title: "Graphs/Area",
     component: Chart,
-    args: { type: "area" },
+    args: { type: "area", "aria-label": "Monthly visitors" },
     parameters: {
         docs: {
             description: {
@@ -42,7 +42,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Gradient: Story = {
     render: () => (
-        <Chart type="area" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="area"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile" className="text-chart-4">
                 Mobile
@@ -71,7 +76,7 @@ export const Gradient: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="area" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="area" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile" className="text-chart-4">
         Mobile
@@ -94,7 +99,12 @@ export const Gradient: Story = {
 
 export const Stops: Story = {
     render: () => (
-        <Chart type="area" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="area"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis
@@ -122,7 +132,7 @@ export const Stops: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="area" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="area" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis

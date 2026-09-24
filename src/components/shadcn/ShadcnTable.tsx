@@ -6,7 +6,8 @@ function ShadcnTable({ className, ...props }: React.ComponentProps<"table">) {
     return (
         <div
             data-slot="shadcn-table-container"
-            className="relative w-full overflow-x-auto"
+            tabIndex={0}
+            className="relative w-full overflow-x-auto focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden"
         >
             <table
                 data-slot="shadcn-table"

@@ -36,40 +36,38 @@ const manyFruits = [
 
 function FruitSelect({
     options = fruits,
-    defaultValue,
+    defaultValue = null,
     disabled,
     invalid,
     id,
+    clearable,
 }: {
     options?: { value: string; label: string; disabled?: boolean }[];
-    defaultValue?: string;
+    defaultValue?: string | null;
     disabled?: boolean;
     invalid?: boolean;
     id?: string;
+    clearable?: boolean;
 }) {
-    const [value, setValue] = useState(defaultValue);
-    const selectedLabel = options.find(
-        (option) => option.value === value,
-    )?.label;
+    const [value, setValue] = useState<string | null>(defaultValue);
+    const fieldId = id ?? "fruit";
 
-    return (
-        <Select>
+    const field = (
+        <Select value={value} onValueChange={setValue}>
             <SelectTrigger
-                id={id}
+                id={fieldId}
                 placeholder="Select a fruit"
                 disabled={disabled}
                 aria-invalid={invalid || undefined}
-            >
-                {selectedLabel}
-            </SelectTrigger>
+                clearable={clearable}
+                onClear={() => setValue(null)}
+            />
             <SelectContent>
                 {options.map((option) => (
                     <SelectOption
                         key={option.value}
                         value={option.value}
-                        selected={option.value === value}
                         disabled={option.disabled}
-                        onClick={() => setValue(option.value)}
                     >
                         {option.label}
                     </SelectOption>
@@ -77,28 +75,34 @@ function FruitSelect({
             </SelectContent>
         </Select>
     );
+
+    if (id) {
+        return field;
+    }
+
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor={fieldId}>Fruit</Label>
+            {field}
+        </div>
+    );
 }
 
-const usage = `const [value, setValue] = useState<string>();
-const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+const usage = `const [value, setValue] = useState<string | null>(null);
 
-<Select>
-    <SelectTrigger placeholder="Select a fruit">
-        {selectedLabel}
-    </SelectTrigger>
-    <SelectContent>
-        {fruits.map((fruit) => (
-            <SelectOption
-                key={fruit.value}
-                value={fruit.value}
-                selected={fruit.value === value}
-                onClick={() => setValue(fruit.value)}
-            >
-                {fruit.label}
-            </SelectOption>
-        ))}
-    </SelectContent>
-</Select>`;
+<div className="grid gap-2">
+    <Label htmlFor="fruit">Fruit</Label>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger id="fruit" placeholder="Select a fruit" />
+        <SelectContent>
+            {fruits.map((fruit) => (
+                <SelectOption key={fruit.value} value={fruit.value}>
+                    {fruit.label}
+                </SelectOption>
+            ))}
+        </SelectContent>
+    </Select>
+</div>`;
 
 const meta = {
     title: "Components/Select",
@@ -147,7 +151,10 @@ export const Selected: Story = {
                 story: "An item can start selected.",
             },
             source: {
-                code: usage.replace("useState<string>()", 'useState("banana")'),
+                code: usage.replace(
+                    "useState<string | null>(null)",
+                    'useState<string | null>("banana")',
+                ),
             },
         },
     },
@@ -155,33 +162,27 @@ export const Selected: Story = {
 
 export const Clearable: Story = {
     render: function Clearable() {
-        const [value, setValue] = useState<string | undefined>("banana");
-        const selectedLabel = fruits.find(
-            (fruit) => fruit.value === value,
-        )?.label;
+        const [value, setValue] = useState<string | null>("banana");
 
         return (
-            <Select>
-                <SelectTrigger
-                    placeholder="Select a fruit"
-                    clearable
-                    onClear={() => setValue(undefined)}
-                >
-                    {selectedLabel}
-                </SelectTrigger>
-                <SelectContent>
-                    {fruits.map((fruit) => (
-                        <SelectOption
-                            key={fruit.value}
-                            value={fruit.value}
-                            selected={fruit.value === value}
-                            onClick={() => setValue(fruit.value)}
-                        >
-                            {fruit.label}
-                        </SelectOption>
-                    ))}
-                </SelectContent>
-            </Select>
+            <div className="grid gap-2">
+                <Label htmlFor="fruit">Fruit</Label>
+                <Select value={value} onValueChange={setValue}>
+                    <SelectTrigger
+                        id="fruit"
+                        placeholder="Select a fruit"
+                        clearable
+                        onClear={() => setValue(null)}
+                    />
+                    <SelectContent>
+                        {fruits.map((fruit) => (
+                            <SelectOption key={fruit.value} value={fruit.value}>
+                                {fruit.label}
+                            </SelectOption>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
         );
     },
     parameters: {
@@ -190,30 +191,26 @@ export const Clearable: Story = {
                 story: "Show a clear button when an item is selected.",
             },
             source: {
-                code: `const [value, setValue] = useState<string | undefined>("banana");
-const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+                code: `const [value, setValue] = useState<string | null>("banana");
 
-<Select>
-    <SelectTrigger
-        placeholder="Select a fruit"
-        clearable
-        onClear={() => setValue(undefined)}
-    >
-        {selectedLabel}
-    </SelectTrigger>
+<div className="grid gap-2">
+    <Label htmlFor="fruit">Fruit</Label>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger
+            id="fruit"
+            placeholder="Select a fruit"
+            clearable
+            onClear={() => setValue(null)}
+        />
     <SelectContent>
         {fruits.map((fruit) => (
-            <SelectOption
-                key={fruit.value}
-                value={fruit.value}
-                selected={fruit.value === value}
-                onClick={() => setValue(fruit.value)}
-            >
+            <SelectOption key={fruit.value} value={fruit.value}>
                 {fruit.label}
             </SelectOption>
         ))}
-    </SelectContent>
-</Select>`,
+        </SelectContent>
+    </Select>
+</div>`,
             },
         },
     },
@@ -249,34 +246,21 @@ export const DisabledOption: Story = {
                 story: "A single option can be unavailable.",
             },
             source: {
-                code: `const [value, setValue] = useState<string>();
-const selectedLabel =
-    value === "apple" ? "Apple" : value === "blueberry" ? "Blueberry" : undefined;
+                code: `const [value, setValue] = useState<string | null>(null);
 
-<Select>
-    <SelectTrigger placeholder="Select a fruit">
-        {selectedLabel}
-    </SelectTrigger>
-    <SelectContent>
-        <SelectOption
-            value="apple"
-            selected={value === "apple"}
-            onClick={() => setValue("apple")}
-        >
-            Apple
-        </SelectOption>
-        <SelectOption value="banana" disabled>
-            Banana
-        </SelectOption>
-        <SelectOption
-            value="blueberry"
-            selected={value === "blueberry"}
-            onClick={() => setValue("blueberry")}
-        >
-            Blueberry
-        </SelectOption>
-    </SelectContent>
-</Select>`,
+<div className="grid gap-2">
+    <Label htmlFor="fruit">Fruit</Label>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger id="fruit" placeholder="Select a fruit" />
+        <SelectContent>
+            <SelectOption value="apple">Apple</SelectOption>
+            <SelectOption value="banana" disabled>
+                Banana
+            </SelectOption>
+            <SelectOption value="blueberry">Blueberry</SelectOption>
+        </SelectContent>
+    </Select>
+</div>`,
             },
         },
     },
@@ -287,26 +271,21 @@ export const Disabled: Story = {
     parameters: {
         docs: {
             source: {
-                code: `const [value, setValue] = useState("apple");
-const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+                code: `const [value, setValue] = useState<string | null>("apple");
 
-<Select>
-    <SelectTrigger placeholder="Select a fruit" disabled>
-        {selectedLabel}
-    </SelectTrigger>
-    <SelectContent>
-        {fruits.map((fruit) => (
-            <SelectOption
-                key={fruit.value}
-                value={fruit.value}
-                selected={fruit.value === value}
-                onClick={() => setValue(fruit.value)}
-            >
-                {fruit.label}
-            </SelectOption>
-        ))}
-    </SelectContent>
-</Select>`,
+<div className="grid gap-2">
+    <Label htmlFor="fruit">Fruit</Label>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger id="fruit" placeholder="Select a fruit" disabled />
+        <SelectContent>
+            {fruits.map((fruit) => (
+                <SelectOption key={fruit.value} value={fruit.value}>
+                    {fruit.label}
+                </SelectOption>
+            ))}
+        </SelectContent>
+    </Select>
+</div>`,
             },
         },
     },
@@ -336,23 +315,15 @@ export const WithLabel: Story = {
     parameters: {
         docs: {
             source: {
-                code: `const [value, setValue] = useState<string>();
-const selectedLabel = fruits.find((fruit) => fruit.value === value)?.label;
+                code: `const [value, setValue] = useState<string | null>(null);
 
 <div className="grid w-72 gap-2">
     <Label htmlFor="select-fruit">Fruit</Label>
-    <Select>
-        <SelectTrigger id="select-fruit" placeholder="Select a fruit">
-            {selectedLabel}
-        </SelectTrigger>
+    <Select value={value} onValueChange={setValue}>
+        <SelectTrigger id="select-fruit" placeholder="Select a fruit" />
         <SelectContent>
             {fruits.map((fruit) => (
-                <SelectOption
-                    key={fruit.value}
-                    value={fruit.value}
-                    selected={fruit.value === value}
-                    onClick={() => setValue(fruit.value)}
-                >
+                <SelectOption key={fruit.value} value={fruit.value}>
                     {fruit.label}
                 </SelectOption>
             ))}

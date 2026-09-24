@@ -21,7 +21,7 @@ const visitors = [
 const meta = {
     title: "Graphs/Radar",
     component: Chart,
-    args: { type: "radar" },
+    args: { type: "radar", "aria-label": "Monthly visitors" },
     parameters: {
         docs: {
             description: {
@@ -41,7 +41,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: () => (
-        <Chart type="radar" data={visitors} className="aspect-square w-72">
+        <Chart
+            aria-label="Monthly visitors"
+            type="radar"
+            data={visitors}
+            className="aspect-square w-72"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartTooltip />
@@ -66,7 +71,7 @@ export const Default: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="radar" data={visitors} className="aspect-square w-72">
+<Chart aria-label="Monthly visitors" type="radar" data={visitors} className="aspect-square w-72">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartTooltip />

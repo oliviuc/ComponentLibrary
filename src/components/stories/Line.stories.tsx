@@ -27,7 +27,7 @@ const visitors = [
 const meta = {
     title: "Graphs/Line",
     component: Chart,
-    args: { type: "line" },
+    args: { type: "line", "aria-label": "Monthly visitors" },
     parameters: {
         docs: {
             description: {
@@ -47,7 +47,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: () => (
-        <Chart type="line" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="line"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -74,7 +79,7 @@ export const Default: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="line" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="line" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -124,7 +129,12 @@ export const Default: Story = {
 
 export const Step: Story = {
     render: () => (
-        <Chart type="line" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="line"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis
@@ -151,7 +161,7 @@ export const Step: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="line" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="line" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis
@@ -169,7 +179,12 @@ export const Step: Story = {
 
 export const Mixed: Story = {
     render: () => (
-        <Chart type="composed" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="composed"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -199,7 +214,7 @@ export const Mixed: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="composed" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="composed" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -220,7 +235,12 @@ export const Mixed: Story = {
 
 export const Reference: Story = {
     render: () => (
-        <Chart type="line" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="line"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis
@@ -251,7 +271,7 @@ export const Reference: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="line" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="line" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis

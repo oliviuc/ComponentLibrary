@@ -32,7 +32,7 @@ const browsers = [
 const meta = {
     title: "Graphs/Bar",
     component: Chart,
-    args: { type: "bar" },
+    args: { type: "bar", "aria-label": "Monthly visitors" },
     parameters: {
         docs: {
             description: {
@@ -52,7 +52,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -78,7 +83,7 @@ export const Default: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -98,7 +103,12 @@ export const Default: Story = {
 
 export const Formatted: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries
                 dataKey="desktop"
                 format={(value) => `${value} visitors`}
@@ -132,7 +142,7 @@ export const Formatted: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries
         dataKey="desktop"
         format={(value) => \`\${value} visitors\`}
@@ -183,6 +193,7 @@ export const Formatted: Story = {
 export const Horizontal: Story = {
     render: () => (
         <Chart
+            aria-label="Monthly visitors"
             type="bar"
             data={visitors}
             layout="vertical"
@@ -220,7 +231,7 @@ export const Horizontal: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} layout="vertical" className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} layout="vertical" className="h-64 w-96">
     <ChartXAxis dataKey="desktop" type="number" hide />
     <ChartYAxis
         dataKey="month"
@@ -244,7 +255,12 @@ export const Horizontal: Story = {
 
 export const Stacked: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -281,7 +297,7 @@ export const Stacked: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -309,7 +325,12 @@ export const Stacked: Story = {
 
 export const Categories: Story = {
     render: () => (
-        <Chart type="bar" data={browsers} className="h-64 w-96">
+        <Chart
+            aria-label="Browser share"
+            type="bar"
+            data={browsers}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="Chrome">Chrome</ChartSeries>
             <ChartSeries dataKey="Safari">Safari</ChartSeries>
             <ChartSeries dataKey="Firefox">Firefox</ChartSeries>
@@ -335,7 +356,7 @@ export const Categories: Story = {
     { browser: "Other", visitors: 190 },
 ];
 
-<Chart type="bar" data={browsers} className="h-64 w-96">
+<Chart aria-label="Browser share" type="bar" data={browsers} className="h-64 w-96">
     <ChartSeries dataKey="Chrome">Chrome</ChartSeries>
     <ChartSeries dataKey="Safari">Safari</ChartSeries>
     <ChartSeries dataKey="Firefox">Firefox</ChartSeries>
@@ -362,7 +383,12 @@ function RevenueBars() {
 
 export const Wrapped: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartGrid vertical={false} />
             <ChartXAxis
                 dataKey="month"
@@ -397,7 +423,7 @@ function RevenueBars() {
     );
 }
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartGrid vertical={false} />
     <ChartXAxis
         dataKey="month"
@@ -424,7 +450,12 @@ function RevenueBars() {
 
 export const Labels: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis
@@ -453,7 +484,7 @@ export const Labels: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis

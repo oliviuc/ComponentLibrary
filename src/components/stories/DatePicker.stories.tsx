@@ -45,32 +45,38 @@ type Story = StoryObj<typeof meta>;
 
 const usage = `const [date, setDate] = useState<Date>();
 
-<DatePicker>
-    <DatePickerTrigger placeholder="Pick a date">
-        {date ? format(date, "PPP") : null}
-    </DatePickerTrigger>
-    <DatePickerContent>
-        <Calendar mode="single" selected={date} onSelect={setDate} />
-    </DatePickerContent>
-</DatePicker>`;
+<div className="grid gap-2">
+    <Label htmlFor="date">Date</Label>
+    <DatePicker>
+        <DatePickerTrigger id="date" placeholder="Pick a date">
+            {date ? format(date, "PPP") : null}
+        </DatePickerTrigger>
+        <DatePickerContent>
+            <Calendar mode="single" selected={date} onSelect={setDate} />
+        </DatePickerContent>
+    </DatePicker>
+</div>`;
 
 export const Default: Story = {
     render: function Default() {
         const [date, setDate] = useState<Date>();
 
         return (
-            <DatePicker>
-                <DatePickerTrigger placeholder="Pick a date">
-                    {date ? format(date, "PPP") : null}
-                </DatePickerTrigger>
-                <DatePickerContent>
-                    <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                    />
-                </DatePickerContent>
-            </DatePicker>
+            <div className="grid gap-2">
+                <Label htmlFor="date">Date</Label>
+                <DatePicker>
+                    <DatePickerTrigger id="date" placeholder="Pick a date">
+                        {date ? format(date, "PPP") : null}
+                    </DatePickerTrigger>
+                    <DatePickerContent>
+                        <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
+                        />
+                    </DatePickerContent>
+                </DatePicker>
+            </div>
         );
     },
     parameters: {

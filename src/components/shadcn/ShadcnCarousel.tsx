@@ -26,6 +26,7 @@ type ShadcnCarouselContextProps = {
     scrollNext: () => void;
     canScrollPrev: boolean;
     canScrollNext: boolean;
+    slideCount: number;
 } & ShadcnCarouselProps;
 
 const ShadcnCarouselContext =
@@ -71,15 +72,19 @@ function ShadcnCarousel({
 
     const handleKeyDown = React.useCallback(
         (event: React.KeyboardEvent<HTMLDivElement>) => {
-            if (event.key === "ArrowLeft") {
+            const prevKey =
+                orientation === "vertical" ? "ArrowUp" : "ArrowLeft";
+            const nextKey =
+                orientation === "vertical" ? "ArrowDown" : "ArrowRight";
+            if (event.key === prevKey) {
                 event.preventDefault();
                 scrollPrev();
-            } else if (event.key === "ArrowRight") {
+            } else if (event.key === nextKey) {
                 event.preventDefault();
                 scrollNext();
             }
         },
-        [scrollPrev, scrollNext],
+        [orientation, scrollPrev, scrollNext],
     );
 
     React.useEffect(() => {
@@ -119,6 +124,7 @@ function ShadcnCarousel({
                 scrollNext,
                 canScrollPrev,
                 canScrollNext,
+                slideCount: api?.slideNodes().length ?? 0,
             }}
         >
             <div
@@ -161,14 +167,42 @@ function ShadcnCarouselContent({
 
 function ShadcnCarouselItem({
     className,
+    "aria-label": ariaLabel,
     ...props
 }: React.ComponentProps<"div">) {
-    const { orientation } = useShadcnCarousel();
+    const { orientation, slideCount } = useShadcnCarousel();
+    const ref = React.useRef<HTMLDivElement>(null);
+    const [positionLabel, setPositionLabel] = React.useState<
+        string | undefined
+    >(undefined);
+
+    React.useLayoutEffect(() => {
+        if (ariaLabel) {
+            return;
+        }
+        const node = ref.current;
+        const parent = node?.parentElement;
+        if (!node || !parent) {
+            return;
+        }
+        const slides = [...parent.children].filter(
+            (child) =>
+                child.getAttribute("data-slot") === "shadcn-carousel-item",
+        );
+        const index = slides.indexOf(node);
+        if (index < 0) {
+            return;
+        }
+        const next = `${index + 1} of ${slides.length}`;
+        setPositionLabel((current) => (current === next ? current : next));
+    }, [ariaLabel, slideCount]);
 
     return (
         <div
+            ref={ref}
             role="group"
             aria-roledescription="slide"
+            aria-label={ariaLabel ?? positionLabel}
             data-slot="shadcn-carousel-item"
             className={cn(
                 "min-w-0 shrink-0 grow-0 basis-full",

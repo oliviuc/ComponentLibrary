@@ -34,7 +34,7 @@ const visitors = [
 const meta = {
     title: "Graphs/Chart",
     component: Chart,
-    args: { type: "bar" },
+    args: { type: "bar", "aria-label": "Monthly visitors" },
     parameters: {
         docs: {
             description: {
@@ -54,7 +54,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Icons: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">
                 <MonitorIcon className="size-3" /> Desktop
             </ChartSeries>
@@ -90,7 +95,7 @@ export const Icons: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">
         <MonitorIcon className="size-3" /> Desktop
     </ChartSeries>
@@ -117,7 +122,12 @@ export const Icons: Story = {
 
 export const Color: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -147,7 +157,7 @@ export const Color: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -168,7 +178,12 @@ export const Color: Story = {
 
 export const Tooltip: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -215,7 +230,7 @@ export const Tooltip: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -253,7 +268,12 @@ export const Tooltip: Story = {
 
 export const Ticks: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis dataKey="month" height={48} tickHeight={36}>
@@ -283,7 +303,7 @@ export const Ticks: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis dataKey="month" height={48} tickHeight={36}>
@@ -304,7 +324,12 @@ export const Ticks: Story = {
 
 export const Currency: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries
                 dataKey="desktop"
                 format={{
@@ -359,7 +384,7 @@ export const Currency: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries
         dataKey="desktop"
         format={{
@@ -421,7 +446,12 @@ function ChartTotal() {
 
 export const Total: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -470,7 +500,7 @@ function ChartTotal() {
     );
 }
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -497,7 +527,12 @@ export const Toggle: Story = {
         const [hidden, setHidden] = useState<Record<string, boolean>>({});
 
         return (
-            <Chart type="bar" data={visitors} className="h-64 w-96">
+            <Chart
+                aria-label="Monthly visitors"
+                type="bar"
+                data={visitors}
+                className="h-64 w-96"
+            >
                 <ChartSeries dataKey="desktop">Desktop</ChartSeries>
                 <ChartSeries dataKey="mobile">Mobile</ChartSeries>
                 <ChartGrid vertical={false} />
@@ -556,7 +591,7 @@ export const Toggle: Story = {
 
 const [hidden, setHidden] = useState<Record<string, boolean>>({});
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -617,7 +652,12 @@ const [hidden, setHidden] = useState<Record<string, boolean>>({});
 
 export const LegendLayout: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartSeries dataKey="mobile">Mobile</ChartSeries>
             <ChartGrid vertical={false} />
@@ -651,7 +691,7 @@ export const LegendLayout: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartSeries dataKey="mobile">Mobile</ChartSeries>
     <ChartGrid vertical={false} />
@@ -672,7 +712,12 @@ export const LegendLayout: Story = {
 
 export const Brush: Story = {
     render: () => (
-        <Chart type="bar" data={visitors} className="h-64 w-96">
+        <Chart
+            aria-label="Monthly visitors"
+            type="bar"
+            data={visitors}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="desktop">Desktop</ChartSeries>
             <ChartGrid vertical={false} />
             <ChartXAxis
@@ -700,7 +745,7 @@ export const Brush: Story = {
     { month: "June", desktop: 214, mobile: 140 },
 ];
 
-<Chart type="bar" data={visitors} className="h-64 w-96">
+<Chart aria-label="Monthly visitors" type="bar" data={visitors} className="h-64 w-96">
     <ChartSeries dataKey="desktop">Desktop</ChartSeries>
     <ChartGrid vertical={false} />
     <ChartXAxis

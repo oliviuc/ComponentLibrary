@@ -33,7 +33,7 @@ const preview: Preview = {
             disable: true,
         },
         a11y: {
-            test: "todo",
+            test: "error",
         },
         docs: {
             canvas: { sourceState: "shown" },

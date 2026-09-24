@@ -76,8 +76,9 @@ function DefaultDemo({
                 {count.toLocaleString()} people
             </p>
             <div
+                tabIndex={0}
                 ref={scrollRef}
-                className="h-80 overflow-auto rounded-xl border"
+                className="h-80 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden"
             >
                 <div style={innerStyle}>
                     {virtualItems.map((row) => (
@@ -122,7 +123,7 @@ const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
 
 <div className="grid w-96 gap-2">
     <p className="text-sm text-muted-foreground">10,000 people</p>
-    <div ref={scrollRef} className="h-80 overflow-auto rounded-xl border">
+    <div tabIndex={0} ref={scrollRef} className="h-80 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden">
         <div style={innerStyle}>
             {virtualItems.map((row) => (
                 <div
@@ -214,8 +215,9 @@ export const Lazy: Story = {
 
         return (
             <div
+                tabIndex={0}
                 ref={scrollRef}
-                className="h-80 w-96 overflow-auto rounded-xl border"
+                className="h-80 w-96 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden"
             >
                 <div style={innerStyle}>
                     {virtualItems.map((row) => (
@@ -288,7 +290,7 @@ const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
     },
 });
 
-<div ref={scrollRef} className="h-80 w-96 overflow-auto rounded-xl border">
+<div tabIndex={0} ref={scrollRef} className="h-80 w-96 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden">
     <div style={innerStyle}>
         {virtualItems.map((row) => (
             <div
@@ -343,8 +345,9 @@ export const Table: Story = {
 
         return (
             <div
+                tabIndex={0}
                 ref={scrollRef}
-                className="h-80 w-[36rem] overflow-auto rounded-xl border"
+                className="h-80 w-[36rem] overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden"
             >
                 <table className="w-full text-sm">
                     <thead className="sticky top-0 z-10 block border-b bg-background">
@@ -410,7 +413,7 @@ const { scrollRef, innerStyle, virtualItems } = useVirtualizedList({
     itemHeight: 40,
 });
 
-<div ref={scrollRef} className="h-80 w-[36rem] overflow-auto rounded-xl border">
+<div tabIndex={0} ref={scrollRef} className="h-80 w-[36rem] overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden">
     <table className="w-full text-sm">
         <thead className="sticky top-0 z-10 block border-b bg-background">
             <tr className="grid grid-cols-[3rem_1fr_minmax(0,1.4fr)_5.5rem] items-center">
@@ -493,8 +496,9 @@ export const ScrollToIndex: Story = {
                     </div>
                 </div>
                 <div
+                    tabIndex={0}
                     ref={scrollRef}
-                    className="h-80 overflow-auto rounded-xl border"
+                    className="h-80 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden"
                 >
                     <div style={innerStyle}>
                         {virtualItems.map((row) => (
@@ -548,7 +552,7 @@ const { scrollRef, innerStyle, virtualItems, scrollToIndex } =
             Jump
         </Button>
     </div>
-    <div ref={scrollRef} className="h-80 overflow-auto rounded-xl border">
+    <div tabIndex={0} ref={scrollRef} className="h-80 overflow-auto rounded-xl border focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden">
         <div style={innerStyle}>
             {virtualItems.map((row) => (
                 <div

@@ -9,42 +9,30 @@ export function ClearButton({
     children,
     onClick,
     onPointerDown,
-    onKeyDown,
     ...props
-}: ComponentProps<"span">) {
+}: ComponentProps<"button">) {
     return (
-        <span
+        <button
+            type="button"
             data-slot="clear-button"
-            role="button"
             aria-label="Clear"
             className={cn(
-                "flex size-5 shrink-0 cursor-pointer items-center justify-center rounded-sm text-muted-foreground outline-none",
+                "flex size-6 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none",
                 "hover:bg-muted hover:text-foreground",
-                "focus-visible:bg-muted focus-visible:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
+                "focus-visible:border-ring focus-visible:bg-muted focus-visible:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
                 className,
             )}
             {...props}
-            tabIndex={0}
             onPointerDown={(event) => {
-                event.preventDefault();
                 event.stopPropagation();
                 onPointerDown?.(event);
             }}
             onClick={(event) => {
-                event.preventDefault();
                 event.stopPropagation();
                 onClick?.(event);
             }}
-            onKeyDown={(event) => {
-                event.stopPropagation();
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    event.currentTarget.click();
-                }
-                onKeyDown?.(event);
-            }}
         >
             {children ?? <XIcon className="size-3.5" />}
-        </span>
+        </button>
     );
 }

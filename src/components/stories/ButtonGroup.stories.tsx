@@ -33,14 +33,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: (args) => (
-        <ButtonGroup {...args}>
-            <Button variant="outline">
+        <ButtonGroup aria-label="Text formatting" {...args}>
+            <Button variant="outline" aria-label="Bold">
                 <BoldIcon />
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" aria-label="Italic">
                 <ItalicIcon />
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" aria-label="Align left">
                 <AlignLeftIcon />
             </Button>
         </ButtonGroup>
@@ -48,14 +48,14 @@ export const Default: Story = {
     parameters: {
         docs: {
             source: {
-                code: `<ButtonGroup>
-    <Button variant="outline">
+                code: `<ButtonGroup aria-label="Text formatting">
+    <Button variant="outline" aria-label="Bold">
         <BoldIcon />
     </Button>
-    <Button variant="outline">
+    <Button variant="outline" aria-label="Italic">
         <ItalicIcon />
     </Button>
-    <Button variant="outline">
+    <Button variant="outline" aria-label="Align left">
         <AlignLeftIcon />
     </Button>
 </ButtonGroup>`,

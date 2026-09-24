@@ -39,6 +39,7 @@ export const Default: Story = {
                     <SearchIcon />
                 </InputGroupAddon>
                 <InputGroupInput
+                    aria-label="Search"
                     placeholder="Search..."
                     value={value}
                     onChange={(event) => setValue(event.target.value)}
@@ -56,6 +57,7 @@ export const Default: Story = {
         <SearchIcon />
     </InputGroupAddon>
     <InputGroupInput
+        aria-label="Search"
         placeholder="Search..."
         value={value}
         onChange={(event) => setValue(event.target.value)}

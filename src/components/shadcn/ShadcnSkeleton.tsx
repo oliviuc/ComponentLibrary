@@ -6,6 +6,7 @@ function ShadcnSkeleton({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
             data-slot="shadcn-skeleton"
+            aria-hidden="true"
             className={cn("animate-pulse rounded-md bg-muted", className)}
             {...props}
         />

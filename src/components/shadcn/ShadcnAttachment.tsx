@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { ShadcnButton } from "@/components/shadcn/ShadcnButton";
 
 const shadcnAttachmentVariants = cva(
-    "group/shadcn-attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive-border data-[state=idle]:border-dashed",
+    "group/shadcn-attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive-border data-[state=idle]:border-dashed",
     {
         variants: {
             size: {
@@ -195,8 +195,9 @@ function ShadcnAttachmentGroup({ className, ...props }: ComponentProps<"div">) {
     return (
         <div
             data-slot="shadcn-attachment-group"
+            tabIndex={0}
             className={cn(
-                "flex min-w-0 scroll-fade-x snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain py-1 no-scrollbar *:data-[slot=shadcn-attachment]:flex-none *:data-[slot=shadcn-attachment]:snap-start",
+                "flex min-w-0 scroll-fade-x snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain py-1 no-scrollbar focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-hidden *:data-[slot=shadcn-attachment]:flex-none *:data-[slot=shadcn-attachment]:snap-start",
                 className,
             )}
             {...props}

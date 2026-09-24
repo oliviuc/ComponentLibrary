@@ -22,7 +22,7 @@ const points = [
 const meta = {
     title: "Graphs/Scatter",
     component: Chart,
-    args: { type: "scatter" },
+    args: { type: "scatter", "aria-label": "Visitors" },
     parameters: {
         docs: {
             description: {
@@ -42,7 +42,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     render: () => (
-        <Chart type="scatter" data={points} className="h-64 w-96">
+        <Chart
+            aria-label="Visitors"
+            type="scatter"
+            data={points}
+            className="h-64 w-96"
+        >
             <ChartSeries dataKey="y">Visitors</ChartSeries>
             <ChartGrid />
             <ChartXAxis dataKey="x" type="number" />
@@ -63,7 +68,7 @@ export const Default: Story = {
     { x: 110, y: 280 },
 ];
 
-<Chart type="scatter" data={points} className="h-64 w-96">
+<Chart aria-label="Visitors" type="scatter" data={points} className="h-64 w-96">
     <ChartSeries dataKey="y">Visitors</ChartSeries>
     <ChartGrid />
     <ChartXAxis dataKey="x" type="number" />

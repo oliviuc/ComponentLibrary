@@ -142,23 +142,16 @@ const {
         {({ value, setValue, error }) => (
             <FormItem>
                 <FormLabel>Fruit</FormLabel>
-                <Select>
+                <Select
+                    value={value}
+                    onValueChange={(next) => setValue(next ?? "")}
+                >
                     <FormControl>
-                        <SelectTrigger placeholder="Select a fruit">
-                            {
-                                fruits.find((fruit) => fruit.value === value)
-                                    ?.label
-                            }
-                        </SelectTrigger>
+                        <SelectTrigger placeholder="Select a fruit" />
                     </FormControl>
                     <SelectContent>
                         {fruits.map((fruit) => (
-                            <SelectOption
-                                key={fruit.value}
-                                value={fruit.value}
-                                selected={fruit.value === value}
-                                onClick={() => setValue(fruit.value)}
-                            >
+                            <SelectOption key={fruit.value} value={fruit.value}>
                                 {fruit.label}
                             </SelectOption>
                         ))}
@@ -227,26 +220,18 @@ export const Default: Story = {
                     {({ value, setValue, error }) => (
                         <FormItem>
                             <FormLabel>Fruit</FormLabel>
-                            <Select>
+                            <Select
+                                value={value}
+                                onValueChange={(next) => setValue(next ?? "")}
+                            >
                                 <FormControl>
-                                    <SelectTrigger placeholder="Select a fruit">
-                                        {
-                                            fruits.find(
-                                                (fruit) =>
-                                                    fruit.value === value,
-                                            )?.label
-                                        }
-                                    </SelectTrigger>
+                                    <SelectTrigger placeholder="Select a fruit" />
                                 </FormControl>
                                 <SelectContent>
                                     {fruits.map((fruit) => (
                                         <SelectOption
                                             key={fruit.value}
                                             value={fruit.value}
-                                            selected={fruit.value === value}
-                                            onClick={() =>
-                                                setValue(fruit.value)
-                                            }
                                         >
                                             {fruit.label}
                                         </SelectOption>
@@ -1241,22 +1226,18 @@ const { Form, FormField, FormItem, FormLabel, FormControl } = useForm({
             {({ value, setValue }) => (
                 <FormItem>
                     <FormLabel>Fruit</FormLabel>
-                    <Select>
+                    <Select
+                        value={value}
+                        onValueChange={(next) => setValue(next ?? "")}
+                    >
                         <FormControl>
-                            <SelectTrigger placeholder="Select a fruit">
-                                {
-                                    fruits.find((fruit) => fruit.value === value)
-                                        ?.label
-                                }
-                            </SelectTrigger>
+                            <SelectTrigger placeholder="Select a fruit" />
                         </FormControl>
                         <SelectContent>
                             {fruits.map((fruit) => (
                                 <SelectOption
                                     key={fruit.value}
                                     value={fruit.value}
-                                    selected={fruit.value === value}
-                                    onClick={() => setValue(fruit.value)}
                                 >
                                     {fruit.label}
                                 </SelectOption>
@@ -1302,26 +1283,20 @@ export const RenderIsolation: Story = {
                         {({ value, setValue }) => (
                             <FormItem>
                                 <FormLabel>Fruit</FormLabel>
-                                <Select>
+                                <Select
+                                    value={value}
+                                    onValueChange={(next) =>
+                                        setValue(next ?? "")
+                                    }
+                                >
                                     <FormControl>
-                                        <SelectTrigger placeholder="Select a fruit">
-                                            {
-                                                fruits.find(
-                                                    (fruit) =>
-                                                        fruit.value === value,
-                                                )?.label
-                                            }
-                                        </SelectTrigger>
+                                        <SelectTrigger placeholder="Select a fruit" />
                                     </FormControl>
                                     <SelectContent>
                                         {fruits.map((fruit) => (
                                             <SelectOption
                                                 key={fruit.value}
                                                 value={fruit.value}
-                                                selected={fruit.value === value}
-                                                onClick={() =>
-                                                    setValue(fruit.value)
-                                                }
                                             >
                                                 {fruit.label}
                                             </SelectOption>

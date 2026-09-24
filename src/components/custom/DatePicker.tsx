@@ -31,36 +31,47 @@ export function DatePickerTrigger({
     const showClear = Boolean(clearable && !isEmpty && !disabled);
 
     return (
-        <PopoverTrigger asChild aria-haspopup="dialog">
-            <button
-                type="button"
-                data-slot="date-picker-trigger"
-                disabled={disabled}
-                className={cn(
-                    "flex h-9 w-full min-w-0 items-center justify-start gap-2 rounded-md border border-input bg-input-background py-2 pr-2 pl-2.5 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none",
-                    "hover:bg-input-background-hover",
-                    "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
-                    "disabled:cursor-not-allowed disabled:opacity-50",
-                    "aria-expanded:bg-muted",
-                    "aria-invalid:border-destructive-border aria-invalid:ring-3 aria-invalid:ring-destructive-ring",
-                    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-                    className,
-                )}
-                {...props}
-            >
-                <CalendarIcon className="size-4 text-muted-foreground" />
-                <span
-                    data-slot="date-picker-value"
+        <div data-slot="date-picker-field" className="relative w-full">
+            <PopoverTrigger asChild aria-haspopup="dialog">
+                <button
+                    type="button"
+                    data-slot="date-picker-trigger"
+                    disabled={disabled}
                     className={cn(
-                        "flex-1 truncate text-left",
-                        isEmpty && "text-muted-foreground",
+                        "flex h-9 w-full min-w-0 items-center justify-start gap-2 rounded-md border border-input bg-input-background py-2 pr-2 pl-2.5 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none",
+                        "hover:bg-input-background-hover",
+                        "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+                        "disabled:cursor-not-allowed disabled:opacity-50",
+                        "aria-expanded:bg-muted",
+                        "aria-invalid:border-destructive-border aria-invalid:ring-3 aria-invalid:ring-destructive-ring",
+                        "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+                        showClear && "pr-10",
+                        className,
                     )}
+                    {...props}
                 >
-                    {isEmpty ? placeholder : children}
-                </span>
-                {showClear ? <ClearButton onClick={onClear} /> : null}
-            </button>
-        </PopoverTrigger>
+                    <CalendarIcon
+                        aria-hidden
+                        className="size-4 text-muted-foreground"
+                    />
+                    <span
+                        data-slot="date-picker-value"
+                        className={cn(
+                            "flex-1 truncate text-left",
+                            isEmpty && "text-muted-foreground",
+                        )}
+                    >
+                        {isEmpty ? placeholder : children}
+                    </span>
+                </button>
+            </PopoverTrigger>
+            {showClear ? (
+                <ClearButton
+                    className="absolute top-1/2 right-1.5 -translate-y-1/2"
+                    onClick={onClear}
+                />
+            ) : null}
+        </div>
     );
 }
 
@@ -71,6 +82,7 @@ export function DatePickerContent({
 }: ComponentProps<typeof PopoverContent>) {
     return (
         <PopoverContent
+            aria-label="Choose date"
             align={align}
             className={cn("w-auto gap-0 p-0", className)}
             {...props}

@@ -74,7 +74,7 @@ import { cn } from "@/lib/utils";
 export type { ChartFormat };
 
 const CHART_CLASS =
-    "aspect-video w-full text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden";
+    "aspect-video w-full text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-none [&_.recharts-surface]:focus-visible:ring-3 [&_.recharts-surface]:focus-visible:ring-ring/50";
 
 const SeriesStoreContext = createContext<SeriesStore | null>(null);
 
@@ -230,11 +230,18 @@ function paintLabel(label: unknown, className: string) {
 type CartesianChartProps = ComponentProps<typeof BarChart>;
 type PolarChartProps = ComponentProps<typeof PieChart>;
 
-export type ChartProps =
+/** A chart needs a name: `aria-label` or `title`. `desc` is an optional one-line summary. */
+type ChartName =
+    | { "aria-label": string; title?: string }
+    | { title: string; "aria-label"?: string };
+
+export type ChartProps = (
     | (CartesianChartProps & {
           type: "bar" | "line" | "area" | "composed" | "scatter";
       })
-    | (PolarChartProps & { type: "pie" | "radar" | "radial" });
+    | (PolarChartProps & { type: "pie" | "radar" | "radial" })
+) &
+    ChartName;
 
 const CARTESIAN = {
     bar: BarChart,
@@ -1263,7 +1270,10 @@ export function ChartLegendItem({
     className,
     children,
     ...props
-}: Omit<ComponentProps<"div">, "children"> & { children?: ItemChildren }) {
+}: Omit<
+    ComponentProps<"div">,
+    "children" | "onClick" | "onMouseEnter" | "onMouseLeave"
+> & { children?: ItemChildren }) {
     const { points, onItemClick, onItemMouseEnter, onItemMouseLeave } =
         useContext(ChartPointsContext) ?? { points: [] };
 
@@ -1272,39 +1282,70 @@ export function ChartLegendItem({
             key={`${point.dataKey ?? "point"}-${index}`}
             value={point}
         >
-            <div
-                className={cn(
-                    "flex items-center gap-1.5 data-[inactive=true]:opacity-40 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
-                    onItemClick && "cursor-pointer",
-                    className,
-                )}
-                data-inactive={point.inactive ? "true" : undefined}
-                onClick={
-                    onItemClick
-                        ? (event) => onItemClick(point.raw, index, event)
-                        : undefined
-                }
-                onMouseEnter={
-                    onItemMouseEnter
-                        ? (event) => onItemMouseEnter(point.raw, index, event)
-                        : undefined
-                }
-                onMouseLeave={
-                    onItemMouseLeave
-                        ? (event) => onItemMouseLeave(point.raw, index, event)
-                        : undefined
-                }
-                {...props}
-            >
-                {typeof children === "function"
-                    ? children(point)
-                    : (children ?? (
-                          <>
-                              <ChartSwatch />
-                              <ChartName />
-                          </>
-                      ))}
-            </div>
+            {onItemClick ? (
+                <button
+                    type="button"
+                    aria-pressed={!point.inactive}
+                    className={cn(
+                        "flex items-center gap-1.5 rounded-sm data-[inactive=true]:opacity-40 focus-visible:ring-3 focus-visible:ring-ring/50 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+                        className,
+                    )}
+                    data-inactive={point.inactive ? "true" : undefined}
+                    onClick={(event) => onItemClick(point.raw, index, event)}
+                    onMouseEnter={
+                        onItemMouseEnter
+                            ? (event) =>
+                                  onItemMouseEnter(point.raw, index, event)
+                            : undefined
+                    }
+                    onMouseLeave={
+                        onItemMouseLeave
+                            ? (event) =>
+                                  onItemMouseLeave(point.raw, index, event)
+                            : undefined
+                    }
+                    {...(props as ComponentProps<"button">)}
+                >
+                    {typeof children === "function"
+                        ? children(point)
+                        : (children ?? (
+                              <>
+                                  <ChartSwatch />
+                                  <ChartName />
+                              </>
+                          ))}
+                </button>
+            ) : (
+                <div
+                    className={cn(
+                        "flex items-center gap-1.5 data-[inactive=true]:opacity-40 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+                        className,
+                    )}
+                    data-inactive={point.inactive ? "true" : undefined}
+                    onMouseEnter={
+                        onItemMouseEnter
+                            ? (event) =>
+                                  onItemMouseEnter(point.raw, index, event)
+                            : undefined
+                    }
+                    onMouseLeave={
+                        onItemMouseLeave
+                            ? (event) =>
+                                  onItemMouseLeave(point.raw, index, event)
+                            : undefined
+                    }
+                    {...props}
+                >
+                    {typeof children === "function"
+                        ? children(point)
+                        : (children ?? (
+                              <>
+                                  <ChartSwatch />
+                                  <ChartName />
+                              </>
+                          ))}
+                </div>
+            )}
         </ChartPointContext.Provider>
     ));
 }

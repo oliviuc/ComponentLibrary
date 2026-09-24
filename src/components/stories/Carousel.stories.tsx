@@ -19,7 +19,7 @@ function CardsExample({
 }: ComponentProps<typeof Carousel> & { itemClassName?: string }) {
     return (
         <div className="mx-12 w-xl">
-            <Carousel {...args}>
+            <Carousel aria-label="Slides" {...args}>
                 <CarouselContent>
                     {slides.map((slide) => (
                         <CarouselItem key={slide} className={cn(itemClassName)}>
@@ -65,7 +65,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     render: (args) => (
         <div className="mx-12 w-56">
-            <Carousel {...args}>
+            <Carousel aria-label="Slides" {...args}>
                 <CarouselContent>
                     {slides.map((slide) => (
                         <CarouselItem key={slide}>
@@ -84,7 +84,7 @@ export const Default: Story = {
         docs: {
             source: {
                 code: `<div className="mx-12 w-56">
-    <Carousel>
+    <Carousel aria-label="Slides">
         <CarouselContent>
             {slides.map((slide) => (
                 <CarouselItem key={slide}>
@@ -107,7 +107,7 @@ export const Vertical: Story = {
     args: { orientation: "vertical" },
     render: (args) => (
         <div className="my-12 w-56">
-            <Carousel {...args}>
+            <Carousel aria-label="Slides" {...args}>
                 <CarouselContent className="h-56">
                     {slides.map((slide) => (
                         <CarouselItem key={slide}>
@@ -126,7 +126,7 @@ export const Vertical: Story = {
         docs: {
             source: {
                 code: `<div className="my-12 w-56">
-    <Carousel orientation="vertical">
+    <Carousel aria-label="Slides" orientation="vertical">
         <CarouselContent className="h-56">
             {slides.map((slide) => (
                 <CarouselItem key={slide}>
@@ -154,7 +154,7 @@ export const Cards: Story = {
             },
             source: {
                 code: `<div className="mx-12 w-xl">
-    <Carousel>
+    <Carousel aria-label="Slides">
         <CarouselContent>
             {slides.map((slide) => (
                 <CarouselItem key={slide} className="basis-1/3">
@@ -183,7 +183,7 @@ export const Centered: Story = {
             },
             source: {
                 code: `<div className="mx-12 w-xl">
-    <Carousel opts={{ align: "center", containScroll: "keepSnaps" }}>
+    <Carousel aria-label="Slides" opts={{ align: "center", containScroll: "keepSnaps" }}>
         <CarouselContent>
             {slides.map((slide) => (
                 <CarouselItem key={slide} className="basis-2/3">

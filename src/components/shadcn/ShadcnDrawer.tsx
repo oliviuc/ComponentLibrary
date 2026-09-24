@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
+import { XIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { ShadcnButton } from "@/components/shadcn/ShadcnButton";
 
 function ShadcnDrawer({
     ...props
@@ -50,8 +52,11 @@ function ShadcnDrawerOverlay({
 function ShadcnDrawerContent({
     className,
     children,
+    showCloseButton = true,
     ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+}: React.ComponentProps<typeof DrawerPrimitive.Content> & {
+    showCloseButton?: boolean;
+}) {
     return (
         <ShadcnDrawerPortal data-slot="shadcn-drawer-portal">
             <ShadcnDrawerOverlay />
@@ -65,6 +70,21 @@ function ShadcnDrawerContent({
             >
                 <div className="mx-auto mt-4 hidden h-1.5 w-[100px] shrink-0 rounded-full bg-muted group-data-[vaul-drawer-direction=bottom]/shadcn-drawer-content:block" />
                 {children}
+                {showCloseButton && (
+                    <DrawerPrimitive.Close
+                        data-slot="shadcn-drawer-close"
+                        asChild
+                    >
+                        <ShadcnButton
+                            variant="ghost"
+                            className="absolute top-4 right-4"
+                            size="icon-sm"
+                        >
+                            <XIcon />
+                            <span className="sr-only">Close</span>
+                        </ShadcnButton>
+                    </DrawerPrimitive.Close>
+                )}
             </DrawerPrimitive.Content>
         </ShadcnDrawerPortal>
     );

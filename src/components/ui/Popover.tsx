@@ -1,10 +1,14 @@
 import {
+    Children,
     createContext,
+    isValidElement,
     useContext,
     useEffect,
+    useId,
     useRef,
     useState,
     type ComponentProps,
+    type ReactNode,
 } from "react";
 
 import {
@@ -29,6 +33,42 @@ type PopoverHoverContextValue = {
 const PopoverHoverContext = createContext<PopoverHoverContextValue | null>(
     null,
 );
+
+type PopoverLabelContextValue = {
+    titleId: string;
+    descriptionId: string;
+};
+
+const PopoverLabelContext = createContext<PopoverLabelContextValue | null>(
+    null,
+);
+
+/** The id a title or description will have, if that part is in the tree. */
+function findPartId(
+    nodes: ReactNode,
+    type: unknown,
+    fallback: string,
+): string | undefined {
+    let found: string | undefined;
+    const walk = (node: ReactNode) => {
+        Children.forEach(node, (child) => {
+            if (found !== undefined || !isValidElement(child)) {
+                return;
+            }
+            if (child.type === type) {
+                const id = (child.props as { id?: string }).id;
+                found = id ?? fallback;
+                return;
+            }
+            const nested = (child.props as { children?: ReactNode }).children;
+            if (nested != null) {
+                walk(nested);
+            }
+        });
+    };
+    walk(nodes);
+    return found;
+}
 
 /** A small panel anchored to a control. */
 export function Popover({
@@ -74,13 +114,18 @@ export function Popover({
         return () => clearTimeout(closeTimer.current);
     }, []);
 
+    const titleId = useId();
+    const descriptionId = useId();
+
     return (
         <PopoverHoverContext.Provider
             value={{ setEnabled, isEnabled, show, hide }}
         >
-            <ShadcnPopover {...props} open={open} onOpenChange={setOpen}>
-                {children}
-            </ShadcnPopover>
+            <PopoverLabelContext.Provider value={{ titleId, descriptionId }}>
+                <ShadcnPopover {...props} open={open} onOpenChange={setOpen}>
+                    {children}
+                </ShadcnPopover>
+            </PopoverLabelContext.Provider>
         </PopoverHoverContext.Provider>
     );
 }
@@ -119,12 +164,28 @@ export function PopoverTrigger({
 export function PopoverContent({
     onMouseEnter,
     onMouseLeave,
+    children,
+    "aria-labelledby": ariaLabelledBy,
+    "aria-describedby": ariaDescribedBy,
     ...props
 }: ComponentProps<typeof ShadcnPopoverContent>) {
     const hover = useContext(PopoverHoverContext);
+    const labels = useContext(PopoverLabelContext);
+    const titleId =
+        ariaLabelledBy ??
+        (labels
+            ? findPartId(children, PopoverTitle, labels.titleId)
+            : undefined);
+    const descriptionId =
+        ariaDescribedBy ??
+        (labels
+            ? findPartId(children, PopoverDescription, labels.descriptionId)
+            : undefined);
 
     return (
         <ShadcnPopoverContent
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
             {...props}
             onMouseEnter={(event) => {
                 onMouseEnter?.(event);
@@ -134,7 +195,9 @@ export function PopoverContent({
                 onMouseLeave?.(event);
                 if (hover?.isEnabled()) hover.hide();
             }}
-        />
+        >
+            {children}
+        </ShadcnPopoverContent>
     );
 }
 
@@ -150,12 +213,22 @@ export function PopoverHeader(
     return <ShadcnPopoverHeader {...props} />;
 }
 
-export function PopoverTitle(props: ComponentProps<typeof ShadcnPopoverTitle>) {
-    return <ShadcnPopoverTitle {...props} />;
+export function PopoverTitle({
+    id,
+    ...props
+}: ComponentProps<typeof ShadcnPopoverTitle>) {
+    const labels = useContext(PopoverLabelContext);
+
+    return <ShadcnPopoverTitle id={id ?? labels?.titleId} {...props} />;
 }
 
-export function PopoverDescription(
-    props: ComponentProps<typeof ShadcnPopoverDescription>,
-) {
-    return <ShadcnPopoverDescription {...props} />;
+export function PopoverDescription({
+    id,
+    ...props
+}: ComponentProps<typeof ShadcnPopoverDescription>) {
+    const labels = useContext(PopoverLabelContext);
+
+    return (
+        <ShadcnPopoverDescription id={id ?? labels?.descriptionId} {...props} />
+    );
 }

@@ -1,0 +1,14 @@
+---
+description: Accessibility defaults for components and stories
+globs: src/**/*.{tsx,css}
+alwaysApply: false
+---
+
+# Accessibility
+
+- Icon-only controls need `aria-label`.
+- Focus style is `focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50`.
+- Interactive targets are at least 24px.
+- Never nest interactive elements. A clear control sits beside the trigger, not inside it.
+- Use `--input` for control edges. Decorative borders stay `--border`.
+- Name every dialog, chart, carousel, and progress bar (`aria-label` or a title).

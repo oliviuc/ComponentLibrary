@@ -28,12 +28,27 @@ import {
 
 type FormFieldContextValue = {
     id: string;
+    labelId: string;
     errorId: string;
     describedBy: string | undefined;
     error: string | null;
     onBlur: Noop;
     inputRef: RefCallBack;
 };
+
+const FOCUSABLE =
+    "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex='-1'])";
+
+/** The node itself when it can take focus, otherwise the first focusable descendant. */
+function focusTarget(node: HTMLElement | null) {
+    if (!node) {
+        return null;
+    }
+    if (node.matches(FOCUSABLE)) {
+        return node;
+    }
+    return node.querySelector<HTMLElement>(FOCUSABLE);
+}
 
 const FormFieldContext = createContext<FormFieldContextValue | null>(null);
 
@@ -111,6 +126,7 @@ export function FormField<
         <FormFieldContext.Provider
             value={{
                 id: field.id,
+                labelId: `${field.id}-label`,
                 errorId: field.errorId,
                 describedBy: field.describedBy,
                 error: field.error,
@@ -156,6 +172,7 @@ export function FormLabel({
         <Label
             data-slot="form-label"
             htmlFor={field?.id}
+            id={field?.labelId}
             data-error={Boolean(field?.error) || undefined}
             className={cn("data-[error=true]:text-destructive", className)}
             {...props}
@@ -169,15 +186,20 @@ export function FormControl(props: ComponentProps<typeof Slot.Root>) {
     if (!context) {
         throw new Error("FormControl must render inside a FormField.");
     }
-    const { id, describedBy, error, inputRef, onBlur } = context;
+    const { id, labelId, describedBy, error, inputRef, onBlur } = context;
 
     return (
         <Slot.Root
             data-slot="form-control"
             id={id}
-            ref={inputRef}
+            ref={(node) => {
+                inputRef(
+                    node instanceof HTMLElement ? focusTarget(node) : null,
+                );
+            }}
             onBlur={onBlur}
             aria-describedby={describedBy}
+            aria-labelledby={labelId}
             aria-invalid={Boolean(error) || undefined}
             {...props}
         />

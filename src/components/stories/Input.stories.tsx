@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
 
 const meta = {
     title: "Components/Input",
@@ -38,12 +39,16 @@ export const Default: Story = {
         const [value, setValue] = useState("");
 
         return (
-            <Input
-                type="email"
-                placeholder="Email address"
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-            />
+            <div className="grid w-72 gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                    id="email"
+                    type="email"
+                    placeholder="Email address"
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                />
+            </div>
         );
     },
     parameters: {
@@ -51,12 +56,16 @@ export const Default: Story = {
             source: {
                 code: `const [value, setValue] = useState("");
 
-<Input
-    type="email"
-    placeholder="Email address"
-    value={value}
-    onChange={(event) => setValue(event.target.value)}
-/>`,
+<div className="grid w-72 gap-2">
+    <Label htmlFor="email">Email</Label>
+    <Input
+        id="email"
+        type="email"
+        placeholder="Email address"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+    />
+</div>`,
             },
         },
     },

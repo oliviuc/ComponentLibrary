@@ -131,6 +131,18 @@ export {
     ShadcnResizablePanel,
     ShadcnResizablePanelGroup,
 } from "./ShadcnResizable";
+export {
+    ShadcnSelect,
+    ShadcnSelectContent,
+    ShadcnSelectGroup,
+    ShadcnSelectItem,
+    ShadcnSelectLabel,
+    ShadcnSelectScrollDownButton,
+    ShadcnSelectScrollUpButton,
+    ShadcnSelectSeparator,
+    ShadcnSelectTrigger,
+    ShadcnSelectValue,
+} from "./ShadcnSelect";
 export { ShadcnSeparator } from "./ShadcnSeparator";
 export {
     ShadcnSheet,
