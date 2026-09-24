@@ -5,6 +5,17 @@ export {
     ShadcnAccordionTrigger,
 } from "./ShadcnAccordion";
 export {
+    ShadcnAttachment,
+    ShadcnAttachmentAction,
+    ShadcnAttachmentActions,
+    ShadcnAttachmentContent,
+    ShadcnAttachmentDescription,
+    ShadcnAttachmentGroup,
+    ShadcnAttachmentMedia,
+    ShadcnAttachmentTitle,
+    ShadcnAttachmentTrigger,
+} from "./ShadcnAttachment";
+export {
     ShadcnAvatar,
     ShadcnAvatarBadge,
     ShadcnAvatarFallback,
@@ -64,6 +75,23 @@ export {
     ShadcnDrawerTitle,
     ShadcnDrawerTrigger,
 } from "./ShadcnDrawer";
+export {
+    ShadcnDropdownMenu,
+    ShadcnDropdownMenuCheckboxItem,
+    ShadcnDropdownMenuContent,
+    ShadcnDropdownMenuGroup,
+    ShadcnDropdownMenuItem,
+    ShadcnDropdownMenuLabel,
+    ShadcnDropdownMenuPortal,
+    ShadcnDropdownMenuRadioGroup,
+    ShadcnDropdownMenuRadioItem,
+    ShadcnDropdownMenuSeparator,
+    ShadcnDropdownMenuShortcut,
+    ShadcnDropdownMenuSub,
+    ShadcnDropdownMenuSubContent,
+    ShadcnDropdownMenuSubTrigger,
+    ShadcnDropdownMenuTrigger,
+} from "./ShadcnDropdownMenu";
 export { ShadcnInput } from "./ShadcnInput";
 export {
     ShadcnInputGroup,
@@ -75,6 +103,7 @@ export {
     shadcnInputGroupAddonVariants,
     shadcnInputGroupButtonVariants,
 } from "./ShadcnInputGroup";
+export { ShadcnKbd, ShadcnKbdGroup } from "./ShadcnKbd";
 export { ShadcnLabel } from "./ShadcnLabel";
 export {
     ShadcnPagination,
@@ -96,6 +125,12 @@ export {
 } from "./ShadcnPopover";
 export { ShadcnProgress } from "./ShadcnProgress";
 export { ShadcnRadioGroup, ShadcnRadioGroupItem } from "./ShadcnRadioGroup";
+export {
+    ShadcnResizableGrip,
+    ShadcnResizableHandle,
+    ShadcnResizablePanel,
+    ShadcnResizablePanelGroup,
+} from "./ShadcnResizable";
 export { ShadcnSeparator } from "./ShadcnSeparator";
 export {
     ShadcnSheet,
@@ -111,6 +146,7 @@ export {
 } from "./ShadcnSheet";
 export { ShadcnSkeleton } from "./ShadcnSkeleton";
 export { ShadcnSlider } from "./ShadcnSlider";
+export { ShadcnSpinner } from "./ShadcnSpinner";
 export { ShadcnSwitch } from "./ShadcnSwitch";
 export {
     ShadcnTable,

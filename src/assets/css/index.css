@@ -4,6 +4,19 @@
 @import "@fontsource-variable/geist";
 @import "./colors.css";
 
+/* Matches colors.css: OS dark unless .light, or forced with .dark. */
+@custom-variant dark {
+    @media (prefers-color-scheme: dark) {
+        &:not(:where(.light, .light *)) {
+            @slot;
+        }
+    }
+
+    &:where(.dark, .dark *) {
+        @slot;
+    }
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
@@ -15,5 +28,11 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+
+    /* Base UI portals stay above page content. */
+    #root,
+    #storybook-root {
+        isolation: isolate;
     }
 }

@@ -1,5 +1,6 @@
-import * as React from "react";
-import { Slider as SliderPrimitive } from "radix-ui";
+"use client";
+
+import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 
 import { cn } from "@/lib/utils";
 
@@ -9,17 +10,20 @@ function ShadcnSlider({
     value,
     min = 0,
     max = 100,
+    getAriaLabel,
+    getAriaValueText,
     ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
-    const _values = React.useMemo(
-        () =>
-            Array.isArray(value)
-                ? value
-                : Array.isArray(defaultValue)
-                  ? defaultValue
-                  : [min, max],
-        [value, defaultValue, min, max],
-    );
+}: SliderPrimitive.Root.Props & {
+    getAriaLabel?: ((index: number) => string) | null;
+    getAriaValueText?:
+        | ((formattedValue: string, value: number, index: number) => string)
+        | null;
+}) {
+    const _values = Array.isArray(value)
+        ? value
+        : Array.isArray(defaultValue)
+          ? defaultValue
+          : [min, max];
 
     return (
         <SliderPrimitive.Root
@@ -28,28 +32,34 @@ function ShadcnSlider({
             value={value}
             min={min}
             max={max}
-            className={cn(
-                "group/shadcn-slider relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col",
-                className,
-            )}
+            thumbAlignment="edge"
+            className={cn("group/shadcn-slider w-full", className)}
             {...props}
         >
-            <SliderPrimitive.Track
-                data-slot="shadcn-slider-track"
-                className="relative grow overflow-hidden rounded-full bg-muted data-horizontal:h-1.5 data-horizontal:w-full data-vertical:h-full data-vertical:w-1.5"
+            <SliderPrimitive.Control
+                data-slot="shadcn-slider-control"
+                className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col"
             >
-                <SliderPrimitive.Range
-                    data-slot="shadcn-slider-range"
-                    className="absolute bg-primary select-none data-horizontal:h-full data-vertical:w-full"
-                />
-            </SliderPrimitive.Track>
-            {Array.from({ length: _values.length }, (_, index) => (
-                <SliderPrimitive.Thumb
-                    data-slot="shadcn-slider-thumb"
-                    key={index}
-                    className="block size-4 shrink-0 rounded-full border border-primary bg-slider-thumb shadow-sm ring-ring/50 transition-[color,box-shadow] select-none hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 group-aria-invalid/shadcn-slider:border-destructive-border group-aria-invalid/shadcn-slider:ring-3 group-aria-invalid/shadcn-slider:ring-destructive-ring"
-                />
-            ))}
+                <SliderPrimitive.Track
+                    data-slot="shadcn-slider-track"
+                    className="relative grow overflow-hidden rounded-full bg-muted select-none data-horizontal:h-1.5 data-horizontal:w-full data-vertical:h-full data-vertical:w-1.5"
+                >
+                    <SliderPrimitive.Indicator
+                        data-slot="shadcn-slider-range"
+                        className="bg-primary select-none data-horizontal:h-full data-vertical:w-full"
+                    />
+                </SliderPrimitive.Track>
+                {Array.from({ length: _values.length }, (_, index) => (
+                    <SliderPrimitive.Thumb
+                        data-slot="shadcn-slider-thumb"
+                        key={index}
+                        index={index}
+                        getAriaLabel={getAriaLabel}
+                        getAriaValueText={getAriaValueText}
+                        className="block size-4 shrink-0 rounded-full border border-primary bg-slider-thumb shadow-sm ring-ring/50 transition-[color,box-shadow] select-none hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 group-aria-invalid/shadcn-slider:border-destructive-border group-aria-invalid/shadcn-slider:ring-3 group-aria-invalid/shadcn-slider:ring-destructive-ring"
+                    />
+                ))}
+            </SliderPrimitive.Control>
         </SliderPrimitive.Root>
     );
 }

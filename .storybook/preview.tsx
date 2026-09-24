@@ -19,7 +19,13 @@ const preview: Preview = {
         options: {
             storySort: {
                 method: "alphabetical",
-                order: ["Introduction", "Components", "Graphs", "Hooks"],
+                order: [
+                    "Introduction",
+                    "Components",
+                    "Graphs",
+                    "Utilities",
+                    "Hooks",
+                ],
             },
         },
         backgrounds: {

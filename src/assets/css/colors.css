@@ -64,6 +64,7 @@
     --switch-thumb-checked: var(--background);
     --switch-thumb-unchecked: var(--background);
     --slider-thumb: oklch(1 0 0);
+    --kbd-in-tooltip: color-mix(in oklch, var(--background) 20%, transparent);
 
     /* Charts */
     --chart-1: oklch(0.87 0 0);
@@ -147,6 +148,11 @@
         --switch-thumb-checked: var(--primary-foreground);
         --switch-thumb-unchecked: var(--foreground);
         --slider-thumb: oklch(1 0 0);
+        --kbd-in-tooltip: color-mix(
+            in oklch,
+            var(--background) 10%,
+            transparent
+        );
 
         /* Charts — light enough to read on the dark background */
         --chart-1: oklch(0.87 0 0);
@@ -222,6 +228,7 @@
     --switch-thumb-checked: var(--background);
     --switch-thumb-unchecked: var(--background);
     --slider-thumb: oklch(1 0 0);
+    --kbd-in-tooltip: color-mix(in oklch, var(--background) 20%, transparent);
 
     /* Charts */
     --chart-1: oklch(0.87 0 0);
@@ -304,6 +311,7 @@
     --switch-thumb-checked: var(--primary-foreground);
     --switch-thumb-unchecked: var(--foreground);
     --slider-thumb: oklch(1 0 0);
+    --kbd-in-tooltip: color-mix(in oklch, var(--background) 10%, transparent);
 
     /* Charts — light enough to read on the dark background */
     --chart-1: oklch(0.87 0 0);
@@ -362,6 +370,7 @@
     --color-switch-thumb-checked: var(--switch-thumb-checked);
     --color-switch-thumb-unchecked: var(--switch-thumb-unchecked);
     --color-slider-thumb: var(--slider-thumb);
+    --color-kbd-in-tooltip: var(--kbd-in-tooltip);
 
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);

@@ -15,3 +15,10 @@ alwaysApply: false
 - CSS that targets slots must use the prefixed value (`[data-slot=shadcn-button-group]`)
 
 Keep `@/components/ui` unprefixed (`Button`) as thin wrappers over the shadcn primitives. Import each wrapper from its PascalCase file (`@/components/ui/Button`), not a barrel. The Button and Switch wrappers omit `size` and always pass `size="default"`.
+
+New primitives come from the `base-vega` style (Base UI). Compose triggers with the `render` prop, not `asChild`.
+
+After `npx shadcn add`:
+
+- Rewrite `import { cn } from "cn"` to `@/lib/utils`. Do not let the CLI replace `src/lib/utils.ts`.
+- Delete a generated duplicate of a primitive this library already has, such as `button.tsx`, and point the new component at the existing `Shadcn` file.
