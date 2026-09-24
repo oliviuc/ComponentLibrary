@@ -60,45 +60,45 @@ function ShadcnCarousel({
         },
         plugins,
     );
-    const [, onSelect] = React.useReducer((count: number) => count + 1, 0);
+    const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+    const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-    const scrollPrev = React.useCallback(() => {
+    const scrollPrev = () => {
         api?.scrollPrev();
-    }, [api]);
+    };
 
-    const scrollNext = React.useCallback(() => {
+    const scrollNext = () => {
         api?.scrollNext();
-    }, [api]);
+    };
 
-    const handleKeyDown = React.useCallback(
-        (event: React.KeyboardEvent<HTMLDivElement>) => {
-            const prevKey =
-                orientation === "vertical" ? "ArrowUp" : "ArrowLeft";
-            const nextKey =
-                orientation === "vertical" ? "ArrowDown" : "ArrowRight";
-            if (event.key === prevKey) {
-                event.preventDefault();
-                scrollPrev();
-            } else if (event.key === nextKey) {
-                event.preventDefault();
-                scrollNext();
-            }
-        },
-        [orientation, scrollPrev, scrollNext],
-    );
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        const prevKey = orientation === "vertical" ? "ArrowUp" : "ArrowLeft";
+        const nextKey = orientation === "vertical" ? "ArrowDown" : "ArrowRight";
+        if (event.key === prevKey) {
+            event.preventDefault();
+            scrollPrev();
+        } else if (event.key === nextKey) {
+            event.preventDefault();
+            scrollNext();
+        }
+    };
 
     React.useEffect(() => {
         if (!api || !setApi) return;
         setApi(api);
     }, [api, setApi]);
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         if (!api) return;
 
+        // Embla mutates scroll bounds on this same api object. Read them in
+        // the event, not during render, or the compiler caches the first result.
         const handleSelect = () => {
-            onSelect();
+            setCanScrollPrev(api.canScrollPrev());
+            setCanScrollNext(api.canScrollNext());
         };
 
+        handleSelect();
         api.on("reInit", handleSelect);
         api.on("select", handleSelect);
 
@@ -106,10 +106,7 @@ function ShadcnCarousel({
             api.off("reInit", handleSelect);
             api.off("select", handleSelect);
         };
-    }, [api, onSelect]);
-
-    const canScrollPrev = api?.canScrollPrev() ?? false;
-    const canScrollNext = api?.canScrollNext() ?? false;
+    }, [api]);
 
     return (
         <ShadcnCarouselContext.Provider
