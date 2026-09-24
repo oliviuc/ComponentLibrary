@@ -163,6 +163,10 @@ export function Slider({
                         <TooltipContent
                             side={orientation === "vertical" ? "right" : "top"}
                             sideOffset={6}
+                            // The thumb keeps moving while this stays open. Tabular
+                            // digits keep the same width, so the default strategy
+                            // never remeasures and the tip sticks on values like 0.4.
+                            updatePositionStrategy="always"
                             className="px-2 py-1 tabular-nums"
                         >
                             {formatValue?.(thumbValue, index) ??
