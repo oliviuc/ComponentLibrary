@@ -103,3 +103,43 @@ export const Open: Story = {
         },
     },
 };
+
+export const Hover: Story = {
+    render: (args) => (
+        <Popover {...args}>
+            <PopoverTrigger openOnHover asChild>
+                <Button variant="outline">Hover</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <PopoverHeader>
+                    <PopoverTitle>Dimensions</PopoverTitle>
+                    <PopoverDescription>
+                        Set the width and height for this layer.
+                    </PopoverDescription>
+                </PopoverHeader>
+            </PopoverContent>
+        </Popover>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: "Opens while the pointer is over the trigger or the panel.",
+            },
+            source: {
+                code: `<Popover>
+    <PopoverTrigger openOnHover asChild>
+        <Button variant="outline">Hover</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+        <PopoverHeader>
+            <PopoverTitle>Dimensions</PopoverTitle>
+            <PopoverDescription>
+                Set the width and height for this layer.
+            </PopoverDescription>
+        </PopoverHeader>
+    </PopoverContent>
+</Popover>`,
+            },
+        },
+    },
+};
