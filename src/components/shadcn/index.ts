@@ -5,6 +5,13 @@ export {
     ShadcnAccordionTrigger,
 } from "./ShadcnAccordion";
 export {
+    ShadcnAlert,
+    ShadcnAlertAction,
+    ShadcnAlertDescription,
+    ShadcnAlertTitle,
+    shadcnAlertVariants,
+} from "./ShadcnAlert";
+export {
     ShadcnAttachment,
     ShadcnAttachmentAction,
     ShadcnAttachmentActions,
